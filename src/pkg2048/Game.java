@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2048;
 
 import java.awt.BorderLayout;
@@ -40,7 +35,7 @@ public class Game extends javax.swing.JFrame {
         this.controlButtons.setSize(200, 200);
         map.generateNewTile();
         panel = new DrawingPanel(map.getMapWidth(), map);
-        jPanel1.setSize(map.getMapWidth(), map.getMapWidth());
+        jPanel1.setSize(panel.getWidth(), panel.getWidth());
         jPanel1.setLayout(new BorderLayout());
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 
