@@ -460,16 +460,16 @@ public class DrawingPanel extends JPanel {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
                     g.setColor(map.getTiles()[i][j].getColor());
-                    g.fillRect(x, y, width * 2, width * 2);
+                    g.fillRect(x, y, width, width);
                     g.setColor(Color.black);
-                    g.drawRect(x, y, width * 2, width * 2);
-                    centerString(g, new Rectangle(x, y, width * 2, width * 2), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
+                    g.drawRect(x, y, width, width);
+                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
                 }
-                x += width * 2;
+                x += width;
 
             }
             x = map.getMapWidth() - map.getMapWidth() / 4;
-            y += width * 2;
+            y += width;
         }
     }
 
