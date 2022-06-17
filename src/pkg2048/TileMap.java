@@ -239,6 +239,12 @@ public class TileMap {
         this.score += amount;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+    
+    
+
     /**
      * Set tiles of this map
      * @param tiles Tiles to set
@@ -254,5 +260,7 @@ public class TileMap {
     public int getScore() {
         return score;
     }
-
+    
+    
+    
 }
