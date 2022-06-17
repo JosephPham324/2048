@@ -45,6 +45,7 @@ public class TileMap {
         this.setMapWidth(MapWidth);
         this.tileWidth = MapWidth / 4;
         this.tiles = new Tile[4][4];
+        this.score = 0;
     }
 
     /**

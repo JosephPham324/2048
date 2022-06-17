@@ -110,7 +110,7 @@ public class Game extends javax.swing.JFrame {
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
         jLabel1 = new javax.swing.JLabel();
-        score = new javax.swing.JFormattedTextField();
+        score = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -176,9 +176,8 @@ public class Game extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel1.setText("Score:");
 
-        score.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        score.setText("0");
         score.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        score.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,6 +260,7 @@ public class Game extends javax.swing.JFrame {
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         this.panel.resetGame();
+        score.setText(map.getScore()+"");
     }//GEN-LAST:event_RESETActionPerformed
 
     private void DOWNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWNActionPerformed
@@ -315,6 +315,6 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLayeredPane gamePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JFormattedTextField score;
+    private javax.swing.JTextField score;
     // End of variables declaration//GEN-END:variables
 }
