@@ -19,27 +19,27 @@ public class TileMap {
     }
 
     /**
-     *
+     * Supported types of movement
      */
     public enum Movement {
 
         /**
-         *
+         * Up movement
          */
         UP,
 
         /**
-         *
+         * Down movement
          */
         DOWN,
 
         /**
-         *
+         * Left movement
          */
         LEFT,
 
         /**
-         *
+         * Right movement
          */
         RIGHT
     }

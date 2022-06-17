@@ -1,7 +1,7 @@
 package pkg2048;
 
 /**
- *
+ * Class to store position of a tile in 
  * @author Pham Nhat Quang
  */
 public class Position {
@@ -12,24 +12,24 @@ public class Position {
 
     /**
      *
-     * @param i
-     * @param j
+     * @param rowNumber
+     * @param columnNumber
      */
-    public Position(int i, int j) {
-        this.rowNumber = i;
-        this.columnNumber = j;
+    public Position(int rowNumber, int columnNumber) {
+        this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
     }
 
     /**
      *
-     * @param i
-     * @param j
+     * @param rowNumber
+     * @param columnNumber
      * @param data
      * @param updated
      */
-    public Position(int i, int j, int data, boolean updated) {
-        this.rowNumber = i;
-        this.columnNumber = j;
+    public Position(int rowNumber, int columnNumber, int data, boolean updated) {
+        this.rowNumber = rowNumber;
+        this.columnNumber = columnNumber;
         this.data = data;
         this.updatedData = updated;
     }
