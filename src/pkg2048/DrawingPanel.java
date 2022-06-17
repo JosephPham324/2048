@@ -35,6 +35,7 @@ public class DrawingPanel extends JPanel {
         try {
             this.map = new TileMap(this.map.getMapWidth());
             this.map.generateNewTile();
+            this.map.setScore(0);
             repaint();
         } catch (Exception e) {
 
@@ -42,6 +43,11 @@ public class DrawingPanel extends JPanel {
         gameOver = false;
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
     public int getNearest10_8(int input) {
         return (input / 8 / 10) * 8 * 10;
     }
@@ -454,13 +460,16 @@ public class DrawingPanel extends JPanel {
 
     @Override
     public void paint(Graphics graphics) {
-        super.paint(graphics); //To change body of generated methods, choose Tools | Templates.
+        super.paint(graphics);
         g = (Graphics2D) graphics;
         this.mapWidth = mapWidth = getNearest10_8(this.getHeight() * 3 / 4);
         drawMapBorder();
         drawTiles();
     }
 
+    /**
+     *
+     */
     public void drawMapBorder() {
         this.setBackground(Color.white);
         g.setColor(Color.decode("#efd671"));
@@ -470,6 +479,9 @@ public class DrawingPanel extends JPanel {
 
     }
 
+    /**
+     *
+     */
     public void drawTiles() {
         this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
         int width = mapWidth / 4;

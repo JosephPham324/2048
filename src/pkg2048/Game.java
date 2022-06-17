@@ -68,6 +68,7 @@ public class Game extends javax.swing.JFrame {
                                 panel.processMovement(TileMap.Movement.RIGHT);
                                 break;
                         }
+                        score.setText(map.getScore()+"");
                         e.consume();
                         if (panel.gameOver) {
                             isDisabled = true;
@@ -106,6 +107,10 @@ public class Game extends javax.swing.JFrame {
         LEFT = new javax.swing.JButton();
         DOWN = new javax.swing.JButton();
         gamePanel = new javax.swing.JLayeredPane();
+        gamePanel.setFocusable(true);
+        gamePanel.requestFocus();
+        jLabel1 = new javax.swing.JLabel();
+        score = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,31 +173,43 @@ public class Game extends javax.swing.JFrame {
             .addGap(0, 753, Short.MAX_VALUE)
         );
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel1.setText("Score:");
+
+        score.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        score.setText("0");
+        score.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(186, 186, 186)
-                .addComponent(Undo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RESET)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DOWN)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LEFT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RIGHT)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(UP)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jSeparator2)
-                .addGap(452, 452, 452))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(gamePanel)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Undo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(RESET)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(DOWN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(LEFT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RIGHT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UP)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addGap(452, 452, 452))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,8 +221,10 @@ public class Game extends javax.swing.JFrame {
                     .addComponent(UP)
                     .addComponent(RIGHT)
                     .addComponent(LEFT)
-                    .addComponent(DOWN))
-                .addGap(8, 8, 8)
+                    .addComponent(DOWN)
+                    .addComponent(jLabel1)
+                    .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(gamePanel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,18 +237,21 @@ public class Game extends javax.swing.JFrame {
     private void LEFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEFTActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.LEFT);
+            score.setText(map.getScore()+"");
         }
     }//GEN-LAST:event_LEFTActionPerformed
 
     private void RIGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RIGHTActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.RIGHT);
+            score.setText(map.getScore()+"");
         }
     }//GEN-LAST:event_RIGHTActionPerformed
 
     private void UPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.UP);
+            score.setText(map.getScore()+"");
         }
     }//GEN-LAST:event_UPActionPerformed
 
@@ -244,6 +266,7 @@ public class Game extends javax.swing.JFrame {
     private void DOWNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWNActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.DOWN);
+            score.setText(map.getScore()+"");
         }
     }//GEN-LAST:event_DOWNActionPerformed
 
@@ -290,6 +313,8 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton UP;
     private javax.swing.JButton Undo;
     private javax.swing.JLayeredPane gamePanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JFormattedTextField score;
     // End of variables declaration//GEN-END:variables
 }
