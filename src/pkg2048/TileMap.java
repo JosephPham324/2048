@@ -254,5 +254,7 @@ public class TileMap {
     public int getScore() {
         return score;
     }
-
+    
+    
+    
 }

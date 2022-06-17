@@ -1,6 +1,7 @@
 package pkg2048;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  *
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
  */
 public class DrawingPanel extends JPanel {
 
-    private int screenWidth;
+    private int mapWidth;
     TileMap map;
     Tile[][] tiles;
     Graphics2D g;
@@ -24,6 +26,7 @@ public class DrawingPanel extends JPanel {
     Position[][] currentState;
     Position[][] stateUndo;
     boolean undoable;
+    MapCoordinates coordinates;
 
     /**
      *
@@ -39,15 +42,22 @@ public class DrawingPanel extends JPanel {
         gameOver = false;
     }
 
+    public int getNearest10_8(int input) {
+        return (input / 8 / 10) * 8 * 10;
+    }
+
     /**
      *
      * @param screenWidth
      * @param map
      */
     public DrawingPanel(int screenWidth, TileMap map) {
-        this.screenWidth = screenWidth;
+        this.mapWidth = screenWidth;
+        this.setVisible(true);
+        this.setPreferredSize(new Dimension(screenWidth, screenWidth));
         this.map = map;
         this.tiles = map.getTiles();
+        this.coordinates = new MapCoordinates(screenWidth, new Coordinate(0, 0));
     }
 
     /**
@@ -201,7 +211,6 @@ public class DrawingPanel extends JPanel {
 
     }
 
-
     /**
      *
      * @param oldPositionRow
@@ -216,7 +225,7 @@ public class DrawingPanel extends JPanel {
             return;
         }
         if (oldPosition.rowNumber != 0) {
-            for (int i =  oldPositionRow - 1; i >= 0; i--) {
+            for (int i = oldPositionRow - 1; i >= 0; i--) {
                 if (!isBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.columnNumber], mapPositions)) {
                     if (mapPositions[i][oldPosition.columnNumber] == null) {
                         updateData = false;
@@ -233,7 +242,6 @@ public class DrawingPanel extends JPanel {
             }
         }
     }
-
 
     /**
      *
@@ -448,11 +456,20 @@ public class DrawingPanel extends JPanel {
     public void paint(Graphics graphics) {
         super.paint(graphics); //To change body of generated methods, choose Tools | Templates.
         g = (Graphics2D) graphics;
+//        System.out.println(this.getWidth()+" " + this.getHeight());
+//        g.drawRect(this.getWidth()/2,this.getHeight()/2,500,500);
+//        g.drawLine(0, 0, this.getWidth(), this.getHeight());
+//        g.drawRect(0, 0, 100, 100);
+        drawMap2();
+    }
+
+    public void drawMap() {
         this.setBackground(Color.white);
-        g.setColor(Color.blue);
-        g.drawRect(map.getMapWidth() * 3 / 4, map.getMapWidth() / 8, map.getMapWidth(), map.getMapWidth());
+        g.drawRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.decode("#efd671"));
         g.fillRect(map.getMapWidth() * 3 / 4, map.getMapWidth() / 8, map.getMapWidth(), map.getMapWidth());
+        g.setColor(Color.blue);
+        g.drawRect(map.getMapWidth() * 3 / 4, map.getMapWidth() / 8, map.getMapWidth(), map.getMapWidth());
         int x = map.getMapWidth() - map.getMapWidth() / 4;
         int y = map.getMapWidth() / 4 / 2;
         int width = map.getTileWidth();
@@ -471,6 +488,42 @@ public class DrawingPanel extends JPanel {
             x = map.getMapWidth() - map.getMapWidth() / 4;
             y += width;
         }
+    }
+
+    public void drawMap2() {
+        this.setBackground(Color.white);
+
+        mapWidth = getNearest10_8(this.getHeight() * 3 / 4);
+
+        g.setColor(Color.decode("#efd671"));
+        g.fillRect(this.getWidth() / 2 - mapWidth / 2,  this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+        g.setColor(Color.blue);
+        g.drawRect(this.getWidth() / 2 - mapWidth / 2,  this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
+//        int x = map.getMapWidth() / 2;
+//        int y = map.getMapWidth() / 2;
+        int width = map.getTileWidth();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (map.getTiles()[i][j] != null) {
+                    int x = this.coordinates.getTileCoordinates()[i][j].getX();
+                    int y = this.coordinates.getTileCoordinates()[i][j].getY();
+                    g.setColor(map.getTiles()[i][j].getColor());
+                    g.fillRect(x, y, width, width);
+                    g.setColor(Color.black);
+                    g.drawRect(x, y, width, width);
+                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
+                }
+//                x += width;
+
+            }
+//            x = map.getMapWidth() / 2;
+//            y += width;
+        }
+    }
+
+    public void Animate(Position oldPosition, Position newPosition) {
+
     }
 
     /**
