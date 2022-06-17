@@ -456,74 +456,37 @@ public class DrawingPanel extends JPanel {
     public void paint(Graphics graphics) {
         super.paint(graphics); //To change body of generated methods, choose Tools | Templates.
         g = (Graphics2D) graphics;
-//        System.out.println(this.getWidth()+" " + this.getHeight());
-//        g.drawRect(this.getWidth()/2,this.getHeight()/2,500,500);
-//        g.drawLine(0, 0, this.getWidth(), this.getHeight());
-//        g.drawRect(0, 0, 100, 100);
-        drawMap2();
+        this.mapWidth = mapWidth = getNearest10_8(this.getHeight() * 3 / 4);
+        drawMapBorder();
+        drawTiles();
     }
 
-    public void drawMap() {
+    public void drawMapBorder() {
         this.setBackground(Color.white);
-        g.drawRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.decode("#efd671"));
-        g.fillRect(map.getMapWidth() * 3 / 4, map.getMapWidth() / 8, map.getMapWidth(), map.getMapWidth());
+        g.fillRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
         g.setColor(Color.blue);
-        g.drawRect(map.getMapWidth() * 3 / 4, map.getMapWidth() / 8, map.getMapWidth(), map.getMapWidth());
-        int x = map.getMapWidth() - map.getMapWidth() / 4;
-        int y = map.getMapWidth() / 4 / 2;
-        int width = map.getTileWidth();
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (map.getTiles()[i][j] != null) {
-                    g.setColor(map.getTiles()[i][j].getColor());
-                    g.fillRect(x, y, width, width);
-                    g.setColor(Color.black);
-                    g.drawRect(x, y, width, width);
-                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
-                }
-                x += width;
+        g.drawRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
 
-            }
-            x = map.getMapWidth() - map.getMapWidth() / 4;
-            y += width;
-        }
     }
 
-    public void drawMap2() {
-        this.setBackground(Color.white);
-
-        mapWidth = getNearest10_8(this.getHeight() * 3 / 4);
-
-        g.setColor(Color.decode("#efd671"));
-        g.fillRect(this.getWidth() / 2 - mapWidth / 2,  this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
-        g.setColor(Color.blue);
-        g.drawRect(this.getWidth() / 2 - mapWidth / 2,  this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+    public void drawTiles() {
         this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
-//        int x = map.getMapWidth() / 2;
-//        int y = map.getMapWidth() / 2;
-        int width = map.getTileWidth();
+        int width = mapWidth / 4;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
-                    int x = this.coordinates.getTileCoordinates()[i][j].getX();
-                    int y = this.coordinates.getTileCoordinates()[i][j].getY();
+                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
+                    int x = current.getX();
+                    int y = current.getY();
                     g.setColor(map.getTiles()[i][j].getColor());
                     g.fillRect(x, y, width, width);
                     g.setColor(Color.black);
                     g.drawRect(x, y, width, width);
                     centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
                 }
-//                x += width;
-
             }
-//            x = map.getMapWidth() / 2;
-//            y += width;
         }
-    }
-
-    public void Animate(Position oldPosition, Position newPosition) {
-
     }
 
     /**
