@@ -171,16 +171,16 @@ public class DrawingPanel extends JPanel {
      *
      * @param oldPosition
      * @param newPosition
-     * @param oldMapPositions
+     * @param mapPositions
      * @param updateScore
      */
-    public void updateGameState(Position oldPosition, Position newPosition, Position[][] oldMapPositions, boolean updateScore) {
-        oldMapPositions[oldPosition.rowNumber][oldPosition.columnNumber] = newPosition;
+    public void updateGameState(Position oldPosition, Position newPosition, Position[][] mapPositions, boolean updateScore) {
+        mapPositions[oldPosition.rowNumber][oldPosition.columnNumber] = newPosition;
         if (updateScore) {
             this.map.increaseScore(newPosition.data);
-            oldMapPositions[newPosition.rowNumber][newPosition.columnNumber] = null;
+            mapPositions[newPosition.rowNumber][newPosition.columnNumber] = null;
         }
-        updateTiles(oldMapPositions);
+        updateTiles(mapPositions);
         repaint();
     }
 
@@ -499,6 +499,45 @@ public class DrawingPanel extends JPanel {
                 }
             }
         }
+    }
+    
+    
+    /**
+     * Draw tiles of map
+     */
+    public void drawTiles2(Position[][] previousState, Position[][] currentState) {
+        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
+        int width = mapWidth / 4;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (map.getTiles()[i][j] != null) {
+                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
+                    int x = current.getX();
+                    int y = current.getY();
+                    animateTile(currentState[i][j],currentState[i][j],width);
+//                  g.setColor(map.getTiles()[i][j].getColor());
+//                  g.fillRect(x, y, width, width);
+//                  g.setColor(Color.black);
+//                  g.drawRect(x, y, width, width);
+//                  centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
+                }
+            }
+        }
+    }
+    public void animateTile(Position previousPosition, Position currentPosition, int tileWidth){
+        Coordinate previous = this.coordinates.getTileCoordinates()[previousPosition.rowNumber][previousPosition.columnNumber];
+        Coordinate current = this.coordinates.getTileCoordinates()[currentPosition.rowNumber][currentPosition.columnNumber];
+        if (previousPosition.rowNumber == currentPosition.rowNumber && previousPosition.rowNumber == currentPosition.rowNumber){
+            g.setColor(new Tile(currentPosition.data, false).getColor());
+                    g.fillRect(current.getX(), current.getY(), tileWidth, tileWidth);
+                    g.setColor(Color.black);
+                    g.drawRect(current.getX(), current.getY(), tileWidth, tileWidth);
+                    centerString(g, new Rectangle(current.getX(), current.getY(), tileWidth, tileWidth), currentPosition.data + "", new Font("Arial", Font.PLAIN, 24));;
+        }
+    }
+    
+    public void slideLeft(Position previousPosition, Position currentPosition){
+        
     }
 
     /**
