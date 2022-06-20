@@ -1,20 +1,28 @@
 package pkg2048;
 
 /**
- *
+ * 
  * @author Pham Nhat Quang CE170036
  */
 public class MapCoordinates {
-    private Coordinate startingOfMap;
+    private Coordinate startingOfMap;//The coordinate where the map starts being drawn
     private final int mapSize;
     private Coordinate[][] tileCoordinates;
 
+    /**
+     *
+     * @param mapSize
+     * @param startingOfMap
+     */
     public MapCoordinates(int mapSize, Coordinate startingOfMap) {
         this.mapSize = mapSize;
         this.startingOfMap = startingOfMap;
         this.setTileCoordinates();
     }
     
+    /**
+     * 
+     */
     private void setTileCoordinates(){
         int tileSize = mapSize / 4;
         this.tileCoordinates = new Coordinate[4][4];
@@ -25,6 +33,10 @@ public class MapCoordinates {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Coordinate[][] getTileCoordinates() {
         return tileCoordinates;
     }

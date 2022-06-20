@@ -19,18 +19,19 @@ import javax.swing.border.Border;
 public class DrawingPanel extends JPanel {
 
     private int mapWidth;
-    TileMap map;
-    Tile[][] tiles;
-    Graphics2D g;
-    boolean gameOver;
-    Position[][] previousState;
-    Position[][] currentState;
-    Position[][] stateUndo;
-    boolean undoable;
-    MapCoordinates coordinates;
+    private TileMap map;
+    private Tile[][] tiles;
+    private Graphics2D g;
+    private boolean gameOver;
+    private Position[][] previousState;
+    private Position[][] currentState;
+    private Position[][] stateUndo;
+    private boolean undoable;
+    private MapCoordinates coordinates;
 
     /**
-     *
+     * Reset the game, including making the Tiles Map clear with only 1 randomly
+     * generated tile left and with score reset.
      */
     public void resetGame() {
         try {
@@ -39,46 +40,45 @@ public class DrawingPanel extends JPanel {
             this.map.generateNewTile();
             repaint();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
         gameOver = false;
     }
 
     /**
-     *
-     * @param input
-     * @return
+     * Get the nearest integer number that is divisible by 80
+     * @param input Integer to get result from
+     * @return The nearest integer that is divisible by 80
      */
-    public int getNearest10_8(int input) {
-        return (input / 8 / 10) * 8 * 10;
+    public int getNearest80Divisible(int input) {
+        return (input / 8 / 10) * 80;
     }
 
     /**
-     *
-     * @param screenWidth
-     * @param map
+     * Create new DrawingPanel
+     * @param screenWidth Width of the panel
+     * @param map The TileMap to operate game on
      */
     public DrawingPanel(int screenWidth, TileMap map) {
         this.mapWidth = screenWidth;
-        this.setVisible(true);
-        this.setPreferredSize(new Dimension(screenWidth, screenWidth));
+
         this.map = map;
         this.tiles = map.getTiles();
         this.coordinates = new MapCoordinates(screenWidth, new Coordinate(0, 0));
     }
 
     /**
-     *
-     * @return
+     * Return the position matrix for current map status
+     * @return The position matrix
      */
     public Position[][] getMapPositions() {
         Position[][] positions = new Position[4][4];
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
-                    positions[i][j] = new Position(i, j);
-                    positions[i][j].updatedData = map.getTiles()[i][j].isUpdated();
-                    positions[i][j].data = map.getTiles()[i][j].getData();
+                    positions[i][j] = new Position(i, j,
+                            map.getTiles()[i][j].getData(),
+                            map.getTiles()[i][j].isUpdated());
                 } else {
                     positions[i][j] = null;
                 }
@@ -88,7 +88,15 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * Perform left movement for the entire map
+     * How movement is performed:<br>
+     * Tiles are moved individually from left to right, top to bottom<br>
+     * Illustration:<br>
+     * 1 :  2 : 3  : 4<br>
+     * 5 :  6 : 7  : 8<br>
+     * 9 : 10 : 11 : 12<br>
+     * 13: 14 : 15 : 16<br>
+     * Tiles moved: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
      */
     public void mapLeftMovement() {
         Position[][] positions;
@@ -101,7 +109,15 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * Perform right movement for the entire map
+     * How movement is performed:<br>
+     * Tiles are moved individually from right to left, top to bottom<br>
+     * Illustration:<br>
+     * 1 :  2 : 3  : 4<br>
+     * 5 :  6 : 7  : 8<br>
+     * 9 : 10 : 11 : 12<br>
+     * 13: 14 : 15 : 16<br>
+     * Tiles moved: 4, 3, 2, 1, 8, 7, 6, 5, 12, 11, 10, 9, 16, 15, 14, 13
      */
     public void mapRightMovement() {
         System.out.println("Map right movement");
@@ -115,7 +131,15 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * Perform up movement for the entire map
+     * How movement is performed:<br>
+     * Tiles are moved individually from top to bottom, left to right<br>
+     * Illustration:<br>
+     * 1 :  2 : 3  : 4<br>
+     * 5 :  6 : 7  : 8<br>
+     * 9 : 10 : 11 : 12<br>
+     * 13: 14 : 15 : 16<br>
+     * Tiles moved: 1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16
      */
     public void mapUpMovment() {
         Position[][] positions;
@@ -128,7 +152,16 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * Perform down movement for the entire map <br>
+     * How movement is performed:<br>
+     * Tiles are moved individually from bottom to top, left to right<br>
+     * Illustration:<br>
+     * 1 :  2 : 3  : 4<br>
+     * 5 :  6 : 7  : 8<br>
+     * 9 : 10 : 11 : 12<br>
+     * 13: 14 : 15 : 16<br>
+     * Tiles moved: 13, 9, 5, 1, 14, 10, 6, 2, 15, 11, 7, 3, 16, 12, 8, 4
+     * 
      */
     public void MapDownMovement() {
         Position[][] positions;
@@ -447,7 +480,7 @@ public class DrawingPanel extends JPanel {
     public void paint(Graphics graphics) {
         super.paint(graphics);
         g = (Graphics2D) graphics;
-        this.mapWidth = mapWidth = getNearest10_8(this.getHeight() * 3 / 4);
+        this.mapWidth = mapWidth = getNearest80Divisible(this.getHeight() * 3 / 4);
         drawMapBorder();
         drawTiles();
     }
