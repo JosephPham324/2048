@@ -174,17 +174,12 @@
         <Property name="text" type="java.lang.String" value="Score:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="score">
+    <Component class="javax.swing.JTextField" name="score">
       <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
-            <BevelBorder/>
-          </Border>
-        </Property>
-        <Property name="text" type="java.lang.String" value="0"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="18" style="1"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
   </SubComponents>

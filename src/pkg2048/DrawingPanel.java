@@ -34,9 +34,9 @@ public class DrawingPanel extends JPanel {
      */
     public void resetGame() {
         try {
-            this.map = new TileMap(this.map.getMapWidth());
-            this.map.generateNewTile();
+            this.map.setTiles(new Tile[4][4]);
             this.map.setScore(0);
+            this.map.generateNewTile();
             repaint();
         } catch (Exception e) {
 
