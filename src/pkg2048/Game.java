@@ -70,7 +70,7 @@ public class Game extends javax.swing.JFrame {
                         }
                         score.setText(map.getScore()+"");
                         e.consume();
-                        if (panel.gameOver) {
+                        if (panel.isGameOver()) {
                             isDisabled = true;
                             if (JOptionPane.showConfirmDialog(null, "Game Over!", "Game Over", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                                 isDisabled = false;
