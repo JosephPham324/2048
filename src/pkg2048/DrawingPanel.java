@@ -480,7 +480,7 @@ public class DrawingPanel extends JPanel {
     public void paint(Graphics graphics) {
         super.paint(graphics);
         g = (Graphics2D) graphics;
-        this.mapWidth = mapWidth = getNearest80Divisible(this.getHeight() * 3 / 4);
+        this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(),this.getWidth()) * 5/6);
         drawMapBorder();
         drawTiles();
     }
@@ -488,6 +488,7 @@ public class DrawingPanel extends JPanel {
     /**
      * Draw border of TileMap, the border will contain all tiles that displayed
      * for the game.
+     * 
      */
     public void drawMapBorder() {
         this.setBackground(Color.white);
@@ -495,7 +496,6 @@ public class DrawingPanel extends JPanel {
         g.fillRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
         g.setColor(Color.blue);
         g.drawRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
-
     }
 
     /**
@@ -511,10 +511,10 @@ public class DrawingPanel extends JPanel {
                     int x = current.getX();
                     int y = current.getY();
                     g.setColor(map.getTiles()[i][j].getColor());
-                    g.fillRect(x, y, width, width);
+                    g.fillRoundRect(x, y, width, width,width / 8,width /8);
                     g.setColor(Color.black);
-                    g.drawRect(x, y, width, width);
-                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
+                    g.drawRoundRect(x, y, width, width,width / 8,width / 8);
+                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, width / 4));;
                 }
             }
         }
