@@ -1,11 +1,11 @@
 package pkg2048;
 
 /**
- *
+ * 
  * @author Pham Nhat Quang CE170036
  */
 public class MapCoordinates {
-    private Coordinate startingOfMap;
+    private Coordinate startingOfMap;//The coordinate where the map starts being drawn
     private final int mapSize;
     private Coordinate[][] tileCoordinates;
 
