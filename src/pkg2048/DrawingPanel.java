@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
+import java.util.Arrays;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -286,24 +287,8 @@ public class DrawingPanel extends JPanel {
      * @return
      */
     public boolean compareState(Position[][] stateOne, Position[][] stateTwo) {
-        if (stateOne.length != stateTwo.length || stateOne[0].length != stateTwo[0].length) {
-            return false;
-        }
-        for (int i = 0; i < stateOne.length; i++) {
-            for (int j = 0; j < stateOne[0].length; j++) {
-                if (stateOne[i][j] == null && stateTwo[i][j] == null) {
-
-                } else if (stateOne[i][j] != null && stateTwo[i][j] != null) {
-                    if (!stateOne[i][j].equals(stateTwo[i][j])) {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-
-            }
-        }
-        return true;
+        return Arrays.deepEquals(stateOne, stateTwo);
+        //return true;
     }
 
     /**
