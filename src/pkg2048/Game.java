@@ -100,19 +100,37 @@ public class Game extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator2 = new javax.swing.JSeparator();
-        Undo = new javax.swing.JButton();
-        RESET = new javax.swing.JButton();
-        UP = new javax.swing.JButton();
-        RIGHT = new javax.swing.JButton();
-        LEFT = new javax.swing.JButton();
-        DOWN = new javax.swing.JButton();
         gamePanel = new javax.swing.JLayeredPane();
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         score = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        Undo = new javax.swing.JButton();
+        RESET = new javax.swing.JButton();
+        DOWN = new javax.swing.JButton();
+        LEFT = new javax.swing.JButton();
+        RIGHT = new javax.swing.JButton();
+        UP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 708, Short.MAX_VALUE)
+        );
+
+        score.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        score.setText("0");
+
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        jLabel1.setText("Score");
 
         Undo.setBackground(new java.awt.Color(241, 105, 29));
         Undo.setFont(new java.awt.Font("sansserif", 1, 22)); // NOI18N
@@ -134,17 +152,10 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        UP.setText("UP");
-        UP.addActionListener(new java.awt.event.ActionListener() {
+        DOWN.setText("DOWN");
+        DOWN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UPActionPerformed(evt);
-            }
-        });
-
-        RIGHT.setText("RIGHT");
-        RIGHT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RIGHTActionPerformed(evt);
+                DOWNActionPerformed(evt);
             }
         });
 
@@ -155,74 +166,89 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        DOWN.setText("DOWN");
-        DOWN.addActionListener(new java.awt.event.ActionListener() {
+        RIGHT.setText("RIGHT");
+        RIGHT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DOWNActionPerformed(evt);
+                RIGHTActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
-        gamePanel.setLayout(gamePanelLayout);
-        gamePanelLayout.setHorizontalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 714, Short.MAX_VALUE)
-        );
-        gamePanelLayout.setVerticalGroup(
-            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 753, Short.MAX_VALUE)
-        );
+        UP.setText("UP");
+        UP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel1.setText("Score:");
-
-        score.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        score.setText("0");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Undo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RESET)
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(LEFT)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DOWN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(UP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RIGHT)
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Undo)
+                    .addComponent(RESET)
+                    .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 7, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(LEFT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RIGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(gamePanel)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(122, 122, 122)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addGap(452, 452, 452))
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Undo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RESET)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DOWN)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LEFT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RIGHT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UP)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
-                        .addGap(452, 452, 452))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(gamePanel))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Undo)
-                    .addComponent(RESET)
-                    .addComponent(UP)
-                    .addComponent(RIGHT)
-                    .addComponent(LEFT)
-                    .addComponent(DOWN)
-                    .addComponent(jLabel1)
-                    .addComponent(score, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(gamePanel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -314,6 +340,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton Undo;
     private javax.swing.JLayeredPane gamePanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField score;
     // End of variables declaration//GEN-END:variables
