@@ -117,11 +117,13 @@
                       <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="score" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Undo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="RESET" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="DOWN" alignment="1" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="score" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Undo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="RESET" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
               </Group>
@@ -139,6 +141,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="score">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="18" style="1"/>
             </Property>
