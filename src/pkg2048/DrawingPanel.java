@@ -354,7 +354,9 @@ public class DrawingPanel extends JPanel {
      * @param movement
      */
     public void processMovement(TileMap.Movement movement) {
+        //Get state before movement
         this.previousState = getMapPositions();
+        
         switch (movement) {
             case LEFT:
                 mapLeftMovement();
@@ -369,13 +371,18 @@ public class DrawingPanel extends JPanel {
                 MapDownMovement();
                 break;
         }
-        this.currentState = getMapPositions();
-        if (!compareState(currentState, previousState)) {
-            undoable = true;
-            stateUndo = previousState;
-            while (!map.generateNewTile());
+        
+        this.currentState = getMapPositions();//Get state after movement
+        
+        //Compare two states
+        if (!compareState(currentState, previousState)) {//If states are not same (movement performed)
+            undoable = true; //Can undo
+            stateUndo = previousState; //Set state to undo
+            map.generateNewTile(); //Generate new tile
         }
-        gameOver = isGameOver();
+        gameOver = isGameOver(); //Check if game is over
+        
+        //Reset states to unupdated
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
