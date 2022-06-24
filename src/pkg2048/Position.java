@@ -5,10 +5,10 @@ package pkg2048;
  * @author Pham Nhat Quang
  */
 public class Position {
-     int rowNumber;
-    int columnNumber;
-    int data;
-    boolean updatedData;
+    private int rowNumber;
+    private int getCollumnNumber;
+    private int data;
+    private boolean updatedData;
 
     /**
      *
@@ -17,7 +17,7 @@ public class Position {
      */
     public Position(int rowNumber, int columnNumber) {
         this.rowNumber = rowNumber;
-        this.columnNumber = columnNumber;
+        this.getCollumnNumber = columnNumber;
     }
 
     /**
@@ -29,21 +29,21 @@ public class Position {
      */
     public Position(int rowNumber, int columnNumber, int data, boolean updated) {
         this.rowNumber = rowNumber;
-        this.columnNumber = columnNumber;
+        this.getCollumnNumber = columnNumber;
         this.data = data;
         this.updatedData = updated;
     }
     
     @Override
     public String toString() {
-        return "Position{" + "i=" + rowNumber + ", j=" + columnNumber + ", data=" + data + ", updated=" + updatedData + '}';
+        return "Position{" + "i=" + rowNumber + ", j=" + getCollumnNumber + ", data=" + data + ", updated=" + updatedData + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 19 * hash + this.rowNumber;
-        hash = 19 * hash + this.columnNumber;
+        hash = 19 * hash + this.getCollumnNumber;
         hash = 19 * hash + this.data;
         hash = 19 * hash + (this.updatedData ? 1 : 0);
         return hash;
@@ -64,7 +64,7 @@ public class Position {
         if (this.rowNumber != other.rowNumber) {
             return false;
         }
-        if (this.columnNumber != other.columnNumber) {
+        if (this.getCollumnNumber != other.getCollumnNumber) {
             return false;
         }
         if (this.data != other.data) {
@@ -74,6 +74,22 @@ public class Position {
             return false;
         }
         return true;
+    }
+
+    public int getRowNumber() {
+        return rowNumber;
+    }
+
+    public int getColumnNumber() {
+        return getCollumnNumber;
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public boolean isUpdatedData() {
+        return updatedData;
     }
     
     
