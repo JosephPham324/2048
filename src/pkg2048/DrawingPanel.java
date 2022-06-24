@@ -182,12 +182,16 @@ public class DrawingPanel extends JPanel {
     public void individualLeftMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
         Position newPosition;
+        
         if (oldPosition == null) {
             return;
         }
+        
         if (oldPosition.getColumnNumber() != 0) {
             for (int j = oldPositionColumn - 1; j >= 0; j--) {
+                
                 if (!isBlocked(TileMap.Movement.LEFT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
+                    
                     if (mapPositions[oldPosition.getRowNumber()][j] == null) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
                         updateGameState(oldPosition, newPosition, mapPositions, false);
@@ -196,6 +200,7 @@ public class DrawingPanel extends JPanel {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, true);
                         updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
+                    
                 }
             }
         }
@@ -227,24 +232,24 @@ public class DrawingPanel extends JPanel {
     public void individualRightMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
         Position newPosition;
-        boolean updateData;
+        
         if (oldPosition == null) {
             return;
         }
+        
         if (oldPosition.getColumnNumber() != 3) {
             for (int j = oldPositionColumn + 1; j < 4; j++) {
+                
                 if (!isBlocked(TileMap.Movement.RIGHT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
+                    
                     if (mapPositions[oldPosition.getRowNumber()][j] == null) {
-                        updateData = false;
-                        newPosition = new Position(oldPositionRow, j, oldPosition.getData(), updateData);
-                        updateGameState(oldPosition, newPosition, mapPositions, updateData);
+                        newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
+                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        
                     } else if ((mapPositions[oldPosition.getRowNumber()][j].getData() == oldPosition.getData() && mapPositions[oldPosition.getRowNumber()][j].isUpdatedData() == false)) {
-                        updateData = true;
-                        newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, updateData);
-                        updateGameState(oldPosition, newPosition, mapPositions, updateData);
+                        newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, true);
+                        updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
-                } else {
-                    System.out.println("Is blocked");
                 }
             }
         }
@@ -260,24 +265,23 @@ public class DrawingPanel extends JPanel {
     public void individualUpMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
         Position newPosition;
-        boolean updateData;
+        
         if (oldPosition == null) {
             return;
         }
+        
         if (oldPosition.getRowNumber() != 0) {
             for (int i = oldPositionRow - 1; i >= 0; i--) {
+                
                 if (!isBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
                     if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
-                        updateData = false;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), updateData);
-                        updateGameState(oldPosition, newPosition, mapPositions, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), false);
+                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        
                     } else if ((mapPositions[i][oldPosition.getColumnNumber()].getData() == oldPosition.getData() && mapPositions[i][oldPosition.getColumnNumber()].isUpdatedData() == false)) {
-                        updateData = true;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, updateData);
-                        updateGameState(oldPosition, newPosition, mapPositions, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, true);
+                        updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
-                } else {
-                    System.out.println("Is blocked");
                 }
             }
         }
@@ -292,21 +296,23 @@ public class DrawingPanel extends JPanel {
     public void individualDownMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
         Position newPosition;
-        boolean updateData;
+        
         if (oldPosition == null) {
             return;
         }
+        
         if (oldPosition.getRowNumber() != 3) {
             for (int i = oldPositionRow + 1; i < 4; i++) {
+                
                 if (!isBlocked(TileMap.Movement.DOWN, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
+                    
                     if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
-                        updateData = false;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), updateData);
-                        updateGameState(oldPosition, newPosition, mapPositions, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), false);
+                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        
                     } else if ((mapPositions[i][oldPosition.getColumnNumber()].getData() == oldPosition.getData() && mapPositions[i][oldPosition.getColumnNumber()].isUpdatedData() == false)) {
-                        updateData = true;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, updateData);
-                        updateGameState(oldPosition, newPosition, mapPositions, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, true);
+                        updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
                 }
             }
