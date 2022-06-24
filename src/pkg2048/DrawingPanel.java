@@ -185,15 +185,15 @@ public class DrawingPanel extends JPanel {
         if (oldPosition == null) {
             return;
         }
-        if (oldPosition.columnNumber != 0) {
+        if (oldPosition.getColumnNumber() != 0) {
             for (int j = oldPositionColumn - 1; j >= 0; j--) {
-                if (!isBlocked(TileMap.Movement.LEFT, oldPosition, mapPositions[oldPosition.rowNumber][j], mapPositions)) {
-                    if (mapPositions[oldPosition.rowNumber][j] == null) {
-                        newPosition = new Position(oldPositionRow, j, oldPosition.data, false);
+                if (!isBlocked(TileMap.Movement.LEFT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
+                    if (mapPositions[oldPosition.getRowNumber()][j] == null) {
+                        newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
                         updateGameState(oldPosition, newPosition, mapPositions, false);
 
-                    } else if ((mapPositions[oldPosition.rowNumber][j].data == oldPosition.data && mapPositions[oldPosition.rowNumber][j].updatedData == false)) {
-                        newPosition = new Position(oldPositionRow, j, oldPosition.data * 2, true);
+                    } else if ((mapPositions[oldPosition.getRowNumber()][j].getData() == oldPosition.getData() && mapPositions[oldPosition.getRowNumber()][j].isUpdatedData() == false)) {
+                        newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, true);
                         updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
                 }
@@ -209,10 +209,10 @@ public class DrawingPanel extends JPanel {
      * @param updateScore
      */
     public void updateGameState(Position oldPosition, Position newPosition, Position[][] mapPositions, boolean updateScore) {
-        mapPositions[oldPosition.rowNumber][oldPosition.columnNumber] = newPosition;
+        mapPositions[oldPosition.getRowNumber()][oldPosition.getColumnNumber()] = newPosition;
         if (updateScore) {
-            this.map.increaseScore(newPosition.data);
-            mapPositions[newPosition.rowNumber][newPosition.columnNumber] = null;
+            this.map.increaseScore(newPosition.getData());
+            mapPositions[newPosition.getRowNumber()][newPosition.getColumnNumber()] = null;
         }
         updateTiles(mapPositions);
         repaint();
@@ -231,16 +231,16 @@ public class DrawingPanel extends JPanel {
         if (oldPosition == null) {
             return;
         }
-        if (oldPosition.columnNumber != 3) {
+        if (oldPosition.getColumnNumber() != 3) {
             for (int j = oldPositionColumn + 1; j < 4; j++) {
-                if (!isBlocked(TileMap.Movement.RIGHT, oldPosition, mapPositions[oldPosition.rowNumber][j], mapPositions)) {
-                    if (mapPositions[oldPosition.rowNumber][j] == null) {
+                if (!isBlocked(TileMap.Movement.RIGHT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
+                    if (mapPositions[oldPosition.getRowNumber()][j] == null) {
                         updateData = false;
-                        newPosition = new Position(oldPositionRow, j, oldPosition.data, updateData);
+                        newPosition = new Position(oldPositionRow, j, oldPosition.getData(), updateData);
                         updateGameState(oldPosition, newPosition, mapPositions, updateData);
-                    } else if ((mapPositions[oldPosition.rowNumber][j].data == oldPosition.data && mapPositions[oldPosition.rowNumber][j].updatedData == false)) {
+                    } else if ((mapPositions[oldPosition.getRowNumber()][j].getData() == oldPosition.getData() && mapPositions[oldPosition.getRowNumber()][j].isUpdatedData() == false)) {
                         updateData = true;
-                        newPosition = new Position(oldPositionRow, j, oldPosition.data * 2, updateData);
+                        newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, updateData);
                         updateGameState(oldPosition, newPosition, mapPositions, updateData);
                     }
                 } else {
@@ -264,16 +264,16 @@ public class DrawingPanel extends JPanel {
         if (oldPosition == null) {
             return;
         }
-        if (oldPosition.rowNumber != 0) {
+        if (oldPosition.getRowNumber() != 0) {
             for (int i = oldPositionRow - 1; i >= 0; i--) {
-                if (!isBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.columnNumber], mapPositions)) {
-                    if (mapPositions[i][oldPosition.columnNumber] == null) {
+                if (!isBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
+                    if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
                         updateData = false;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.data, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), updateData);
                         updateGameState(oldPosition, newPosition, mapPositions, updateData);
-                    } else if ((mapPositions[i][oldPosition.columnNumber].data == oldPosition.data && mapPositions[i][oldPosition.columnNumber].updatedData == false)) {
+                    } else if ((mapPositions[i][oldPosition.getColumnNumber()].getData() == oldPosition.getData() && mapPositions[i][oldPosition.getColumnNumber()].isUpdatedData() == false)) {
                         updateData = true;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.data * 2, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, updateData);
                         updateGameState(oldPosition, newPosition, mapPositions, updateData);
                     }
                 } else {
@@ -296,16 +296,16 @@ public class DrawingPanel extends JPanel {
         if (oldPosition == null) {
             return;
         }
-        if (oldPosition.rowNumber != 3) {
+        if (oldPosition.getRowNumber() != 3) {
             for (int i = oldPositionRow + 1; i < 4; i++) {
-                if (!isBlocked(TileMap.Movement.DOWN, oldPosition, mapPositions[i][oldPosition.columnNumber], mapPositions)) {
-                    if (mapPositions[i][oldPosition.columnNumber] == null) {
+                if (!isBlocked(TileMap.Movement.DOWN, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
+                    if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
                         updateData = false;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.data, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), updateData);
                         updateGameState(oldPosition, newPosition, mapPositions, updateData);
-                    } else if ((mapPositions[i][oldPosition.columnNumber].data == oldPosition.data && mapPositions[i][oldPosition.columnNumber].updatedData == false)) {
+                    } else if ((mapPositions[i][oldPosition.getColumnNumber()].getData() == oldPosition.getData() && mapPositions[i][oldPosition.getColumnNumber()].isUpdatedData() == false)) {
                         updateData = true;
-                        newPosition = new Position(i, oldPositionColumn, oldPosition.data * 2, updateData);
+                        newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, updateData);
                         updateGameState(oldPosition, newPosition, mapPositions, updateData);
                     }
                 }
@@ -337,7 +337,7 @@ public class DrawingPanel extends JPanel {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (mapPositions[i][j] != null) {
-                    map.getTiles()[mapPositions[i][j].rowNumber][mapPositions[i][j].columnNumber] = new Tile(mapPositions[i][j].data, mapPositions[i][j].updatedData);
+                    map.getTiles()[mapPositions[i][j].getRowNumber()][mapPositions[i][j].getColumnNumber()] = new Tile(mapPositions[i][j].getData(), mapPositions[i][j].isUpdatedData());
                 }
             }
         }
@@ -404,8 +404,8 @@ public class DrawingPanel extends JPanel {
                 if (destination == null) {
                     return false;
                 }
-                for (int j = destination.columnNumber + 1; j < startingPosition.columnNumber; j++) {
-                    if (positions[startingPosition.rowNumber][j] != null) {
+                for (int j = destination.getColumnNumber() + 1; j < startingPosition.getColumnNumber(); j++) {
+                    if (positions[startingPosition.getRowNumber()][j] != null) {
                         System.out.println("Is blocked");
                         return true;
                     }
@@ -415,8 +415,8 @@ public class DrawingPanel extends JPanel {
                 if (destination == null) {
                     return false;
                 }
-                for (int j = destination.columnNumber - 1; j > startingPosition.columnNumber; j--) {
-                    if (positions[startingPosition.rowNumber][j] != null) {
+                for (int j = destination.getColumnNumber() - 1; j > startingPosition.getColumnNumber(); j--) {
+                    if (positions[startingPosition.getRowNumber()][j] != null) {
                         return true;
                     }
                 }
@@ -425,8 +425,8 @@ public class DrawingPanel extends JPanel {
                 if (destination == null) {
                     return false;
                 }
-                for (int i = destination.rowNumber + 1; i < startingPosition.rowNumber; i++) {
-                    if (positions[i][startingPosition.columnNumber] != null) {
+                for (int i = destination.getRowNumber() + 1; i < startingPosition.getRowNumber(); i++) {
+                    if (positions[i][startingPosition.getColumnNumber()] != null) {
                         return true;
                     }
                 }
@@ -435,8 +435,8 @@ public class DrawingPanel extends JPanel {
                 if (destination == null) {
                     return false;
                 }
-                for (int i = destination.rowNumber - 1; i > startingPosition.rowNumber; i--) {
-                    if (positions[i][startingPosition.columnNumber] != null) {
+                for (int i = destination.getRowNumber() - 1; i > startingPosition.getRowNumber(); i--) {
+                    if (positions[i][startingPosition.getColumnNumber()] != null) {
                         return true;
                     }
                 }
@@ -550,14 +550,14 @@ public class DrawingPanel extends JPanel {
         }
     }
     public void animateTile(Position previousPosition, Position currentPosition, int tileWidth){
-        Coordinate previous = this.coordinates.getTileCoordinates()[previousPosition.rowNumber][previousPosition.columnNumber];
-        Coordinate current = this.coordinates.getTileCoordinates()[currentPosition.rowNumber][currentPosition.columnNumber];
-        if (previousPosition.rowNumber == currentPosition.rowNumber && previousPosition.rowNumber == currentPosition.rowNumber){
-            g.setColor(new Tile(currentPosition.data, false).getColor());
+        Coordinate previous = this.coordinates.getTileCoordinates()[previousPosition.getRowNumber()][previousPosition.getColumnNumber()];
+        Coordinate current = this.coordinates.getTileCoordinates()[currentPosition.getRowNumber()][currentPosition.getColumnNumber()];
+        if (previousPosition.getRowNumber() == currentPosition.getRowNumber() && previousPosition.getRowNumber() == currentPosition.getRowNumber()){
+            g.setColor(new Tile(currentPosition.getData(), false).getColor());
                     g.fillRect(current.getX(), current.getY(), tileWidth, tileWidth);
                     g.setColor(Color.black);
                     g.drawRect(current.getX(), current.getY(), tileWidth, tileWidth);
-                    centerString(g, new Rectangle(current.getX(), current.getY(), tileWidth, tileWidth), currentPosition.data + "", new Font("Arial", Font.PLAIN, 24));;
+                    centerString(g, new Rectangle(current.getX(), current.getY(), tileWidth, tileWidth), currentPosition.getData() + "", new Font("Arial", Font.PLAIN, 24));;
         }
     }
     

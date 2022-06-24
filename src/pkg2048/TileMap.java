@@ -96,7 +96,7 @@ public class TileMap {
      */
     public boolean isTileOccupied(Position position) {
         try {
-            return tiles[position.rowNumber][position.columnNumber] != null;
+            return tiles[position.getRowNumber()][position.getColumnNumber()] != null;
         } catch (ArrayIndexOutOfBoundsException oob) {
             return true;
         }
