@@ -21,13 +21,13 @@ public class Game extends javax.swing.JFrame {
     static boolean isDisabled = false;
     Color movementButton = Color.gray;
     Color moveMentButtonWhenUsed = Color.white;
-
+    Color functionColor = Color.decode("#f1691d");
+    Color functionColorWhenUsed = Color.decode("#ff321d");
     /**
      * Creates new form Game
      */
     public Game() {
         initComponents();
-
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         this.setTitle("2048");
         try {
@@ -53,6 +53,7 @@ public class Game extends javax.swing.JFrame {
 
                     if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_D
                             || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
+                        setFunctionButtonsColor('N');
                         switch (e.getKeyCode()) {
                             case KeyEvent.VK_W:
                             case KeyEvent.VK_UP:
@@ -89,13 +90,16 @@ public class Game extends javax.swing.JFrame {
                             }
                         }
                     } else {
+                        setMovementButtonsColor('F');
                         if (e.isControlDown()){
                             switch (keyCode){
                                 case KeyEvent.VK_Z:
                                     panel.Undo();
+                                    setFunctionButtonsColor('U');
                                     break;
                                 case KeyEvent.VK_R:
                                     panel.resetGame();
+                                    setFunctionButtonsColor('R');
                                     break;
                             }
                         }
@@ -119,6 +123,11 @@ public class Game extends javax.swing.JFrame {
         DOWN.setBackground(button == 'd'? moveMentButtonWhenUsed: movementButton);
         LEFT.setBackground(button == 'l'? moveMentButtonWhenUsed: movementButton);
         RIGHT.setBackground(button == 'r'? moveMentButtonWhenUsed: movementButton);
+    }
+    
+    void setFunctionButtonsColor(char button){
+        Undo.setBackground(button == 'U'? functionColorWhenUsed: functionColor);
+        RESET.setBackground(button == 'R'? functionColorWhenUsed: functionColor);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -317,12 +326,14 @@ public class Game extends javax.swing.JFrame {
 
     private void UndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoActionPerformed
         this.panel.Undo();
+        setFunctionButtonsColor('U');
         setMovementButtonsColor('U');
     }//GEN-LAST:event_UndoActionPerformed
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         this.panel.resetGame();
         score.setText(map.getScore()+"");
+        setFunctionButtonsColor('R');
         setMovementButtonsColor('R');
     }//GEN-LAST:event_RESETActionPerformed
 
