@@ -1,6 +1,7 @@
 package pkg2048;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
@@ -18,6 +19,8 @@ public class Game extends javax.swing.JFrame {
     TileMap map;
     DrawingPanel panel;
     static boolean isDisabled = false;
+    Color movementButton = Color.gray;
+    Color moveMentButtonWhenUsed = Color.white;
 
     /**
      * Creates new form Game
@@ -54,18 +57,23 @@ public class Game extends javax.swing.JFrame {
                             case KeyEvent.VK_W:
                             case KeyEvent.VK_UP:
                                 panel.processMovement(TileMap.Movement.UP);
+                                setMovementButtonsColor('u');
+                                
                                 break;
                             case KeyEvent.VK_S:
                             case KeyEvent.VK_DOWN:
                                 panel.processMovement(TileMap.Movement.DOWN);
+                                setMovementButtonsColor('d');
                                 break;
                             case KeyEvent.VK_A:
                             case KeyEvent.VK_LEFT:
                                 panel.processMovement(TileMap.Movement.LEFT);
+                                setMovementButtonsColor('l');
                                 break;
                             case KeyEvent.VK_D:
                             case KeyEvent.VK_RIGHT:
                                 panel.processMovement(TileMap.Movement.RIGHT);
+                               setMovementButtonsColor('r');
                                 break;
                         }
                         score.setText(map.getScore()+"");
@@ -106,7 +114,12 @@ public class Game extends javax.swing.JFrame {
         System.out.println(panel.getSize());
         System.out.println(gamePanel.getSize());
     }
-
+    void setMovementButtonsColor(char button){
+        UP.setBackground(button == 'u'? moveMentButtonWhenUsed: movementButton);
+        DOWN.setBackground(button == 'd'? moveMentButtonWhenUsed: movementButton);
+        LEFT.setBackground(button == 'l'? moveMentButtonWhenUsed: movementButton);
+        RIGHT.setBackground(button == 'r'? moveMentButtonWhenUsed: movementButton);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -168,28 +181,32 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        UP.setText("UP");
+        UP.setBackground(new java.awt.Color(204, 204, 204));
+        UP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/up.png"))); // NOI18N
         UP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UPActionPerformed(evt);
             }
         });
 
-        RIGHT.setText("RIGHT");
+        RIGHT.setBackground(new java.awt.Color(204, 204, 204));
+        RIGHT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/right.png"))); // NOI18N
         RIGHT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RIGHTActionPerformed(evt);
             }
         });
 
-        LEFT.setText("LEFT");
+        LEFT.setBackground(new java.awt.Color(204, 204, 204));
+        LEFT.setForeground(new java.awt.Color(255, 255, 255));
+        LEFT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/left.png"))); // NOI18N
         LEFT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LEFTActionPerformed(evt);
             }
         });
 
-        DOWN.setBackground(new java.awt.Color(255, 255, 255));
+        DOWN.setBackground(new java.awt.Color(204, 204, 204));
         DOWN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/down.png"))); // NOI18N
         DOWN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,16 +230,15 @@ public class Game extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(RIGHT)
-                        .addGap(18, 18, 18)
-                        .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LEFT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(80, 80, 80))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addComponent(LEFT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DOWN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RIGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,14 +253,17 @@ public class Game extends javax.swing.JFrame {
                             .addComponent(Undo)
                             .addComponent(RESET)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(8, 8, 8)
                         .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DOWN)
-                            .addComponent(RIGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LEFT, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(DOWN)))
                 .addGap(0, 9, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RIGHT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LEFT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,6 +295,7 @@ public class Game extends javax.swing.JFrame {
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.LEFT);
             score.setText(map.getScore()+"");
+            setMovementButtonsColor('l');
         }
     }//GEN-LAST:event_LEFTActionPerformed
 
@@ -283,6 +303,7 @@ public class Game extends javax.swing.JFrame {
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.RIGHT);
             score.setText(map.getScore()+"");
+            setMovementButtonsColor('r');
         }
     }//GEN-LAST:event_RIGHTActionPerformed
 
@@ -290,22 +311,26 @@ public class Game extends javax.swing.JFrame {
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.UP);
             score.setText(map.getScore()+"");
+            setMovementButtonsColor('u');
         }
     }//GEN-LAST:event_UPActionPerformed
 
     private void UndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoActionPerformed
         this.panel.Undo();
+        setMovementButtonsColor('U');
     }//GEN-LAST:event_UndoActionPerformed
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         this.panel.resetGame();
         score.setText(map.getScore()+"");
+        setMovementButtonsColor('R');
     }//GEN-LAST:event_RESETActionPerformed
 
     private void DOWNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWNActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.DOWN);
             score.setText(map.getScore()+"");
+            setMovementButtonsColor('d');
         }
     }//GEN-LAST:event_DOWNActionPerformed
 
