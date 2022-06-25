@@ -2,13 +2,16 @@ package pkg2048;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 import javax.swing.JPanel;
+
 /**
  *
  * @author Pham Nhat Quang CE170036
@@ -25,6 +28,7 @@ public class DrawingPanel extends JPanel {
     private Position[][] stateUndo;
     private boolean undoable;
     private MapCoordinates coordinates;
+    private Coordinate c;
 
     /**
      * Reset the game, including making the Tiles Map clear with only 1 randomly
@@ -490,11 +494,36 @@ public class DrawingPanel extends JPanel {
 
     @Override
     public void paint(Graphics graphics) {
+
         super.paint(graphics);
         g = (Graphics2D) graphics;
+        
         this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(), this.getWidth()) * 5 / 6);
+        
         drawMapBorder();
+        
+        drawBackgroundTiles();
+        
         drawTiles();
+
+    }
+
+    // Ve duong vien
+    public void drawBackgroundTiles() {
+        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
+        int width = mapWidth / 4;
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
+                    int x = current.getX();
+                    int y = current.getY();
+
+                    g.setColor(Color.white);
+                    g.drawRoundRect(x, y, width, width, width / 8, width / 8);
+            }
+        }
+
     }
 
     /**
@@ -504,10 +533,10 @@ public class DrawingPanel extends JPanel {
      */
     public void drawMapBorder() {
         this.setBackground(Color.white);
-        g.setColor(Color.decode("#efd671"));
-        g.fillRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+        g.setColor(Color.decode("#CCC0B3"));
+        g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3,3,3);
         g.setColor(Color.blue);
-        g.drawRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+        g.drawRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3,3,3);
     }
 
     /**
@@ -524,9 +553,9 @@ public class DrawingPanel extends JPanel {
                     int y = current.getY();
                     g.setColor(map.getTiles()[i][j].getColor());
                     g.fillRoundRect(x, y, width, width, width / 8, width / 8);
-                    g.setColor(Color.black);
+                    g.setColor(Color.white);
                     g.drawRoundRect(x, y, width, width, width / 8, width / 8);
-                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, width / 4));;
+                    centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Sefif", Font.BOLD, 60));;
                 }
             }
         }
@@ -570,7 +599,7 @@ public class DrawingPanel extends JPanel {
             g.fillRect(current.getX(), current.getY(), tileWidth, tileWidth);
             g.setColor(Color.black);
             g.drawRect(current.getX(), current.getY(), tileWidth, tileWidth);
-            centerString(g, new Rectangle(current.getX(), current.getY(), tileWidth, tileWidth), currentPosition.getData() + "", new Font("Arial", Font.PLAIN, 24));;
+            centerString(g, new Rectangle(current.getX(), current.getY(), tileWidth, tileWidth), currentPosition.getData() + "", new Font("Sefif", Font.BOLD, 40));;
         }
     }
 
