@@ -107,15 +107,16 @@ public class TileMap {
      *
      * @return True if successful, false if not
      */
-    public boolean generateNewTile() {
-        int i = (int) (Math.random() * (3 - 0 + 1) + 0);
-        int j = (int) (Math.random() * (3 - 0 + 1) + 0);
-        if (!isTileOccupied(new Position(i, j))) {
-            tiles[i][j] = new Tile();
-            return true;
-        } else {
-            return false;
-        }
+    public void generateNewTile() {
+        int i;
+        int j;
+        boolean finished;
+        do {
+            i = (int) (Math.random() * (3 - 0 + 1) + 0);
+            j = (int) (Math.random() * (3 - 0 + 1) + 0);
+            
+        } while (isTileOccupied(new Position(i,j)));
+        tiles[i][j] = new Tile();
     }
 
     /**

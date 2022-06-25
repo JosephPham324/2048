@@ -33,7 +33,7 @@ public class Position {
         this.data = data;
         this.updatedData = updated;
     }
-    
+
     @Override
     public String toString() {
         return "Position{" + "i=" + rowNumber + ", j=" + getCollumnNumber + ", data=" + data + ", updated=" + updatedData + '}';
@@ -91,7 +91,7 @@ public class Position {
     public boolean isUpdatedData() {
         return updatedData;
     }
-    
-    
+
+
     
 }
