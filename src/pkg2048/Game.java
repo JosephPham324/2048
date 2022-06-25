@@ -38,12 +38,12 @@ public class Game extends javax.swing.JFrame {
         gamePanel.setPreferredSize(new Dimension(720, 720));
         gamePanel.setLayout(new BorderLayout());
 
+        
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 
             @Override
             public boolean dispatchKeyEvent(KeyEvent e) {
-                if (e.getID() == KeyEvent.KEY_PRESSED && !isDisabled) {
-                }
+
                 if (e.getID() == KeyEvent.KEY_RELEASED && !isDisabled) {
 
                     int keyCode = e.getKeyCode();
@@ -80,9 +80,25 @@ public class Game extends javax.swing.JFrame {
                                 isDisabled = false;
                             }
                         }
+                    } else {
+                        if (e.isControlDown()){
+                            switch (keyCode){
+                                case KeyEvent.VK_Z:
+                                    panel.Undo();
+                                    break;
+                                case KeyEvent.VK_R:
+                                    panel.resetGame();
+                                    break;
+                            }
+                        }
+                        if (e.isAltDown()){
+                            if (keyCode == KeyEvent.VK_F4){
+                                System.exit(0);
+                            }
+                        }
                     }
                 }
-                return false;
+                return true;
             }
         });
         System.out.println(panel.getSize());
@@ -100,7 +116,6 @@ public class Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator2 = new javax.swing.JSeparator();
         gamePanel = new javax.swing.JLayeredPane();
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
@@ -124,7 +139,7 @@ public class Game extends javax.swing.JFrame {
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 682, Short.MAX_VALUE)
         );
 
         score.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
@@ -197,8 +212,7 @@ public class Game extends javax.swing.JFrame {
                         .addComponent(RESET))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,10 +252,6 @@ public class Game extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(122, 122, 122)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                .addGap(452, 452, 452))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -256,8 +266,6 @@ public class Game extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(gamePanel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -346,7 +354,6 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JLayeredPane gamePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField score;
     // End of variables declaration//GEN-END:variables
 }

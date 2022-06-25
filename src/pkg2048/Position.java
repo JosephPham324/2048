@@ -9,7 +9,6 @@ public class Position {
     private int getCollumnNumber;
     private int data;
     private boolean updatedData;
-    private Tile tile;
 
     /**
      *
@@ -35,14 +34,6 @@ public class Position {
         this.updatedData = updated;
     }
 
-    public Position(int rowNumber, int getCollumnNumber, boolean updatedData, Tile tile) {
-        this.rowNumber = rowNumber;
-        this.getCollumnNumber = getCollumnNumber;
-        this.updatedData = updatedData;
-        this.tile = tile;
-    }
-    
-    
     @Override
     public String toString() {
         return "Position{" + "i=" + rowNumber + ", j=" + getCollumnNumber + ", data=" + data + ", updated=" + updatedData + '}';
@@ -101,12 +92,6 @@ public class Position {
         return updatedData;
     }
 
-    public Tile getTile() {
-        return tile;
-    }
 
-    public void setTile(Tile tile) {
-        this.tile = tile;
-    }
     
 }
