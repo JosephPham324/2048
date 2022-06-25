@@ -494,39 +494,37 @@ public class DrawingPanel extends JPanel {
 
     @Override
     public void paint(Graphics graphics) {
+
         super.paint(graphics);
         g = (Graphics2D) graphics;
+        
         this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(), this.getWidth()) * 5 / 6);
-        int width = mapWidth / 4;
-        int j = 109, k = 634;
+        
         drawMapBorder();
-        //ve duong vien
-        for (int y = 0; y < 4; y++) {
-            if (y != 0) {
-                j += width;
-            }
-            drawTile(g, k, j);
-        }
+        
+        drawBackgroundTiles();
+        
         drawTiles();
 
     }
+
     // Ve duong vien
-    public void drawTile(Graphics g, int k, int j) {
+    public void drawBackgroundTiles() {
+        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
         int width = mapWidth / 4;
-        int x = 0, y = 0;
-        for (y = 0; y < 4; y++) {
-            if (y != 0) {
-                k += width;
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
+                    int x = current.getX();
+                    int y = current.getY();
+
+                    g.setColor(Color.white);
+                    g.drawRoundRect(x, y, width, width, width / 8, width / 8);
             }
-           g.setColor(Color.white);
-           g.drawRoundRect(k, j, width, width, width / 8, width / 8);
         }
 
     }
-
-  
-
-
 
     /**
      * Draw border of TileMap, the border will contain all tiles that displayed
@@ -536,9 +534,9 @@ public class DrawingPanel extends JPanel {
     public void drawMapBorder() {
         this.setBackground(Color.white);
         g.setColor(Color.decode("#CCC0B3"));
-        g.fillRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+        g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3,3,3);
         g.setColor(Color.blue);
-        g.drawRect(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2, mapWidth, mapWidth);
+        g.drawRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3,3,3);
     }
 
     /**
