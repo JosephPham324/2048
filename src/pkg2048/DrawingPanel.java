@@ -2,11 +2,9 @@ package pkg2048;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
@@ -178,19 +176,23 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
-     * @param oldPosition
-     * @param newPosition
-     * @param mapPositions
-     * @param updateScore
+     * Update the state of game after movement of 1 tile
+     * @param oldPosition old position of the tile
+     * @param newPosition new position of the tile
+     * @param mapPositions Current map positions
+     * @param updateScore Whether the score will be updated or not
      */
     public void updateGameState(Position oldPosition, Position newPosition, Position[][] mapPositions, boolean updateScore) {
+        //Update positions in the map
         mapPositions[oldPosition.getRowNumber()][oldPosition.getColumnNumber()] = newPosition;
-        if (updateScore) {
-            this.map.increaseScore(newPosition.getData());
-            mapPositions[newPosition.getRowNumber()][newPosition.getColumnNumber()] = null;
+        
+        if (updateScore) {//If it's a score update movement (merge two tiles)
+            this.map.increaseScore(newPosition.getData());//Increase the score
+            mapPositions[newPosition.getRowNumber()][newPosition.getColumnNumber()] = null;//Delete the information stored in new position's position
         }
+        //Update tiles according to updated map position
         updateTiles(mapPositions);
+        //Repaint the game
         repaint();
     }
 
@@ -211,7 +213,7 @@ public class DrawingPanel extends JPanel {
         if (oldPosition.getColumnNumber() != 0) {
             for (int j = oldPositionColumn - 1; j >= 0; j--) {
 
-                if (!isBlocked(TileMap.Movement.LEFT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
+                if (!isMovementBlocked(TileMap.Movement.LEFT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
 
                     if (mapPositions[oldPosition.getRowNumber()][j] == null) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
@@ -243,7 +245,7 @@ public class DrawingPanel extends JPanel {
         if (oldPosition.getColumnNumber() != 3) {
             for (int j = oldPositionColumn + 1; j < 4; j++) {
 
-                if (!isBlocked(TileMap.Movement.RIGHT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
+                if (!isMovementBlocked(TileMap.Movement.RIGHT, oldPosition, mapPositions[oldPosition.getRowNumber()][j], mapPositions)) {
 
                     if (mapPositions[oldPosition.getRowNumber()][j] == null) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
@@ -276,7 +278,7 @@ public class DrawingPanel extends JPanel {
         if (oldPosition.getRowNumber() != 0) {
             for (int i = oldPositionRow - 1; i >= 0; i--) {
 
-                if (!isBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
+                if (!isMovementBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
                     if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
                         newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), false);
                         updateGameState(oldPosition, newPosition, mapPositions, false);
@@ -307,7 +309,7 @@ public class DrawingPanel extends JPanel {
         if (oldPosition.getRowNumber() != 3) {
             for (int i = oldPositionRow + 1; i < 4; i++) {
 
-                if (!isBlocked(TileMap.Movement.DOWN, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
+                if (!isMovementBlocked(TileMap.Movement.DOWN, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
 
                     if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
                         newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), false);
@@ -323,26 +325,28 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
-     * @param stateOne
-     * @param stateTwo
-     * @return
+     * Compare two map states
+     * @param stateOne First state
+     * @param stateTwo Second state
+     * @return true if the two states are the same, false if not
      */
     public boolean compareState(Position[][] stateOne, Position[][] stateTwo) {
         return Arrays.deepEquals(stateOne, stateTwo);
-        //return true;
     }
 
     /**
-     *
-     * @param mapPositions
+     * Update tile
+     * @param mapPositions The positions and information of new tiles state
      */
     public void updateTiles(Position[][] mapPositions) {
+        //Set all current tiles to null
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 map.getTiles()[i][j] = null;
             }
         }
+        
+        //Update tiles information according to mapPositions
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (mapPositions[i][j] != null) {
@@ -360,6 +364,7 @@ public class DrawingPanel extends JPanel {
         //Get state before movement
         this.previousState = getMapPositions();
 
+        //Perform movement
         switch (movement) {
             case LEFT:
                 mapLeftMovement();
@@ -396,68 +401,68 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * Tries to undo a previous movement
      */
     public void Undo() {
-        if (undoable) {
-            updateTiles(this.stateUndo);
-            undoable = false;
-            repaint();
+        if (undoable) {//If it's undoable
+            updateTiles(this.stateUndo);//Update tiles to previous state stored
+            undoable = false;//Set undoable to false (Can't undo twice in a row)
+            repaint(); //Repaint game
         }
     }
 
     /**
+     * Check if it's possible to perform movement or not
      *
-     * @param movement
-     * @param startingPosition
-     * @param destination
-     * @param positions
-     * @return
+     * @param movement Type of movement
+     * @param startingPosition Starting position of movement
+     * @param destination Destination position
+     * @param positions Positions of all tiles before the movement, to check
+     * @return true if blocked, false if not
      */
-    public boolean isBlocked(TileMap.Movement movement, Position startingPosition, Position destination, Position[][] positions) {
-        switch (movement) {
+    public boolean isMovementBlocked(TileMap.Movement movement, Position startingPosition, Position destination, Position[][] positions) {
+        if (destination == null) {//Destination is null, there is no movement to perform
+            return false;
+        }
+        switch (movement) {//According to type of movement
             case LEFT:
-                if (destination == null) {
-                    return false;
-                }
+                //Check from the next right tile of the destination to the next left tile of starting position 
                 for (int j = destination.getColumnNumber() + 1; j < startingPosition.getColumnNumber(); j++) {
-                    if (positions[startingPosition.getRowNumber()][j] != null) {
-                        System.out.println("Is blocked");
+                    if (positions[startingPosition.getRowNumber()][j] != null) {//If a tile in the way is occupied, it's blocked
                         return true;
                     }
                 }
+                //If nothing blocks, return false
                 return false;
             case RIGHT:
-                if (destination == null) {
-                    return false;
-                }
+                //Check from the next left tile of destination to next right tile of starting position
                 for (int j = destination.getColumnNumber() - 1; j > startingPosition.getColumnNumber(); j--) {
-                    if (positions[startingPosition.getRowNumber()][j] != null) {
+                    if (positions[startingPosition.getRowNumber()][j] != null) {//If a tile in the way is occupied, it's blocked
                         return true;
                     }
                 }
+                //If nothing blocks, return false
                 return false;
             case UP:
-                if (destination == null) {
-                    return false;
-                }
+                //Check from the next lower tile of destination to the next upper tile of starting position
                 for (int i = destination.getRowNumber() + 1; i < startingPosition.getRowNumber(); i++) {
-                    if (positions[i][startingPosition.getColumnNumber()] != null) {
+                    if (positions[i][startingPosition.getColumnNumber()] != null) {//If a tile in the way is occupied, it's blocked
                         return true;
                     }
                 }
+                //If nothing blocks, return true
                 return false;
             case DOWN:
-                if (destination == null) {
-                    return false;
-                }
+                //Check from the next upper tile of destination to next lower tile of starting position
                 for (int i = destination.getRowNumber() - 1; i > startingPosition.getRowNumber(); i--) {
-                    if (positions[i][startingPosition.getColumnNumber()] != null) {
+                    if (positions[i][startingPosition.getColumnNumber()] != null) {//If a tile in the way is occupied, it's blocked
                         return true;
                     }
                 }
+                //If nothing blocks, return false
                 return false;
         }
+
         return false;
     }
 
@@ -497,30 +502,39 @@ public class DrawingPanel extends JPanel {
 
         super.paint(graphics);
         g = (Graphics2D) graphics;
-        
+        //Get current map width
         this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(), this.getWidth()) * 5 / 6);
-        
+        //Get current tiles coordinates in the map
+        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
+
+        //Draw map border
         drawMapBorder();
-        
+
+        //Draw background tiles
         drawBackgroundTiles();
-        
+
+        //Draw tiles
         drawTiles();
 
     }
 
-    // Ve duong vien
+    /**
+     * Draw the empty background tiles (all 16 tiles)
+     */
     public void drawBackgroundTiles() {
-        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
+
         int width = mapWidth / 4;
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
-                    int x = current.getX();
-                    int y = current.getY();
+                //Get current tile coordinate
+                Coordinate current = this.coordinates.getTileCoordinates()[i][j];
+                int x = current.getX();
+                int y = current.getY();
 
-                    g.setColor(Color.white);
-                    g.drawRoundRect(x, y, width, width, width / 8, width / 8);
+                //Draw outline
+                g.setColor(Color.white);
+                g.drawRoundRect(x, y, width, width, width / 8, width / 8);
             }
         }
 
@@ -534,42 +548,45 @@ public class DrawingPanel extends JPanel {
     public void drawMapBorder() {
         this.setBackground(Color.white);
         g.setColor(Color.decode("#CCC0B3"));
-        g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3,3,3);
+        g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3, 3, 3);
         g.setColor(Color.blue);
-        g.drawRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3,3,3);
+        g.drawRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3, 3, 3);
     }
 
     /**
-     *
+     * Draw the current tiles in the map
      */
     public void drawTiles() {
-        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
         int width = mapWidth / 4;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
+                    //Get current tile coordinate
                     Coordinate current = this.coordinates.getTileCoordinates()[i][j];
                     int x = current.getX();
                     int y = current.getY();
+
+                    //Fill the inside square
                     g.setColor(map.getTiles()[i][j].getColor());
                     g.fillRoundRect(x, y, width, width, width / 8, width / 8);
+                    //Draw the outline
                     g.setColor(Color.white);
                     g.drawRoundRect(x, y, width, width, width / 8, width / 8);
+                    //Draw the content (square value)
                     centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Sefif", Font.BOLD, 60));;
                 }
             }
         }
     }
 
-    /**
-     * PROTOTYPE CODE, NOT USABLE YET
-     */
-    public static void lol() {
-
-    }
-
+    //---------------------------------------------------\\
+    //----------------NOT USABLE PART--------------------\\
+    //---------------------------------------------------\\
     /**
      * Draw tiles of map
+     *
+     * @param previousState
+     * @param currentState
      */
     public void drawTiles2(Position[][] previousState, Position[][] currentState) {
         this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
@@ -591,6 +608,12 @@ public class DrawingPanel extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param previousPosition
+     * @param currentPosition
+     * @param tileWidth
+     */
     public void animateTile(Position previousPosition, Position currentPosition, int tileWidth) {
         Coordinate previous = this.coordinates.getTileCoordinates()[previousPosition.getRowNumber()][previousPosition.getColumnNumber()];
         Coordinate current = this.coordinates.getTileCoordinates()[currentPosition.getRowNumber()][currentPosition.getColumnNumber()];
@@ -603,13 +626,20 @@ public class DrawingPanel extends JPanel {
         }
     }
 
+    /**
+     *
+     * @param previousPosition
+     * @param currentPosition
+     */
     public void slideLeft(Position previousPosition, Position currentPosition) {
 
     }
+    //---------------------------------------------------\\
 
     /**
+     * Check if game is over
      *
-     * @return
+     * @return game over status
      */
     public boolean isGameOver() {
         return map.isGameOver();

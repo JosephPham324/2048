@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ASUS/Documents/Zalo%20Received%20Files/2048_Design/2048/src/pkg2048/DrawingPanel.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Zalo%20Received%20Files/2048_Design/2048/src/pkg2048/Coordinate.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Zalo%20Received%20Files/2048_Design/2048/src/pkg2048/MapCoordinates.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Zalo%20Received%20Files/2048_Design/2048/src/pkg2048/Game.java</file>
-            <file>file:/C:/Users/ASUS/Documents/Zalo%20Received%20Files/2048_Design/2048/src/pkg2048/Tile.java</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/pkg2048/TileMap.java</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/pkg2048/MapCoordinates.java</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/pkg2048/Game.java</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/pkg2048/Tile.java</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/Images/up.png</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/pkg2048/Position.java</file>
+            <file>file:/G:/Uni/2021-2022/Summer/CSD201/2048/src/pkg2048/DrawingPanel.java</file>
         </group>
     </open-files>
 </project-private>
