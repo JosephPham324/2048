@@ -18,7 +18,6 @@ public class DrawingPanel extends JPanel {
 
     private int mapWidth;
     private TileMap map;
-    private Tile[][] tiles;
     private Graphics2D g;
     private boolean gameOver;
     private Position[][] previousState;
@@ -64,7 +63,6 @@ public class DrawingPanel extends JPanel {
         this.mapWidth = screenWidth;
 
         this.map = map;
-        this.tiles = map.getTiles();
         this.coordinates = new MapCoordinates(screenWidth, new Coordinate(0, 0));
     }
 
