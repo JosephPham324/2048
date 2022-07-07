@@ -40,18 +40,7 @@ public class TileMap {
     
     
 
-//    /**
-//     * Create new TileMap Dimensions: 4x4
-//     *
-//     * @param MapWidth
-//     * @throws Exception
-//     */
-//    public TileMap(int MapWidth) throws Exception {
-//        this.setMapWidth(MapWidth);
-//        this.tileWidth = MapWidth / 4;
-//        this.tiles = new Tile[4][4];
-//        this.score = 0;
-//    }
+
 
     /**
      * Get the Tiles in the map
@@ -62,19 +51,7 @@ public class TileMap {
         return tiles;
     }
 
-//    /**
-//     * Set width of Map, width is valid if it's divisible by 4
-//     *
-//     * @param MapWidth Map width to set
-//     * @throws Exception thrown when width is not valid
-//     */
-//    public void setMapWidth(int MapWidth) throws Exception {
-//        if (MapWidth % 4 == 0) {
-//            this.MapWidth = MapWidth;
-//        } else {
-//            throw new Exception("Error: Map Width must be divisible by 4!");
-//        }
-//    }
+
 
     /**
      * Check if this map is full
@@ -220,21 +197,7 @@ public class TileMap {
         System.out.println("");
     }
 
-//    /**
-//     * Get width of TileMap
-//     * @return width of this Map
-//     */
-//    public int getMapWidth() {
-//        return MapWidth;
-//    }
-//
-//    /**
-//     * Get width of individual Tile
-//     * @return tile width of this map
-//     */
-//    public int getTileWidth() {
-//        return tileWidth;
-//    }
+
 
     /**
      * Increase the score of this map
