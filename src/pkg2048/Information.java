@@ -3,13 +3,14 @@ package pkg2048;
 /**
  *
  * @author Pham Nhat Quang
+ * Store information in a game
  */
 public class Information {
 
     private int score; //Current game
     private int bestScore;
     private int totalScore; //Score in second
-    private int time; //Time in second
+    private int time; //Time in seconds
 
     //512
     private int gameReached512;
@@ -29,7 +30,31 @@ public class Information {
     private boolean reached1024;
 
     private int numOfMoves;
+    private Tile[][] gameState;
+    
 
+    public Information() {
+        this.score = 0;
+        this.time512 = 0;
+        this.time1024 = 0;
+        this.numOfMoves = 0;
+        this.time = 0;
+        this.reached512 = false;
+        this.reached1024 = false;
+        this.movesReached512 = -1;
+        this.movesReached1024 = -1;
+        this.bestScore = 0;
+        this.totalScore = 0;
+        this.gameReached512 = 0;
+        this.shortestTime512 = 0;
+        this.fewestMoves512 = 0;
+        this.gameReached1024 = 0;
+        this.shortestTime1024 = 0;
+        this.fewestMoves1024 = 0;
+    }
+
+    
+    
     /**
      *
      * @param bestScore
@@ -77,6 +102,10 @@ public class Information {
         this.score = score;
     }
 
+    /**
+     *
+     * @param amount
+     */
     public void increaseScore(int amount) {
         this.score += amount;
         
@@ -292,26 +321,50 @@ public class Information {
         this.numOfMoves = numOfMoves;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTime() {
         return time;
     }
 
+    /**
+     *
+     * @param time
+     */
     public void setTime(int time) {
         this.time = time;
     }
 
+    /**
+     *
+     * @param movesReached512
+     */
     public void setMovesReached512(int movesReached512) {
         this.movesReached512 = movesReached512;
     }
 
+    /**
+     *
+     * @param reached512
+     */
     public void setReached512(boolean reached512) {
         this.reached512 = reached512;
     }
 
+    /**
+     *
+     * @param movesReached1024
+     */
     public void setMovesReached1024(int movesReached1024) {
         this.movesReached1024 = movesReached1024;
     }
 
+    /**
+     *
+     * @param reached1024
+     */
     public void setReached1024(boolean reached1024) {
         this.reached1024 = reached1024;
     }
