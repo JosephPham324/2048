@@ -1,4 +1,4 @@
-package pkg2048;
+package DataSaving;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import pkg2048.Tile;
 
 /**
  *
@@ -279,6 +280,14 @@ public class SaveOpen {
         return null;
     }
 
+    public Information getInfo() {
+        return info;
+    }
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         SaveOpen test = new SaveOpen();
 //        test.saveInfo();
@@ -286,5 +295,6 @@ public class SaveOpen {
 //        System.out.println(test.decrypt("83lhPadq/eeZD0TlkXeNqwWS4u1RtkBgCalyAfhRcQE=", SECRET));
 //        System.out.println(test.decrypt("96Zlh4ypx14v3hQTpBJBPg==", SECRET));
         System.out.println(test.info.getFewestMoves1024());
+        test.saveInfo();
     }
 }
