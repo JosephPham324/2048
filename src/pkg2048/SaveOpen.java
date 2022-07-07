@@ -35,7 +35,10 @@ public class SaveOpen {
         this.info = new Information();
 
         try (BufferedReader br = new BufferedReader(new FileReader(saveFile))){
-            
+            String line;
+            for (int i = 0; i < 10; i++) {
+                
+            }
         } catch (IOException ioe){
             System.err.println(ioe);
         }

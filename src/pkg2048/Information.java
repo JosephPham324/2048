@@ -30,7 +30,6 @@ public class Information {
     private boolean reached1024;
 
     private int numOfMoves;
-    private Tile[][] gameState;
     
 
     public Information() {
