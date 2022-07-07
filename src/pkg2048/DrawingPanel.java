@@ -25,7 +25,6 @@ public class DrawingPanel extends JPanel {
     private Position[][] stateUndo;
     private boolean undoable;
     private MapCoordinates coordinates;
-    private Coordinate c;
 
     /**
      * Reset the game, including making the Tiles Map clear with only 1 randomly
@@ -56,11 +55,9 @@ public class DrawingPanel extends JPanel {
     /**
      * Create new DrawingPanel
      *
-     * @param screenWidth Width of the panel
      * @param map The TileMap to operate game on
      */
     public DrawingPanel(TileMap map) {
-//        this.mapWidth = screenWidth;
 
         this.map = map;
         this.coordinates = new MapCoordinates(0, new Coordinate(0, 0));

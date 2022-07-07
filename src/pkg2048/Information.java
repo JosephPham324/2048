@@ -2,36 +2,44 @@ package pkg2048;
 
 /**
  *
- * @author Pham Nhat Quang
- * Store information in a game
+ * @author Pham Nhat Quang Store information in a game
  */
 public class Information {
 
+    //Current game information
+    private Tile[][] gameState;
     private int score; //Current game
-    private int bestScore;
-    private int totalScore; //Score in second
-    private int time; //Time in seconds
 
+    private int time; //Time in seconds
+    private int numOfMoves;
+    //512
+    private int time512;
+    private int movesReached512;
+    private boolean reached512;
+    //1024
+    private int movesReached1024;
+    private int time1024;
+    private boolean reached1024;
+
+    //Record information
+    private int bestScore;
+    private int totalScore; 
+    private int topTile;
     //512
     private int gameReached512;
     private int shortestTime512;
     private int fewestMoves512;
 
-    private int time512;
-    private int movesReached512;
-    private boolean reached512;
     //1024
     private int gameReached1024;
     private int shortestTime1024;
     private int fewestMoves1024;
-    private int movesReached1024;
 
-    private int time1024;
-    private boolean reached1024;
 
-    private int numOfMoves;
-    
 
+    /**
+     *
+     */
     public Information() {
         this.score = 0;
         this.time512 = 0;
@@ -45,15 +53,14 @@ public class Information {
         this.bestScore = 0;
         this.totalScore = 0;
         this.gameReached512 = 0;
-        this.shortestTime512 = 0;
-        this.fewestMoves512 = 0;
+        this.shortestTime512 = Integer.MAX_VALUE;
+        this.fewestMoves512 = Integer.MAX_VALUE;
         this.gameReached1024 = 0;
-        this.shortestTime1024 = 0;
-        this.fewestMoves1024 = 0;
+        this.shortestTime1024 = Integer.MAX_VALUE;
+        this.fewestMoves1024 = Integer.MAX_VALUE;
+        this.gameState = new Tile[4][4];
     }
 
-    
-    
     /**
      *
      * @param bestScore
@@ -107,40 +114,39 @@ public class Information {
      */
     public void increaseScore(int amount) {
         this.score += amount;
-        
+
         //Major tiles reached: 
-        
         //512
         if (amount == 512) {
             this.gameReached512++;
             if (!this.reached512) { //First time getting 512 in a game
-                this.reached512=true;
+                this.reached512 = true;
                 this.time512 = this.time;
                 this.movesReached512 = this.numOfMoves;
-                if (this.shortestTime512 > this.time512){
+                if (this.shortestTime512 > this.time512) {
                     this.shortestTime512 = this.time512;
                 }
-                if (this.fewestMoves512 > this.movesReached512){
+                if (this.fewestMoves512 > this.movesReached512) {
                     this.fewestMoves512 = this.movesReached512;
                 }
             }
         }
-        
+
         //1024
         if (amount == 1024) {
             this.gameReached1024++;
             if (!this.reached1024) { //First time getting 1024 in a game
                 this.reached1024 = true;
                 this.time1024 = this.time;
-                if (this.shortestTime1024 > this.time1024){
+                if (this.shortestTime1024 > this.time1024) {
                     this.shortestTime1024 = this.time1024;
                 }
-                 if (this.fewestMoves1024 > this.movesReached1024){
+                if (this.fewestMoves1024 > this.movesReached1024) {
                     this.fewestMoves1024 = this.movesReached1024;
                 }
             }
         }
-        
+
         //2048
     }
 
@@ -367,6 +373,70 @@ public class Information {
     public void setReached1024(boolean reached1024) {
         this.reached1024 = reached1024;
     }
-    
+
+    /**
+     *
+     * @return
+     */
+    public int getTopTile() {
+        return topTile;
+    }
+
+    /**
+     *
+     * @param topTile
+     */
+    public void setTopTile(int topTile) {
+        this.topTile = topTile;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Tile[][] getGameState() {
+        return gameState;
+    }
+
+    /**
+     *
+     * @param gameState
+     */
+    public void setGameState(Tile[][] gameState) {
+        this.gameState = gameState;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getMovesReached512() {
+        return movesReached512;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean isReached512() {
+        return reached512;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getMovesReached1024() {
+        return movesReached1024;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean isReached1024() {
+        return reached1024;
+    }
+
     
 }
