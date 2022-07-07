@@ -31,7 +31,6 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
-//        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int) screenSize.getHeight(), (int) screenSize.getHeight());
         this.setLocationRelativeTo(null);
@@ -40,12 +39,12 @@ public class Game extends javax.swing.JFrame {
         this.setTitle("2048");
 
         try {
-            map = new TileMap(720);
+            map = new TileMap();
         } catch (Exception e) {
 
         }
         map.generateNewTile();
-        panel = new DrawingPanel(map.getMapWidth(), map);
+        panel = new DrawingPanel(map);
 
         gamePanel.setPreferredSize(new Dimension(720, 720));
         gamePanel.setLayout(new BorderLayout());

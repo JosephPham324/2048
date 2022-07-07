@@ -59,11 +59,11 @@ public class DrawingPanel extends JPanel {
      * @param screenWidth Width of the panel
      * @param map The TileMap to operate game on
      */
-    public DrawingPanel(int screenWidth, TileMap map) {
-        this.mapWidth = screenWidth;
+    public DrawingPanel(TileMap map) {
+//        this.mapWidth = screenWidth;
 
         this.map = map;
-        this.coordinates = new MapCoordinates(screenWidth, new Coordinate(0, 0));
+        this.coordinates = new MapCoordinates(0, new Coordinate(0, 0));
     }
 
     /**
