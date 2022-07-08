@@ -31,6 +31,7 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize((int) screenSize.getHeight(), (int) screenSize.getHeight());
         this.setLocationRelativeTo(null);
@@ -97,13 +98,14 @@ public class Game extends javax.swing.JFrame {
                                     break;
                                 case KeyEvent.VK_R:
                                     panel.resetGame();
+                                    setScore();
                                     setFunctionButtonsColor('R');
                                     break;
                             }
                         }
                         if (e.isAltDown()) {
                             if (keyCode == KeyEvent.VK_F4) {
-                                System.exit(0);
+                                askClose();
                             }
                         }
                     }
@@ -115,21 +117,25 @@ public class Game extends javax.swing.JFrame {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(null,
-                        "Are you sure you want to close this window?", "Close Window?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    panel.getInformation().getInfo().setGameState(panel.getGameState());
-                    panel.getInformation().getInfo().setScore(map.getScore());
-                    panel.getInformation().saveInfo();
-                    System.exit(0);
-                }
+                askClose();
             }
         });
 
         gamePanel.add(panel, BorderLayout.CENTER);
-        this.score.setText(map.getScore()+"");
+        this.score.setText(map.getScore() + "");
         this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
+    }
+
+    public void askClose() {
+        if (JOptionPane.showConfirmDialog(null,
+                "Are you sure you want to close this window?", "Close Window?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            panel.getInformation().getInfo().setGameState(panel.getGameState());
+            panel.getInformation().getInfo().setScore(map.getScore());
+            panel.getInformation().saveInfo();
+            System.exit(0);
+        }
     }
 
     private void gameOver() throws HeadlessException {
@@ -144,10 +150,10 @@ public class Game extends javax.swing.JFrame {
             }
         }
     }
-    
-    void setScore(){
+
+    void setScore() {
         score.setText(map.getScore() + "");
-        if (map.getScore() > panel.getInformation().getInfo().getBestScore()){
+        if (map.getScore() > panel.getInformation().getInfo().getBestScore()) {
             score1.setText(map.getScore() + "");
             panel.getInformation().getInfo().setBestScore(map.getScore());
         }
@@ -419,7 +425,7 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_UndoActionPerformed
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
-        this.panel.resetGame(); 
+        this.panel.resetGame();
         score.setText(map.getScore() + "");
         setFunctionButtonsColor('R');
         setMovementButtonsColor('R');
