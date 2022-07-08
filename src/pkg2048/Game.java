@@ -84,7 +84,7 @@ public class Game extends javax.swing.JFrame {
                                 setMovementButtonsColor('r');
                                 break;
                         }
-                        score.setText(map.getScore() + "");
+                        setScore();
                         e.consume();
                         gameOver();
                     } else {
@@ -111,7 +111,25 @@ public class Game extends javax.swing.JFrame {
                 return true;
             }
         });
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(null,
+                        "Are you sure you want to close this window?", "Close Window?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    panel.getInformation().getInfo().setGameState(panel.getGameState());
+                    panel.getInformation().getInfo().setScore(map.getScore());
+                    panel.getInformation().saveInfo();
+                    System.exit(0);
+                }
+            }
+        });
+
         gamePanel.add(panel, BorderLayout.CENTER);
+        this.score.setText(map.getScore()+"");
+        this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
     }
 
     private void gameOver() throws HeadlessException {
@@ -127,6 +145,13 @@ public class Game extends javax.swing.JFrame {
         }
     }
     
+    void setScore(){
+        score.setText(map.getScore() + "");
+        if (map.getScore() > panel.getInformation().getInfo().getBestScore()){
+            score1.setText(map.getScore() + "");
+            panel.getInformation().getInfo().setBestScore(map.getScore());
+        }
+    }
 
     void setMovementButtonsColor(char button) {
         UP.setBackground(button == 'u' ? moveMentButtonWhenUsed : movementButton);
@@ -165,7 +190,7 @@ public class Game extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         score1 = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
@@ -176,7 +201,7 @@ public class Game extends javax.swing.JFrame {
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGap(0, 565, Short.MAX_VALUE)
         );
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -299,6 +324,7 @@ public class Game extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(UP, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
                         .addComponent(RIGHT, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
@@ -342,10 +368,9 @@ public class Game extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(gamePanel))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(gamePanel)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
@@ -363,7 +388,7 @@ public class Game extends javax.swing.JFrame {
     private void LEFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEFTActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.LEFT);
-            score.setText(map.getScore() + "");
+            setScore();
             setMovementButtonsColor('l');
             gameOver();
         }
@@ -372,7 +397,7 @@ public class Game extends javax.swing.JFrame {
     private void RIGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RIGHTActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.RIGHT);
-            score.setText(map.getScore() + "");
+            setScore();
             setMovementButtonsColor('r');
             gameOver();
         }
@@ -381,7 +406,7 @@ public class Game extends javax.swing.JFrame {
     private void UPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.UP);
-            score.setText(map.getScore() + "");
+            setScore();
             setMovementButtonsColor('u');
             gameOver();
         }
@@ -394,7 +419,7 @@ public class Game extends javax.swing.JFrame {
     }//GEN-LAST:event_UndoActionPerformed
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
-        this.panel.resetGame();
+        this.panel.resetGame(); 
         score.setText(map.getScore() + "");
         setFunctionButtonsColor('R');
         setMovementButtonsColor('R');
@@ -403,7 +428,7 @@ public class Game extends javax.swing.JFrame {
     private void DOWNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWNActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.DOWN);
-            score.setText(map.getScore() + "");
+            setScore();
             setMovementButtonsColor('d');
             gameOver();
         }

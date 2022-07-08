@@ -37,10 +37,6 @@ public class TileMap {
         this.tiles = new Tile[4][4];
         this.score = 0;
     }
-    
-    
-
-
 
     /**
      * Get the Tiles in the map
@@ -50,8 +46,6 @@ public class TileMap {
     public Tile[][] getTiles() {
         return tiles;
     }
-
-
 
     /**
      * Check if this map is full
@@ -87,7 +81,6 @@ public class TileMap {
     /**
      * Generate a new Tile in a random position in the map
      *
-     * @return True if successful, false if not
      */
     public void generateNewTile() {
         int i;
@@ -96,8 +89,8 @@ public class TileMap {
         do {
             i = (int) (Math.random() * (3 - 0 + 1) + 0);
             j = (int) (Math.random() * (3 - 0 + 1) + 0);
-            
-        } while (isTileOccupied(new Position(i,j)));
+
+        } while (isTileOccupied(new Position(i, j)));
         tiles[i][j] = new Tile();
     }
 
@@ -197,10 +190,9 @@ public class TileMap {
         System.out.println("");
     }
 
-
-
     /**
      * Increase the score of this map
+     *
      * @param amount Amount to increase
      */
     public void increaseScore(int amount) {
@@ -210,25 +202,31 @@ public class TileMap {
     public void setScore(int score) {
         this.score = score;
     }
-    
-    
 
     /**
      * Set tiles of this map
+     *
      * @param tiles Tiles to set
      */
     public void setTiles(Tile[][] tiles) {
-        this.tiles = tiles;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (tiles[i][j] == null || tiles[i][j].getData() != 0) {
+                    this.tiles[i][j] = tiles[i][j];
+                } else if (tiles[i][j].getData() == 0) {
+                    tiles[i][j] = null;
+                }
+            }
+        }
     }
 
     /**
      * Get current score
+     *
      * @return current score
      */
     public int getScore() {
         return score;
     }
-    
-    
-    
+
 }

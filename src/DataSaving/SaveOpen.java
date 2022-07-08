@@ -15,8 +15,9 @@ import javax.crypto.spec.SecretKeySpec;
 import pkg2048.Tile;
 
 /**
- *
+ * Class for saving and retrieving information from save file
  * @author Pham Nhat Quang
+ * 
  */
 public class SaveOpen {
 

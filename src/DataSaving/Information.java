@@ -1,5 +1,6 @@
 package DataSaving;
 
+import javax.crypto.Mac;
 import pkg2048.Tile;
 
 /**
@@ -61,6 +62,7 @@ public class Information {
         this.shortestTime1024 = Integer.MAX_VALUE;
         this.fewestMoves1024 = Integer.MAX_VALUE;
         this.gameState = new Tile[4][4];
+        this.gameState[(int )(Math.random() * 3 + 0)][(int )(Math.random() * 3 + 0)] = new Tile();
     }
 
     /**
