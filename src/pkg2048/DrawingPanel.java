@@ -1,5 +1,6 @@
 package pkg2048;
 
+import DataSaving.SaveOpen;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -25,6 +26,7 @@ public class DrawingPanel extends JPanel {
     private Position[][] stateUndo;
     private boolean undoable;
     private MapCoordinates coordinates;
+    private final DataSaving.SaveOpen information;
 
     /**
      * Reset the game, including making the Tiles Map clear with only 1 randomly
@@ -58,9 +60,9 @@ public class DrawingPanel extends JPanel {
      * @param map The TileMap to operate game on
      */
     public DrawingPanel(TileMap map) {
-
         this.map = map;
         this.coordinates = new MapCoordinates(0, new Coordinate(0, 0));
+        this.information = new SaveOpen();
     }
 
     /**
