@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class DrawingPanel extends JPanel {
 
     private int mapWidth;
-    private TileMap map;
+    private final TileMap map;
     private Graphics2D g;
     private boolean gameOver;
     private Position[][] previousState;
@@ -33,14 +33,14 @@ public class DrawingPanel extends JPanel {
      * generated tile left and with score reset.
      */
     public void resetGame() {
-        try {
+//        try {
             this.map.setTiles(new Tile[4][4]);
             this.map.setScore(0);
             this.map.generateNewTile();
             repaint();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
         gameOver = false;
     }
 
@@ -63,6 +63,9 @@ public class DrawingPanel extends JPanel {
         this.map = map;
         this.coordinates = new MapCoordinates(0, new Coordinate(0, 0));
         this.information = new SaveOpen();
+        information.getSavedInfo();
+        this.map.setTiles(information.getInfo().getGameState());
+        this.map.setScore(information.getInfo().getScore());
     }
 
     /**
@@ -642,4 +645,12 @@ public class DrawingPanel extends JPanel {
         return map.isGameOver();
     }
 
+    public SaveOpen getInformation() {
+        return information;
+    }
+
+    public Tile[][]getGameState(){
+        return this.map.getTiles();
+    }
+    
 }

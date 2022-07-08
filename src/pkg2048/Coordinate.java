@@ -1,7 +1,7 @@
 package pkg2048;
 
 /**
- *
+ * Store a coordinate (in a 2-dimensional panel)
  * @author Pham Nhat Quang CE170036
  */
 public class Coordinate {
