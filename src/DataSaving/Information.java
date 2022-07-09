@@ -26,7 +26,7 @@ public class Information {
 
     //Record information
     private int bestScore;
-    private int totalScore; 
+    private int totalScore;
     private int topTile;
     //512
     private int gameReached512;
@@ -37,8 +37,6 @@ public class Information {
     private int gameReached1024;
     private int shortestTime1024;
     private int fewestMoves1024;
-
-
 
     /**
      *
@@ -62,7 +60,7 @@ public class Information {
         this.shortestTime1024 = Integer.MAX_VALUE;
         this.fewestMoves1024 = Integer.MAX_VALUE;
         this.gameState = new Tile[4][4];
-        this.gameState[(int )(Math.random() * 3 + 0)][(int )(Math.random() * 3 + 0)] = new Tile();
+        this.gameState[(int) (Math.random() * 3 + 0)][(int) (Math.random() * 3 + 0)] = new Tile();
     }
 
     /**
@@ -435,12 +433,28 @@ public class Information {
     }
 
     /**
-     *
+     * 
      * @return
      */
     public boolean isReached1024() {
         return reached1024;
     }
 
+    /**
+     *
+     * @return
+     */
+    public String getTimeDisplay() {
+        return String.format("%02d:%02d:%02d", this.time / 3600, this.time / 60, this.time % 60);
+    }
     
+    /**
+     *
+     * @param timeString
+     * @return
+     */
+    public static int convertTime(String timeString){
+        String time[] =  timeString.split(":");
+        return Integer.parseInt(time[0]) * 3600 + Integer.parseInt(time[1]) * 60 + Integer.parseInt(time[2]);
+    }
 }
