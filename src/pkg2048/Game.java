@@ -131,6 +131,9 @@ public class Game extends javax.swing.JFrame {
         this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
     }
 
+    /**
+     *
+     */
     public void askClose() {
         isDisabled = true;
         clock.pause();
@@ -150,6 +153,10 @@ public class Game extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * 
+     * @throws HeadlessException 
+     */
     private void gameOver() throws HeadlessException {
         if (panel.isGameOver()) {
             isDisabled = true;
@@ -166,14 +173,25 @@ public class Game extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * 
+     */
     void setScore() {
         score.setText(map.getScore() + "");
         if (map.getScore() > panel.getInformation().getInfo().getBestScore()) {
             score1.setText(map.getScore() + "");
             panel.getInformation().getInfo().setBestScore(map.getScore());
+            
         }
     }
+    void saveTime(){
+        panel.getInformation().getInfo().setTime(Information.convertTime(Time.getText()));
+    }
 
+    /**
+     * 
+     * @param button 
+     */
     void setMovementButtonsColor(char button) {
         UP.setBackground(button == 'u' ? moveMentButtonWhenUsed : movementButton);
         DOWN.setBackground(button == 'd' ? moveMentButtonWhenUsed : movementButton);
@@ -181,6 +199,10 @@ public class Game extends javax.swing.JFrame {
         RIGHT.setBackground(button == 'r' ? moveMentButtonWhenUsed : movementButton);
     }
 
+    /**
+     * 
+     * @param button 
+     */
     void setFunctionButtonsColor(char button) {
         Undo.setBackground(button == 'U' ? functionColorWhenUsed : functionColor);
         RESET.setBackground(button == 'R' ? functionColorWhenUsed : functionColor);
