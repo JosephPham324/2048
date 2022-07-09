@@ -528,6 +528,7 @@ public class Game extends javax.swing.JFrame {
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         this.panel.resetGame();
+        this.clock.start();
         score.setText(map.getScore() + "");
         setFunctionButtonsColor('R');
         setMovementButtonsColor('R');

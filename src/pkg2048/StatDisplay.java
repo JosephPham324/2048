@@ -3,6 +3,7 @@ package pkg2048;
 import DataSaving.Information;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JLabel;
 
 /**
  *
@@ -34,13 +35,38 @@ public class StatDisplay extends javax.swing.JFrame {
         this.bestScore.setText(this.info.getBestScore() + "");
         this.totalScore.setText(this.info.getTotalScore() + "");
         this.topTile.setText(this.info.getTopTile() + "");
-        this.gamesReached512.setText(this.info.getGameReached512() + "");
-        this.shortestTime512.setText(this.info.getShortestTime512Display()+ "");
-        this.FewestMoves512.setText(this.info.getFewestMoves512() + "");
-        this.gamesReached1024.setText(this.info.getGameReached1024() + "");
-        this.shortestTime1024.setText(this.info.getShortestTime1024Display()+ "");
-        this.fewestMoves1024.setText(this.info.getFewestMoves1024() + "");
+        //512
+//        this.gamesReached512.setText(this.info.getGameReached512() + "");
+//        this.shortestTime512.setText(this.info.getShortestTime512Display());
+//        this.FewestMoves512.setText(this.info.getFewestMoves512() + "");
+        setLabel(_512reached,gamesReached512,this.info.getGameReached512() + "");
+        setLabel(_512shortestTime,shortestTime512,this.info.getShortestTime512Display());
+        setLabel(_512fewestMoves,FewestMoves512,this.info.getFewestMoves512()+ "");
+        //1024
+//        this.gamesReached1024.setText(this.info.getGameReached1024() + "");
+//        this.shortestTime1024.setText(this.info.getShortestTime1024Display()+ "");
+//        this.fewestMoves1024.setText(this.info.getFewestMoves1024() + "");
+        setLabel(_1024reached,gamesReached1024,this.info.getGameReached1024() + "");
+        setLabel(_1024shortestTime,shortestTime1024,this.info.getShortestTime1024Display());
+        setLabel(_1024fewestMoves,fewestMoves1024,this.info.getFewestMoves1024()+ "");
+        
+        if (this.info.getGameReached1024()==0){
+            this._1024.setText("");
+        }
+        if (this.info.getGameReached512()==0){
+            this._512.setText("");
+        }
     }
+    
+    private void setLabel(JLabel title , JLabel value, String valueString){
+        if (valueString.equals("0") || valueString.equals(Integer.MAX_VALUE+"") || valueString.equals("596523:35791394:07")){
+            title.setText("");
+            value.setText("");
+        } else {
+            value.setText(valueString);
+        }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,14 +81,14 @@ public class StatDisplay extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        _512fewestMoves = new javax.swing.JLabel();
+        _512shortestTime = new javax.swing.JLabel();
+        _512 = new javax.swing.JLabel();
+        _512reached = new javax.swing.JLabel();
+        _1024fewestMoves = new javax.swing.JLabel();
+        _1024shortestTime = new javax.swing.JLabel();
+        _1024 = new javax.swing.JLabel();
+        _1024reached = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         bestScore = new javax.swing.JLabel();
         totalScore = new javax.swing.JLabel();
@@ -89,29 +115,29 @@ public class StatDisplay extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel4.setText("Top Tile");
 
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel5.setText("Fewest Moves");
+        _512fewestMoves.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _512fewestMoves.setText("Fewest Moves");
 
-        jLabel6.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel6.setText("Shortest Time");
+        _512shortestTime.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _512shortestTime.setText("Shortest Time");
 
-        jLabel7.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jLabel7.setText("512");
+        _512.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        _512.setText("512");
 
-        jLabel8.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel8.setText("Games reached");
+        _512reached.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _512reached.setText("Games reached");
 
-        jLabel9.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel9.setText("Fewest Moves");
+        _1024fewestMoves.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _1024fewestMoves.setText("Fewest Moves");
 
-        jLabel10.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel10.setText("Shortest Time");
+        _1024shortestTime.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _1024shortestTime.setText("Shortest Time");
 
-        jLabel11.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
-        jLabel11.setText("1024");
+        _1024.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        _1024.setText("1024");
 
-        jLabel12.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        jLabel12.setText("Games Reached");
+        _1024reached.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _1024reached.setText("Games Reached");
 
         jLabel13.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -119,39 +145,39 @@ public class StatDisplay extends javax.swing.JFrame {
 
         bestScore.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         bestScore.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        bestScore.setText("Best Score");
+        bestScore.setText("0");
 
         totalScore.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         totalScore.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalScore.setText("Total Score");
+        totalScore.setText("0");
 
         topTile.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         topTile.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        topTile.setText("Top Tile");
+        topTile.setText("0");
 
         gamesReached512.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         gamesReached512.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        gamesReached512.setText("Games reached");
+        gamesReached512.setText("0");
 
         shortestTime512.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         shortestTime512.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        shortestTime512.setText("Shortest Time");
+        shortestTime512.setText("0");
 
         FewestMoves512.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         FewestMoves512.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        FewestMoves512.setText("Fewest Moves");
+        FewestMoves512.setText("0");
 
         gamesReached1024.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         gamesReached1024.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        gamesReached1024.setText("Games Reached");
+        gamesReached1024.setText("0");
 
         shortestTime1024.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         shortestTime1024.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        shortestTime1024.setText("Shortest Time");
+        shortestTime1024.setText("0");
 
         fewestMoves1024.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         fewestMoves1024.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        fewestMoves1024.setText("Fewest Moves");
+        fewestMoves1024.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,15 +195,15 @@ public class StatDisplay extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                            .addComponent(_512)
+                            .addComponent(_512reached)
+                            .addComponent(_512shortestTime)
+                            .addComponent(_512fewestMoves)
+                            .addComponent(_1024)
+                            .addComponent(_1024reached)
+                            .addComponent(_1024shortestTime)
+                            .addComponent(_1024fewestMoves))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(FewestMoves512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -208,21 +234,21 @@ public class StatDisplay extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
+                        .addComponent(_512)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
+                        .addComponent(_512reached)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
+                        .addComponent(_512shortestTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
+                        .addComponent(_512fewestMoves)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel11)
+                        .addComponent(_1024)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12)
+                        .addComponent(_1024reached)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
+                        .addComponent(_1024shortestTime)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9))
+                        .addComponent(_1024fewestMoves))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bestScore)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -287,23 +313,23 @@ public class StatDisplay extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FewestMoves512;
+    private javax.swing.JLabel _1024;
+    private javax.swing.JLabel _1024fewestMoves;
+    private javax.swing.JLabel _1024reached;
+    private javax.swing.JLabel _1024shortestTime;
+    private javax.swing.JLabel _512;
+    private javax.swing.JLabel _512fewestMoves;
+    private javax.swing.JLabel _512reached;
+    private javax.swing.JLabel _512shortestTime;
     private javax.swing.JLabel bestScore;
     private javax.swing.JLabel fewestMoves1024;
     private javax.swing.JLabel gamesReached1024;
     private javax.swing.JLabel gamesReached512;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel shortestTime1024;
     private javax.swing.JLabel shortestTime512;
     private javax.swing.JLabel topTile;

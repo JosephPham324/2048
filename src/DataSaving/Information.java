@@ -473,4 +473,5 @@ public class Information {
     public String getShortestTime1024Display(){
         return String.format("%02d:%02d:%02d", this.shortestTime1024 / 3600, this.shortestTime1024 / 60, this.shortestTime1024 % 60);
     }
+    
 }
