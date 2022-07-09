@@ -22,7 +22,7 @@ public class StatDisplay extends javax.swing.JFrame {
         initComponents();
 
         this.info = info;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();        //Get size of screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//Get size of screen
 
         //Set size of JFRAME as a square proportional to screen height
         this.setSize((int) screenSize.getHeight(), (int) screenSize.getHeight());
@@ -39,34 +39,35 @@ public class StatDisplay extends javax.swing.JFrame {
 //        this.gamesReached512.setText(this.info.getGameReached512() + "");
 //        this.shortestTime512.setText(this.info.getShortestTime512Display());
 //        this.FewestMoves512.setText(this.info.getFewestMoves512() + "");
-        setLabel(_512reached,gamesReached512,this.info.getGameReached512() + "");
-        setLabel(_512shortestTime,shortestTime512,this.info.getShortestTime512Display());
-        setLabel(_512fewestMoves,FewestMoves512,this.info.getFewestMoves512()+ "");
+        setLabel(_512reached, gamesReached512, this.info.getGameReached512() + "");
+        setLabel(_512shortestTime, shortestTime512, this.info.getShortestTime512Display());
+        setLabel(_512fewestMoves, FewestMoves512, this.info.getFewestMoves512() + "");
         //1024
 //        this.gamesReached1024.setText(this.info.getGameReached1024() + "");
 //        this.shortestTime1024.setText(this.info.getShortestTime1024Display()+ "");
 //        this.fewestMoves1024.setText(this.info.getFewestMoves1024() + "");
-        setLabel(_1024reached,gamesReached1024,this.info.getGameReached1024() + "");
-        setLabel(_1024shortestTime,shortestTime1024,this.info.getShortestTime1024Display());
-        setLabel(_1024fewestMoves,fewestMoves1024,this.info.getFewestMoves1024()+ "");
-        
-        if (this.info.getGameReached1024()==0){
+        setLabel(_1024reached, gamesReached1024, this.info.getGameReached1024() + "");
+        setLabel(_1024shortestTime, shortestTime1024, this.info.getShortestTime1024Display());
+        setLabel(_1024fewestMoves, fewestMoves1024, this.info.getFewestMoves1024() + "");
+
+        if (this.info.getGameReached1024() == 0) {
             this._1024.setText("");
         }
-        if (this.info.getGameReached512()==0){
+        if (this.info.getGameReached512() == 0) {
             this._512.setText("");
         }
     }
-    
-    private void setLabel(JLabel title , JLabel value, String valueString){
-        if (valueString.equals("0") || valueString.equals(Integer.MAX_VALUE+"") || valueString.equals("596523:35791394:07")){
+
+    private void setLabel(JLabel title, JLabel value, String valueString) {
+        if (valueString.equals("0")
+                || valueString.equals(Integer.MAX_VALUE + "")
+                || valueString.equals("596523:35791394:07")) {
             title.setText("");
             value.setText("");
         } else {
             value.setText(valueString);
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
