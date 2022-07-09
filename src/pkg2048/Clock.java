@@ -19,6 +19,10 @@ public class Clock {
     private Calendar calendar;
     java.util.Timer timer;
 
+    /**
+     *
+     * @param time
+     */
     public Clock(JLabel time) {
         String times[] = time.getText().split(":");
         this.currentHour = Integer.parseInt(times[0]);
@@ -28,6 +32,10 @@ public class Clock {
 
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         Clock clock = new Clock(new JLabel());
@@ -39,12 +47,18 @@ public class Clock {
         clock.start();
     }
 
+    /**
+     *
+     */
     public void reset() {
         currentSecond = 0;
         currentMinute = 0;
         currentHour = 0;
     }
 
+    /**
+     *
+     */
     public void start() {
         reset();
         timer = new java.util.Timer();
@@ -66,6 +80,9 @@ public class Clock {
         }, 0, 1000);
     }
 
+    /**
+     *
+     */
     public void pause() {
         try {
             timer.cancel();
@@ -74,6 +91,9 @@ public class Clock {
         }
     }
 
+    /**
+     *
+     */
     public void resume() {
         timer = new java.util.Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -94,10 +114,18 @@ public class Clock {
         }, 0, 1000);
     }
 
+    /**
+     *
+     * @return
+     */
     public int getTime() {
         return this.currentHour * 3600 + this.currentMinute * 60 + this.currentSecond;
     }
 
+    /**
+     *
+     * @return
+     */
     public JLabel getLabel() {
         return this.time;
     }
