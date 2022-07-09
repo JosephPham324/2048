@@ -187,6 +187,7 @@ public class DrawingPanel extends JPanel {
         mapPositions[oldPosition.getRowNumber()][oldPosition.getColumnNumber()] = newPosition;
         
         if (updateScore) {//If it's a score update movement (merge two tiles)
+            this.information.getInfo().increaseScore(newPosition.getData());
             this.map.increaseScore(newPosition.getData());//Increase the score
             mapPositions[newPosition.getRowNumber()][newPosition.getColumnNumber()] = null;//Delete the information stored in new position's position
         }

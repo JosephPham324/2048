@@ -295,7 +295,8 @@ public class SaveOpen {
 //            test.getSavedInfo();
 //        System.out.println(test.decrypt("83lhPadq/eeZD0TlkXeNqwWS4u1RtkBgCalyAfhRcQE=", SECRET));
 //        System.out.println(test.decrypt("96Zlh4ypx14v3hQTpBJBPg==", SECRET));
-        System.out.println(test.info.getFewestMoves1024());
-        test.saveInfo();
+//        System.out.println(test.info.getFewestMoves1024());
+//        test.saveInfo();
+          System.out.println(Information.convertTime(("01:02:60")));
     }
 }

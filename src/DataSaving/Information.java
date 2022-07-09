@@ -116,7 +116,7 @@ public class Information {
      */
     public void increaseScore(int amount) {
         this.score += amount;
-
+        this.totalScore+=amount;
         //Major tiles reached: 
         //512
         if (amount == 512) {
@@ -456,5 +456,21 @@ public class Information {
     public static int convertTime(String timeString){
         String time[] =  timeString.split(":");
         return Integer.parseInt(time[0]) * 3600 + Integer.parseInt(time[1]) * 60 + Integer.parseInt(time[2]);
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public String getShortestTime512Display(){
+        return String.format("%02d:%02d:%02d", this.shortestTime512 / 3600, this.shortestTime512 / 60, this.shortestTime512 % 60);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getShortestTime1024Display(){
+        return String.format("%02d:%02d:%02d", this.shortestTime1024 / 3600, this.shortestTime1024 / 60, this.shortestTime1024 % 60);
     }
 }

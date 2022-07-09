@@ -27,6 +27,7 @@ public class Game extends javax.swing.JFrame {
     Color functionColor = Color.decode("#f1691d");
     Color functionColorWhenUsed = Color.decode("#ff321d");
     Clock clock;
+    StatDisplay infoDisplay;
 
     /**
      * Creates new form Game
@@ -38,7 +39,7 @@ public class Game extends javax.swing.JFrame {
         //Set size of JFRAME as a square proportional to screen height
         this.setSize((int) screenSize.getHeight(), (int) screenSize.getHeight());
         this.setLocationRelativeTo(null);
-        
+
         this.setResizable(false);//Don't allow user to resize window
 
         this.setTitle("2048");//Set title to 2048
@@ -89,6 +90,7 @@ public class Game extends javax.swing.JFrame {
                                 setMovementButtonsColor('r');
                                 break;
                         }
+                        saveTime();
                         setScore();
                         e.consume();
                         gameOver();
@@ -135,8 +137,7 @@ public class Game extends javax.swing.JFrame {
      *
      */
     public void askClose() {
-        isDisabled = true;
-        clock.pause();
+        pauseGame();
         if (JOptionPane.showConfirmDialog(null,
                 "Are you sure you want to close this window?", "Close Window?",
                 JOptionPane.YES_NO_OPTION,
@@ -148,49 +149,56 @@ public class Game extends javax.swing.JFrame {
 
             System.exit(0);
         } else {
-            isDisabled = false;
-            clock.resume();
+            resumeGame();
         }
+    }
+
+    public void pauseGame() {
+        isDisabled = true;
+        clock.pause();
+    }
+
+    public void resumeGame() {
+        isDisabled = false;
+        clock.resume();
     }
 
     /**
      * 
-     * @throws HeadlessException 
+     * @throws HeadlessException
      */
     private void gameOver() throws HeadlessException {
         if (panel.isGameOver()) {
-            isDisabled = true;
-            clock.pause();
+            pauseGame();
             if (JOptionPane.showConfirmDialog(null, "Game Over!\nOK to reset; Cancel to undo", "Game Over", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 isDisabled = false;
                 panel.resetGame();
                 clock.start();
             } else {
                 panel.Undo();
-                isDisabled = false;
-                clock.resume();
+                resumeGame();
             }
         }
     }
 
     /**
-     * 
+     *
      */
     void setScore() {
         score.setText(map.getScore() + "");
         if (map.getScore() > panel.getInformation().getInfo().getBestScore()) {
             score1.setText(map.getScore() + "");
             panel.getInformation().getInfo().setBestScore(map.getScore());
-            
         }
     }
-    void saveTime(){
+
+    void saveTime() {
         panel.getInformation().getInfo().setTime(Information.convertTime(Time.getText()));
     }
 
     /**
-     * 
-     * @param button 
+     *
+     * @param button
      */
     void setMovementButtonsColor(char button) {
         UP.setBackground(button == 'u' ? moveMentButtonWhenUsed : movementButton);
@@ -200,8 +208,8 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     * 
-     * @param button 
+     *
+     * @param button
      */
     void setFunctionButtonsColor(char button) {
         Undo.setBackground(button == 'U' ? functionColorWhenUsed : functionColor);
@@ -225,7 +233,7 @@ public class Game extends javax.swing.JFrame {
         UP = new javax.swing.JButton();
         RIGHT = new javax.swing.JButton();
         DOWN = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        info = new javax.swing.JButton();
         LEFT = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -282,15 +290,15 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 206, 75));
-        jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("2048");
-        jButton1.setToolTipText("");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        info.setBackground(new java.awt.Color(255, 206, 75));
+        info.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
+        info.setForeground(new java.awt.Color(255, 255, 255));
+        info.setText("2048");
+        info.setToolTipText("");
+        info.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        info.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                infoActionPerformed(evt);
             }
         });
 
@@ -429,7 +437,7 @@ public class Game extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clockPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -453,7 +461,7 @@ public class Game extends javax.swing.JFrame {
                                         .addGap(3, 3, 3)))
                                 .addComponent(DOWN, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clockPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -485,6 +493,7 @@ public class Game extends javax.swing.JFrame {
     private void LEFTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LEFTActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.LEFT);
+            saveTime();
             setScore();
             setMovementButtonsColor('l');
             gameOver();
@@ -494,6 +503,7 @@ public class Game extends javax.swing.JFrame {
     private void RIGHTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RIGHTActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.RIGHT);
+            saveTime();
             setScore();
             setMovementButtonsColor('r');
             gameOver();
@@ -503,6 +513,7 @@ public class Game extends javax.swing.JFrame {
     private void UPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.UP);
+            saveTime();
             setScore();
             setMovementButtonsColor('u');
             gameOver();
@@ -525,6 +536,7 @@ public class Game extends javax.swing.JFrame {
     private void DOWNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DOWNActionPerformed
         if (!isDisabled) {
             panel.processMovement(TileMap.Movement.DOWN);
+            saveTime();
             setScore();
             setMovementButtonsColor('d');
             gameOver();
@@ -535,9 +547,10 @@ public class Game extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_scoreActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoActionPerformed
+
+        new pkg2048.StatDisplay(panel.getInformation().getInfo()).setVisible(true);
+    }//GEN-LAST:event_infoActionPerformed
 
     private void score1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_score1ActionPerformed
         // TODO add your handling code here:
@@ -588,7 +601,7 @@ public class Game extends javax.swing.JFrame {
     private javax.swing.JButton Undo;
     private javax.swing.JPanel clockPanel;
     private javax.swing.JLayeredPane gamePanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton info;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
