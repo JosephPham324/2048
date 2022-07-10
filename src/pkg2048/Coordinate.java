@@ -5,13 +5,13 @@ package pkg2048;
  * @author Pham Nhat Quang CE170036
  */
 public class Coordinate {
-    private int x;
-    private int y;
+    private int x; //x coordinate
+    private int y; //y coordinate
 
     /**
-     *
-     * @param x
-     * @param y
+     * Create new Coordinate
+     * @param x X coordinate
+     * @param y Y coordinate
      */
     public Coordinate(int x, int y) {
         this.x = x;
@@ -19,32 +19,32 @@ public class Coordinate {
     }
 
     /**
-     *
-     * @param x
+     * Set x coordinate
+     * @param x value to set
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     *
-     * @param y
+     * Set y coordinate
+     * @param y value to set
      */
     public void setY(int y) {
         this.y = y;
     }
 
     /**
-     *
-     * @return
+     * Get x coordinate
+     * @return value of x coordinate
      */
     public int getX() {
         return x;
     }
 
     /**
-     *
-     * @return
+     * Get y coordinate
+     * @return value of y coordinate
      */
     public int getY() {
         return y;

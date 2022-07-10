@@ -9,6 +9,7 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -128,6 +129,20 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
+        this.addWindowFocusListener(new java.awt.event.WindowAdapter() {
+
+            //To check window gained focus
+            public void windowGainedFocus(WindowEvent e) {
+                resumeGame();
+            }
+
+            //To check window lost focus
+            public void windowLostFocus(WindowEvent e) {
+                
+                pauseGame();
+            }
+        });
+
         gamePanel.add(panel, BorderLayout.CENTER);
         this.score.setText(map.getScore() + "");
         this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
@@ -164,7 +179,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     * 
+     *
      * @throws HeadlessException
      */
     private void gameOver() throws HeadlessException {
@@ -528,7 +543,7 @@ public class Game extends javax.swing.JFrame {
 
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         this.panel.resetGame();
-        this.clock.start();
+        this.clock.reset();
         score.setText(map.getScore() + "");
         setFunctionButtonsColor('R');
         setMovementButtonsColor('R');

@@ -22,9 +22,9 @@ import pkg2048.Tile;
 public class SaveOpen {
 
     private Information info;
-    private final String savePath = "2048.sav";
-    private final File saveFile;
-    private SecretKeySpec secretKey;
+    private final String savePath = "2048.sav";//Save file path
+    private final File saveFile; //Save file
+    private SecretKeySpec secretKey; //Secret
     private byte[] key;
     private static final String SECRET = "2048GameGroup3CSD201";
 
@@ -227,10 +227,10 @@ public class SaveOpen {
     }
 
     /**
-     *
-     * @param myKey
+     * Generate secret key based on key String
+     * @param myKey key String
      */
-    public void setKey(final String myKey) {
+    private void setKey(final String myKey) {
         MessageDigest sha = null;
         try {
             key = myKey.getBytes("UTF-8");
@@ -244,12 +244,12 @@ public class SaveOpen {
     }
 
     /**
-     *
-     * @param strToEncrypt
-     * @param secret
-     * @return
+     * Encrypt a String using a secret String to generate the key
+     * @param strToEncrypt String to be encrypted
+     * @param secret Secret used for generating key
+     * @return Encrypted String
      */
-    public String encrypt(final String strToEncrypt, final String secret) {
+    private String encrypt(final String strToEncrypt, final String secret) {
         try {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -263,12 +263,12 @@ public class SaveOpen {
     }
 
     /**
-     *
-     * @param strToDecrypt
-     * @param secret
-     * @return
+     * Decrypt a String using a secret String to generate the key
+     * @param strToDecrypt String to be decrypted
+     * @param secret Secret used for generating key
+     * @return Decrypted String
      */
-    public String decrypt(final String strToDecrypt, final String secret) {
+    private String decrypt(final String strToDecrypt, final String secret) {
         try {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
@@ -281,6 +281,10 @@ public class SaveOpen {
         return null;
     }
 
+    /**
+     * Get info field containing information for 2048 game
+     * @return info
+     */
     public Information getInfo() {
         return info;
     }
