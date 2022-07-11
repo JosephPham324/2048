@@ -1,14 +1,21 @@
 package pkg2048;
 
 /**
- * Class to store position of a tile in 
+ * Class to store position of a tile in
+ *
  * @author Pham Nhat Quang
  */
 public class Position {
+
     private int rowNumber;
-    private int getCollumnNumber;
+    private int columnNumber;
     private int data;
     private boolean updatedData;
+    public static final int SAME = 0;
+    public static final int LEFT = 1;
+    public static final int RIGHT = 2;
+    public static final int UP = 3;
+    public static final int DOWN = 4;
 
     /**
      *
@@ -17,7 +24,7 @@ public class Position {
      */
     public Position(int rowNumber, int columnNumber) {
         this.rowNumber = rowNumber;
-        this.getCollumnNumber = columnNumber;
+        this.columnNumber = columnNumber;
     }
 
     /**
@@ -29,21 +36,21 @@ public class Position {
      */
     public Position(int rowNumber, int columnNumber, int data, boolean updated) {
         this.rowNumber = rowNumber;
-        this.getCollumnNumber = columnNumber;
+        this.columnNumber = columnNumber;
         this.data = data;
         this.updatedData = updated;
     }
 
     @Override
     public String toString() {
-        return "Position{" + "i=" + rowNumber + ", j=" + getCollumnNumber + ", data=" + data + ", updated=" + updatedData + '}';
+        return "Position{" + "i=" + rowNumber + ", j=" + columnNumber + ", data=" + data + ", updated=" + updatedData + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 19 * hash + this.rowNumber;
-        hash = 19 * hash + this.getCollumnNumber;
+        hash = 19 * hash + this.columnNumber;
         hash = 19 * hash + this.data;
         hash = 19 * hash + (this.updatedData ? 1 : 0);
         return hash;
@@ -64,7 +71,7 @@ public class Position {
         if (this.rowNumber != other.rowNumber) {
             return false;
         }
-        if (this.getCollumnNumber != other.getCollumnNumber) {
+        if (this.columnNumber != other.columnNumber) {
             return false;
         }
         if (this.data != other.data) {
@@ -81,7 +88,7 @@ public class Position {
     }
 
     public int getColumnNumber() {
-        return getCollumnNumber;
+        return columnNumber;
     }
 
     public int getData() {
@@ -92,6 +99,25 @@ public class Position {
         return updatedData;
     }
 
-
     
+    public static int comparePosition(Position before, Position after) {
+        if (before.getColumnNumber() == after.getColumnNumber()){
+            if (before.getRowNumber()<after.getRowNumber()){
+                return DOWN;
+            } else if  (before.getRowNumber()>after.getRowNumber()){
+                return UP;
+            } else {
+                return SAME;
+            }
+        }
+        if (before.getRowNumber() == after.getRowNumber()){
+            if (before.getColumnNumber()<after.getColumnNumber()){
+                return RIGHT;
+            } else if  (before.getColumnNumber()>after.getColumnNumber()){
+                return LEFT;
+            }
+        }
+        return SAME;
+    }
+
 }
