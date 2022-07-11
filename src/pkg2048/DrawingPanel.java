@@ -42,6 +42,7 @@ public class DrawingPanel extends JPanel {
         this.map.setTiles(new Tile[4][4]);
         this.map.setScore(0);
         this.map.generateNewTile();
+        this.information.getInfo().setNumOfMoves(0);
         repaint();
         gameOver = false;
     }
@@ -440,6 +441,7 @@ public class DrawingPanel extends JPanel {
             undoable = true; //Can undo
             stateUndo = previousState; //Set state to undo
             map.generateNewTile(); //Generate new tile
+            this.information.getInfo().incrementNoOfMoves();
         }
         gameOver = isGameOver(); //Check if game is over
 

@@ -115,6 +115,9 @@ public class Information {
      * @param amount
      */
     public void increaseScore(int amount) {
+        if (amount>topTile){
+            topTile = amount;
+        }
         this.score += amount;
         this.totalScore+=amount;
         //Major tiles reached: 
@@ -474,4 +477,7 @@ public class Information {
         return String.format("%02d:%02d:%02d", this.shortestTime1024 / 3600, this.shortestTime1024 / 60, this.shortestTime1024 % 60);
     }
     
+    public void incrementNoOfMoves(){
+        this.numOfMoves++;
+    }
 }
