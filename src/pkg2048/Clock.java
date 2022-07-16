@@ -132,5 +132,6 @@ public class Clock {
     public JLabel getLabel() {
         return this.time;
     }
+    
 
 }
