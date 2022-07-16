@@ -143,6 +143,7 @@ public class Information {
             if (!this.reached1024) { //First time getting 1024 in a game
                 this.reached1024 = true;
                 this.time1024 = this.time;
+                this.movesReached1024 = this.numOfMoves;
                 if (this.shortestTime1024 > this.time1024) {
                     this.shortestTime1024 = this.time1024;
                 }
@@ -466,7 +467,7 @@ public class Information {
      * @return
      */
     public String getShortestTime512Display(){
-        return String.format("%02d:%02d:%02d", this.shortestTime512 / 3600, this.shortestTime512 / 60, this.shortestTime512 % 60);
+        return String.format("%02d:%02d:%02d", this.shortestTime512 / 3600, (this.shortestTime512 / 60) % 60, this.shortestTime512 % 60);
     }
 
     /**
@@ -474,7 +475,7 @@ public class Information {
      * @return
      */
     public String getShortestTime1024Display(){
-        return String.format("%02d:%02d:%02d", this.shortestTime1024 / 3600, this.shortestTime1024 / 60, this.shortestTime1024 % 60);
+        return String.format("%02d:%02d:%02d", this.shortestTime1024 / 3600, (this.shortestTime512 / 60) % 60, this.shortestTime1024 % 60);
     }
     
     public void incrementNoOfMoves(){

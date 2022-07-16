@@ -49,7 +49,7 @@ public class StatDisplay extends javax.swing.JFrame {
         setLabel(_1024reached, gamesReached1024, this.info.getGameReached1024() + "");
         setLabel(_1024shortestTime, shortestTime1024, this.info.getShortestTime1024Display());
         setLabel(_1024fewestMoves, fewestMoves1024, this.info.getFewestMoves1024() + "");
-
+        System.out.println(this.info.getFewestMoves1024());
         if (this.info.getGameReached1024() == 0) {
             this._1024.setText("");
         }
