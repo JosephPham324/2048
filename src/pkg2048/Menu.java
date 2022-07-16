@@ -97,6 +97,7 @@ public class Menu extends javax.swing.JFrame {
 
         PlayPanel.setBackground(new java.awt.Color(0, 0, 0));
         PlayPanel.setBorder(new javax.swing.border.MatteBorder(null));
+        PlayPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PlayPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PlayPanelMouseClicked(evt);
@@ -131,6 +132,7 @@ public class Menu extends javax.swing.JFrame {
 
         HTP_Panel.setBackground(new java.awt.Color(0, 0, 0));
         HTP_Panel.setBorder(new javax.swing.border.MatteBorder(null));
+        HTP_Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         HTP_Panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 HTP_PanelMouseClicked(evt);
@@ -165,6 +167,7 @@ public class Menu extends javax.swing.JFrame {
 
         AboutUs_Panel.setBackground(new java.awt.Color(0, 0, 0));
         AboutUs_Panel.setBorder(new javax.swing.border.MatteBorder(null));
+        AboutUs_Panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         AboutUs_Panel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AboutUs_PanelMouseClicked(evt);
@@ -199,6 +202,7 @@ public class Menu extends javax.swing.JFrame {
 
         QuitPanel.setBackground(new java.awt.Color(0, 0, 0));
         QuitPanel.setBorder(new javax.swing.border.MatteBorder(null));
+        QuitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         QuitPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 QuitPanelMouseClicked(evt);
@@ -229,8 +233,6 @@ public class Menu extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 48)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Home");
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout MainMenuLayout = new javax.swing.GroupLayout(MainMenu);
         MainMenu.setLayout(MainMenuLayout);
