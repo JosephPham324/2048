@@ -35,6 +35,8 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
+        
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();        //Get size of screen
         //Set size of JFRAME as a square proportional to screen height
@@ -161,8 +163,6 @@ public class Game extends javax.swing.JFrame {
             panel.getInformation().getInfo().setScore(map.getScore());
             panel.getInformation().getInfo().setTime(Information.convertTime(this.Time.getText()));
             panel.getInformation().saveInfo();
-
-            System.exit(0);
         } else {
             resumeGame();
         }
@@ -602,7 +602,7 @@ public class Game extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game().setVisible(true);
+                new Menu().setVisible(true);
             }
         });
     }
