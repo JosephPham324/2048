@@ -280,6 +280,10 @@ public class SaveOpen {
         return info;
     }
 
+    public void setInfo(Information info) {
+        this.info = info;
+    }
+
     /**
      *
      * @param info
