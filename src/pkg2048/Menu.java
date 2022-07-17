@@ -431,7 +431,6 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_HTPMouseClicked
 
     private void PlayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayPanelMouseClicked
-        
         /* Create and display the form */
         PlayPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         Play.setForeground(Color.black);

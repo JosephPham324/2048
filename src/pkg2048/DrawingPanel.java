@@ -607,7 +607,7 @@ public class DrawingPanel extends JPanel {
      *
      */
     public void drawMapBorder() {
-        this.setBackground(Color.white);
+//        this.setBackground(Color.white);
         g.setColor(Color.decode("#CCC0B3"));
         g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3, 3, 3);
         g.setColor(Color.blue);
@@ -724,10 +724,18 @@ public class DrawingPanel extends JPanel {
         return map.isGameOver();
     }
 
+    /**
+     *
+     * @return
+     */
     public SaveOpen getInformation() {
         return information;
     }
 
+    /**
+     *
+     * @return
+     */
     public Tile[][] getGameState() {
         return this.map.getTiles();
     }

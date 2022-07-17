@@ -205,6 +205,9 @@ public class Game extends javax.swing.JFrame {
      */
     void setScore() {
         score.setText(map.getScore() + "");
+        if (map.getScore()>5000){
+            panel.setBackground(Color.RED);
+        }
         if (map.getScore() > panel.getInformation().getInfo().getBestScore()) {
             score1.setText(map.getScore() + "");
             panel.getInformation().getInfo().setBestScore(map.getScore());
