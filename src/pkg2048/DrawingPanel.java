@@ -6,10 +6,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -24,7 +27,7 @@ public class DrawingPanel extends JPanel {
     private boolean gameOver;
     private Position[][] previousState;
     private Position[][] currentState;
-    
+
     private int pointsUndo;
     private Information infoUndo;
     private Position[][] stateUndo;
@@ -37,6 +40,7 @@ public class DrawingPanel extends JPanel {
     private int tileWidth;
     private int xOld, yOld;
     private int xNew, yNew;
+    Image background;
 
     /**
      * Reset the game, including making the Tiles Map clear with only 1 randomly
@@ -47,6 +51,7 @@ public class DrawingPanel extends JPanel {
         this.map.setScore(0);
         this.map.generateNewTile();
         this.information.getInfo().setNumOfMoves(0);
+        this.information.getInfo().resetMilestonesReached();
         repaint();
         gameOver = false;
     }
@@ -201,12 +206,13 @@ public class DrawingPanel extends JPanel {
         //Update tiles according to updated map position
         updateTiles(mapPositions);
 
-            //Repaint the game
-            repaint();
+        //Repaint the game
+        repaint();
     }
 
     /**
      * individual movement of tile (left)
+     *
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -239,6 +245,7 @@ public class DrawingPanel extends JPanel {
 
     /**
      * individual movement of tile (right)
+     *
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -272,6 +279,7 @@ public class DrawingPanel extends JPanel {
 
     /**
      * individual movement of tile (up)
+     *
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -303,6 +311,7 @@ public class DrawingPanel extends JPanel {
 
     /**
      * individual movement of tile (down)
+     *
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -369,6 +378,7 @@ public class DrawingPanel extends JPanel {
 
     /**
      * process of tile movement
+     *
      * @param movement
      */
     public void processMovement(TileMap.Movement movement) {
@@ -512,11 +522,23 @@ public class DrawingPanel extends JPanel {
         g.drawString(s, r.x + a, r.y + b);
     }
 
+
     @Override
     public void paint(Graphics graphics) {
 
         super.paint(graphics);
         g = (Graphics2D) graphics;
+        background = null;
+        int starting = 512;
+        int power = 0;
+        do {
+            if (this.information.getInfo().getMilestonesReached().contains(starting * (int) Math.pow((double) 2, (double) power))){
+                  this.setBackground(Color.red);
+            } else {
+                break;
+            }
+            power++;
+        } while (true);
         //Get current map width
         this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(), this.getWidth()) * 5 / 6);
         tileWidth = mapWidth / 4;
@@ -538,7 +560,6 @@ public class DrawingPanel extends JPanel {
      * Draw the empty background tiles (all 16 tiles)
      */
     public void drawBackgroundTiles() {
-
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 //Get current tile coordinate
@@ -560,7 +581,6 @@ public class DrawingPanel extends JPanel {
      *
      */
     public void drawMapBorder() {
-        this.setBackground(Color.white);
         g.setColor(Color.decode("#CCC0B3"));
         g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3, 3, 3);
         g.setColor(Color.blue);
@@ -575,19 +595,19 @@ public class DrawingPanel extends JPanel {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
 
-                        //Get current tile coordinate
-                        Coordinate current = this.coordinates.getTileCoordinates()[i][j];
-                        int x = current.getX();
-                        int y = current.getY();
+                    //Get current tile coordinate
+                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
+                    int x = current.getX();
+                    int y = current.getY();
 
-                        //Fill the inside square
-                        g.setColor(map.getTiles()[i][j].getColor());
-                        g.fillRoundRect(x, y, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
-                        //Draw the outline
-                        g.setColor(Color.white);
-                        g.drawRoundRect(x, y, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
-                        //Draw the content (square value)
-                        centerString(g, new Rectangle(x, y, tileWidth, tileWidth), map.getTiles()[i][j].getData() + "", new Font("Sefif", Font.BOLD, 60));;
+                    //Fill the inside square
+                    g.setColor(map.getTiles()[i][j].getColor());
+                    g.fillRoundRect(x, y, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
+                    //Draw the outline
+                    g.setColor(Color.white);
+                    g.drawRoundRect(x, y, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
+                    //Draw the content (square value)
+                    centerString(g, new Rectangle(x, y, tileWidth, tileWidth), map.getTiles()[i][j].getData() + "", new Font("Sefif", Font.BOLD, 60));;
                 }
             }
         }
@@ -607,16 +627,15 @@ public class DrawingPanel extends JPanel {
      *
      * @return information
      */
-    
     public SaveOpen getInformation() {
         return information;
     }
 
     /**
      * get game state
+     *
      * @return tile
      */
-    
     public Tile[][] getGameState() {
         return this.map.getTiles();
     }

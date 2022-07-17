@@ -151,7 +151,6 @@ public class Game extends javax.swing.JFrame {
             }
         });
         gamePanel.add(panel, BorderLayout.CENTER);
-                panel.resetGame();
         this.score.setText(map.getScore() + "");
         this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
     }

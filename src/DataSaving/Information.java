@@ -309,4 +309,8 @@ public class Information {
     public Information createCopy() {
         return new Information(gameState, score, time, numOfMoves, milestonesReached, bestScore, totalScore, topTile, milestones);
     }
+    
+    public void resetMilestonesReached(){
+        this.milestonesReached = new HashSet<>();
+    }
 }
