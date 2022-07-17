@@ -57,10 +57,10 @@ public class StatDisplay extends javax.swing.JFrame {
 
 //        System.out.println(this.info.getFewestMoves1024());
         if (this.info.getMilestones(2048).getGamesReached() == 0) {
-            this._2048.setText("");
+            this._1024.setText("");
         }
         if (this.info.getMilestones(1024).getGamesReached() == 0) {
-            this._1024.setText("");
+            this._2048.setText("");
         }
         if (this.info.getMilestones(512).getGamesReached() == 0) {
             this._512.setText("");
