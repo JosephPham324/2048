@@ -286,14 +286,6 @@ public class SaveOpen {
 
     /**
      *
-     * @param info
-     */
-    public void setInfo(Information info) {
-        this.info = info;
-    }
-
-    /**
-     *
      * @param args
      */
     public static void main(String[] args) {

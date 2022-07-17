@@ -29,6 +29,8 @@ public class Game extends javax.swing.JFrame {
     Color functionColorWhenUsed = Color.decode("#ff321d");
     Clock clock;
     StatDisplay infoDisplay;
+    
+    
 
     /**
      * Creates new form Game
@@ -39,10 +41,13 @@ public class Game extends javax.swing.JFrame {
         this.requestFocus();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//Get size of screen
+
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();        //Get size of screen
         //Set size of JFRAME as a square proportional to screen height
         this.setSize((int) screenSize.getHeight(), (int) screenSize.getHeight());
         this.setLocationRelativeTo(null);
+
         this.setResizable(false);//Don't allow user to resize window
 
         this.setTitle("2048");//Set title to 2048
@@ -146,12 +151,13 @@ public class Game extends javax.swing.JFrame {
             }
         });
         gamePanel.add(panel, BorderLayout.CENTER);
+                panel.resetGame();
         this.score.setText(map.getScore() + "");
         this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
     }
 
     /**
-     *
+     * Ask the user if they want to close the game
      */
     public void askClose() {
         pauseGame();
@@ -170,18 +176,24 @@ public class Game extends javax.swing.JFrame {
         }
     }
 
+     /**
+     * pause the game and stop the clock
+     */
     public void pauseGame() {
         isDisabled = true;
         clock.pause();
     }
 
+    /**
+     * pause the game and the clock
+     */
     public void resumeGame() {
         isDisabled = false;
         clock.resume();
     }
 
     /**
-     *
+     * Show game over notification
      * @throws HeadlessException
      */
     private void gameOver() throws HeadlessException {
@@ -200,26 +212,27 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     *
+     * set score for game
      */
     void setScore() {
         score.setText(map.getScore() + "");
-        if (map.getScore()>5000){
-            panel.setBackground(Color.RED);
-        }
         if (map.getScore() > panel.getInformation().getInfo().getBestScore()) {
             score1.setText(map.getScore() + "");
             panel.getInformation().getInfo().setBestScore(map.getScore());
         }
     }
 
+    /**
+     * save time record
+     */
+    
     void saveTime() {
         panel.getInformation().getInfo().setTime(Information.convertTime(Time.getText()));
     }
 
     /**
-     *
-     * @param button
+     * set color for movement button
+     * @param button (pressed by user)
      */
     void setMovementButtonsColor(char button) {
         UP.setBackground(button == 'u' ? moveMentButtonWhenUsed : movementButton);
@@ -229,7 +242,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     *
+     * set color for function button
      * @param button
      */
     void setFunctionButtonsColor(char button) {
@@ -607,11 +620,14 @@ public class Game extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
+                
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
