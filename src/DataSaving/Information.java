@@ -80,14 +80,9 @@ public class Information {
      */
     public Information() {
         this.score = 0;
-//        this.time512 = 0;
-//        this.time1024 = 0;
         this.numOfMoves = 0;
         this.time = 0;
-//        this.reached512 = false;
-//        this.reached1024 = false;
-//        this.movesReached512 = -1;
-//        this.movesReached1024 = -1;
+
         this.bestScore = 0;
         this.totalScore = 0;
 
@@ -97,12 +92,6 @@ public class Information {
         this.milestones.put(2048, new MilestoneTile());
         this.milestonesReached = new HashSet();
 
-//        this.gameReached512 = 0;
-//        this.shortestTime512 = Integer.MAX_VALUE;
-//        this.fewestMoves512 = Integer.MAX_VALUE;
-//        this.gameReached1024 = 0;
-//        this.shortestTime1024 = Integer.MAX_VALUE;
-//        this.fewestMoves1024 = Integer.MAX_VALUE;
         this.gameState = new Tile[4][4];
         this.gameState[(int) (Math.random() * 3 + 0)][(int) (Math.random() * 3 + 0)] = new Tile();
     }

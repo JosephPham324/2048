@@ -190,9 +190,6 @@ public class DrawingPanel extends JPanel {
      * @param updateScore Whether the score will be updated or not
      */
     public void updateGameState(Position oldPosition, Position newPosition, Position[][] mapPositions, boolean updateScore) {
-//        movement = Position.comparePosition(oldPosition, newPosition);
-//        oldTile = new int[]{oldPosition.getRowNumber(), oldPosition.getColumnNumber()};
-//        newTile = new int[]{newPosition.getRowNumber(), newPosition.getColumnNumber()};
         //Update positions in the map
         mapPositions[oldPosition.getRowNumber()][oldPosition.getColumnNumber()] = newPosition;
 
@@ -203,53 +200,9 @@ public class DrawingPanel extends JPanel {
         }
         //Update tiles according to updated map position
         updateTiles(mapPositions);
-//        if (oldTile != null && newTile != null && movement!=Position.SAME) {
-//
-//            xOld = this.coordinates.getTileCoordinates()[oldTile[0]][oldTile[1]].getX();
-//            yOld = this.coordinates.getTileCoordinates()[oldTile[0]][oldTile[1]].getY();
-//            xNew = this.coordinates.getTileCoordinates()[newTile[0]][newTile[1]].getX();
-//            yNew = this.coordinates.getTileCoordinates()[newTile[0]][newTile[1]].getY();
-//            int speed = tileWidth / 16;
-//
-//            while (xOld != xNew && yOld != yNew) {
-//                boolean done = false;
-//                switch (movement) {
-//                    case Position.DOWN:
-//                        yOld += speed;
-//                        if (yOld >= yNew) {
-//                            done = true;
-//                        }
-//                        break;
-//                    case Position.UP:
-//                        yOld -= speed;
-//                        if (yOld <= yNew) {
-//                            done = true;
-//                        }
-//                        break;
-//                    case Position.LEFT:
-//                        if (xOld <= xNew) {
-//                            done = true;
-//                        }
-//                        xOld -= speed;
-//                        break;
-//                    case Position.RIGHT:
-//                        xOld += speed;
-//                        if (xOld >= xNew) {
-//                            done = true;
-//                        }
-//                        break;
-//                }
-//                if (done) {
-//                    break;
-//                }
-//                repaint();
-//            }
-//        } else {
+
             //Repaint the game
             repaint();
-//        }
-//        oldTile = null;
-//        newTile = null;
     }
 
     /**
@@ -622,7 +575,6 @@ public class DrawingPanel extends JPanel {
             for (int j = 0; j < 4; j++) {
                 if (map.getTiles()[i][j] != null) {
 
-//                    if (oldTile == null || i != oldTile[0] && j != oldTile[1]) {
                         //Get current tile coordinate
                         Coordinate current = this.coordinates.getTileCoordinates()[i][j];
                         int x = current.getX();
@@ -636,84 +588,10 @@ public class DrawingPanel extends JPanel {
                         g.drawRoundRect(x, y, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
                         //Draw the content (square value)
                         centerString(g, new Rectangle(x, y, tileWidth, tileWidth), map.getTiles()[i][j].getData() + "", new Font("Sefif", Font.BOLD, 60));;
-//                    } else {
-//                        g.setColor(map.getTiles()[i][j].getColor());
-//                        g.fillRoundRect(xOld, yOld, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
-//                        //Draw the outline
-//                        g.setColor(Color.white);
-//                        g.drawRoundRect(xOld, yOld, tileWidth, tileWidth, tileWidth / 8, tileWidth / 8);
-//                        //Draw the content (square value)
-//                        centerString(g, new Rectangle(xOld, yOld, tileWidth, tileWidth), map.getTiles()[i][j].getData() + "", new Font("Sefif", Font.BOLD, 60));
-//                        System.out.println(xOld + " : " + yOld + " . " + xNew + " : " + yNew);
-//                        while (xOld != xNew && yOld != yNew) {
-//                            boolean done = false;
-//                            //Fill the inside square
-//                            System.out.println(xOld + ":" + yOld);
-//
-//                        }
-//                    }
                 }
             }
         }
     }
-
-
-    //---------------------------------------------------\\
-    //----------------NOT USABLE PART--------------------\\
-    //---------------------------------------------------\\
-    /**
-     * Draw tiles of map
-     *
-     * @param previousState
-     * @param currentState
-     */
-    public void drawTiles2(Position[][] previousState, Position[][] currentState) {
-        this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
-        int width = mapWidth / 4;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (map.getTiles()[i][j] != null) {
-                    Coordinate current = this.coordinates.getTileCoordinates()[i][j];
-                    int x = current.getX();
-                    int y = current.getY();
-                    animateTile(currentState[i][j], currentState[i][j], width);
-//                  g.setColor(map.getTiles()[i][j].getColor());
-//                  g.fillRect(x, y, width, width);
-//                  g.setColor(Color.black);
-//                  g.drawRect(x, y, width, width);
-//                  centerString(g, new Rectangle(x, y, width, width), map.getTiles()[i][j].getData() + "", new Font("Arial", Font.PLAIN, 24));;
-                }
-            }
-        }
-    }
-
-    /**
-     *
-     * @param previousPosition
-     * @param currentPosition
-     * @param tileWidth
-     */
-    public void animateTile(Position previousPosition, Position currentPosition, int tileWidth) {
-        Coordinate previous = this.coordinates.getTileCoordinates()[previousPosition.getRowNumber()][previousPosition.getColumnNumber()];
-        Coordinate current = this.coordinates.getTileCoordinates()[currentPosition.getRowNumber()][currentPosition.getColumnNumber()];
-        if (previousPosition.getRowNumber() == currentPosition.getRowNumber() && previousPosition.getRowNumber() == currentPosition.getRowNumber()) {
-            g.setColor(new Tile(currentPosition.getData(), false).getColor());
-            g.fillRect(current.getX(), current.getY(), tileWidth, tileWidth);
-            g.setColor(Color.black);
-            g.drawRect(current.getX(), current.getY(), tileWidth, tileWidth);
-            centerString(g, new Rectangle(current.getX(), current.getY(), tileWidth, tileWidth), currentPosition.getData() + "", new Font("Sefif", Font.BOLD, 40));;
-        }
-    }
-
-    /**
-     *
-     * @param previousPosition
-     * @param currentPosition
-     */
-    public void slideLeft(Position previousPosition, Position currentPosition) {
-
-    }
-    //---------------------------------------------------\\
 
     /**
      * Check if game is over
