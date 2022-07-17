@@ -106,6 +106,7 @@ public class Menu extends javax.swing.JFrame {
 
         Play.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         Play.setForeground(new java.awt.Color(255, 255, 255));
+        Play.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Play.setText("Play");
         Play.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,9 +119,9 @@ public class Menu extends javax.swing.JFrame {
         PlayPanelLayout.setHorizontalGroup(
             PlayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayPanelLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(Play)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Play, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PlayPanelLayout.setVerticalGroup(
             PlayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,6 +142,7 @@ public class Menu extends javax.swing.JFrame {
 
         HTP.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         HTP.setForeground(new java.awt.Color(255, 255, 255));
+        HTP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         HTP.setText("How to play?");
         HTP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -154,8 +156,8 @@ public class Menu extends javax.swing.JFrame {
             HTP_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HTP_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(HTP)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(HTP, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addContainerGap())
         );
         HTP_PanelLayout.setVerticalGroup(
             HTP_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,6 +178,7 @@ public class Menu extends javax.swing.JFrame {
 
         AboutUs.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         AboutUs.setForeground(new java.awt.Color(255, 255, 255));
+        AboutUs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AboutUs.setText("About us");
         AboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,9 +191,9 @@ public class Menu extends javax.swing.JFrame {
         AboutUs_PanelLayout.setHorizontalGroup(
             AboutUs_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AboutUs_PanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(AboutUs)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(AboutUs, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
         );
         AboutUs_PanelLayout.setVerticalGroup(
             AboutUs_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,6 +214,7 @@ public class Menu extends javax.swing.JFrame {
 
         Quit.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         Quit.setForeground(new java.awt.Color(255, 255, 255));
+        Quit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Quit.setText("Quit");
 
         javax.swing.GroupLayout QuitPanelLayout = new javax.swing.GroupLayout(QuitPanel);
@@ -218,9 +222,9 @@ public class Menu extends javax.swing.JFrame {
         QuitPanelLayout.setHorizontalGroup(
             QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuitPanelLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(Quit)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Quit, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
         );
         QuitPanelLayout.setVerticalGroup(
             QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

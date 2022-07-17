@@ -36,24 +36,33 @@ public class StatDisplay extends javax.swing.JFrame {
         this.totalScore.setText(this.info.getTotalScore() + "");
         this.topTile.setText(this.info.getTopTile() + "");
         //512
-//        this.gamesReached512.setText(this.info.getGameReached512() + "");
-//        this.shortestTime512.setText(this.info.getShortestTime512Display());
-//        this.FewestMoves512.setText(this.info.getFewestMoves512() + "");
-        setLabel(_512reached, gamesReached512, this.info.getGameReached512() + "");
-        setLabel(_512shortestTime, shortestTime512, this.info.getShortestTime512Display());
-        setLabel(_512fewestMoves, FewestMoves512, this.info.getFewestMoves512() + "");
+        setLabel(_512reached, gamesReached512, this.info.getMilestones(512).getGamesReached() + "");
+        setLabel(_512shortestTime, shortestTime512, this.info.getMilestones(512).getShortestTimeDisplay());
+        setLabel(_512fewestMoves, FewestMoves512, this.info.getMilestones(512).getFewestMoves() + "");
+        
+//        setLabel(_512reached, gamesReached512, this.info.getGameReached512() + "");
+//        setLabel(_512shortestTime, shortestTime512, this.info.getShortestTime512Display());
+//        setLabel(_512fewestMoves, FewestMoves512, this.info.getFewestMoves512() + "");
         //1024
-//        this.gamesReached1024.setText(this.info.getGameReached1024() + "");
-//        this.shortestTime1024.setText(this.info.getShortestTime1024Display()+ "");
-//        this.fewestMoves1024.setText(this.info.getFewestMoves1024() + "");
-        setLabel(_1024reached, gamesReached1024, this.info.getGameReached1024() + "");
-        setLabel(_1024shortestTime, shortestTime1024, this.info.getShortestTime1024Display());
-        setLabel(_1024fewestMoves, fewestMoves1024, this.info.getFewestMoves1024() + "");
-        System.out.println(this.info.getFewestMoves1024());
-        if (this.info.getGameReached1024() == 0) {
+//        setLabel(_1024reached, gamesReached1024, this.info.getGameReached1024() + "");
+//        setLabel(_1024shortestTime, shortestTime1024, this.info.getShortestTime1024Display());
+//        setLabel(_1024fewestMoves, fewestMoves1024, this.info.getFewestMoves1024() + "");
+        setLabel(_1024reached, gamesReached1024, this.info.getMilestones(1024).getGamesReached() + "");
+        setLabel(_1024shortestTime, shortestTime1024, this.info.getMilestones(1024).getShortestTimeDisplay());
+        setLabel(_1024fewestMoves, fewestMoves1024, this.info.getMilestones(1024).getFewestMoves() + "");
+
+        setLabel(_2048reached, gamesReached2048, this.info.getMilestones(2048).getGamesReached() + "");
+        setLabel(_2048shortestTime, shortestTime2048, this.info.getMilestones(2048).getShortestTimeDisplay());
+        setLabel(_2048fewestMoves, fewestMoves2048, this.info.getMilestones(2048).getFewestMoves() + "");
+
+//        System.out.println(this.info.getFewestMoves1024());
+        if (this.info.getMilestones(2048).getGamesReached() == 0) {
             this._1024.setText("");
         }
-        if (this.info.getGameReached512() == 0) {
+        if (this.info.getMilestones(1024).getGamesReached() == 0) {
+            this._2048.setText("");
+        }
+        if (this.info.getMilestones(512).getGamesReached() == 0) {
             this._512.setText("");
         }
     }
@@ -61,7 +70,7 @@ public class StatDisplay extends javax.swing.JFrame {
     private void setLabel(JLabel title, JLabel value, String valueString) {
         if (valueString.equals("0")
                 || valueString.equals(Integer.MAX_VALUE + "")
-                || valueString.equals("596523:35791394:07")) {
+                || valueString.equals("596523:14:07")) {
             title.setText("");
             value.setText("");
         } else {
@@ -100,9 +109,15 @@ public class StatDisplay extends javax.swing.JFrame {
         gamesReached1024 = new javax.swing.JLabel();
         shortestTime1024 = new javax.swing.JLabel();
         fewestMoves1024 = new javax.swing.JLabel();
+        _2048 = new javax.swing.JLabel();
+        _2048reached = new javax.swing.JLabel();
+        _2048shortestTime = new javax.swing.JLabel();
+        _2048fewestMoves = new javax.swing.JLabel();
+        gamesReached2048 = new javax.swing.JLabel();
+        shortestTime2048 = new javax.swing.JLabel();
+        fewestMoves2048 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(720, 720));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         jLabel1.setText("All play");
@@ -180,6 +195,30 @@ public class StatDisplay extends javax.swing.JFrame {
         fewestMoves1024.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fewestMoves1024.setText("0");
 
+        _2048.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
+        _2048.setText("2048");
+
+        _2048reached.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _2048reached.setText("Games Reached");
+
+        _2048shortestTime.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _2048shortestTime.setText("Shortest Time");
+
+        _2048fewestMoves.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        _2048fewestMoves.setText("Fewest Moves");
+
+        gamesReached2048.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        gamesReached2048.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        gamesReached2048.setText("0");
+
+        shortestTime2048.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        shortestTime2048.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        shortestTime2048.setText("0");
+
+        fewestMoves2048.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        fewestMoves2048.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        fewestMoves2048.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -192,30 +231,43 @@ public class StatDisplay extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(_512)
-                            .addComponent(_512reached)
-                            .addComponent(_512shortestTime)
-                            .addComponent(_512fewestMoves)
-                            .addComponent(_1024)
-                            .addComponent(_1024reached)
-                            .addComponent(_1024shortestTime)
-                            .addComponent(_1024fewestMoves))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(FewestMoves512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(shortestTime512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bestScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(totalScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(topTile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(gamesReached512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(gamesReached1024, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(shortestTime1024, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fewestMoves1024, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(_512)
+                                    .addComponent(_512reached)
+                                    .addComponent(_512shortestTime)
+                                    .addComponent(_512fewestMoves)
+                                    .addComponent(_1024)
+                                    .addComponent(_1024reached)
+                                    .addComponent(_1024shortestTime)
+                                    .addComponent(_1024fewestMoves))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(FewestMoves512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(shortestTime512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bestScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(totalScore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(topTile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(gamesReached512, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(gamesReached1024, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(shortestTime1024, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fewestMoves1024, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(_2048)
+                                    .addComponent(_2048reached)
+                                    .addComponent(_2048shortestTime)
+                                    .addComponent(_2048fewestMoves))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(gamesReached2048, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(shortestTime2048, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fewestMoves2048, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(9, 9, 9)))
                 .addContainerGap())
         );
@@ -268,7 +320,23 @@ public class StatDisplay extends javax.swing.JFrame {
                         .addComponent(shortestTime1024)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fewestMoves1024)))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(_2048)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_2048reached)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_2048shortestTime)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(_2048fewestMoves))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(gamesReached2048)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(shortestTime2048)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fewestMoves2048)))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         pack();
@@ -318,13 +386,19 @@ public class StatDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel _1024fewestMoves;
     private javax.swing.JLabel _1024reached;
     private javax.swing.JLabel _1024shortestTime;
+    private javax.swing.JLabel _2048;
+    private javax.swing.JLabel _2048fewestMoves;
+    private javax.swing.JLabel _2048reached;
+    private javax.swing.JLabel _2048shortestTime;
     private javax.swing.JLabel _512;
     private javax.swing.JLabel _512fewestMoves;
     private javax.swing.JLabel _512reached;
     private javax.swing.JLabel _512shortestTime;
     private javax.swing.JLabel bestScore;
     private javax.swing.JLabel fewestMoves1024;
+    private javax.swing.JLabel fewestMoves2048;
     private javax.swing.JLabel gamesReached1024;
+    private javax.swing.JLabel gamesReached2048;
     private javax.swing.JLabel gamesReached512;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
@@ -332,6 +406,7 @@ public class StatDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel shortestTime1024;
+    private javax.swing.JLabel shortestTime2048;
     private javax.swing.JLabel shortestTime512;
     private javax.swing.JLabel topTile;
     private javax.swing.JLabel totalScore;

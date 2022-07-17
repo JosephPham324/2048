@@ -35,7 +35,8 @@ public class Game extends javax.swing.JFrame {
      */
     public Game() {
         initComponents();
-        
+        isDisabled = false;
+        this.requestFocus();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();        //Get size of screen
@@ -59,10 +60,8 @@ public class Game extends javax.swing.JFrame {
 
         //FOR GAMEPLAY CONTROL
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-
             @Override
             public boolean dispatchKeyEvent(KeyEvent e) {
-
                 if (e.getID() == KeyEvent.KEY_RELEASED && !isDisabled) {
 
                     int keyCode = e.getKeyCode();
@@ -70,10 +69,12 @@ public class Game extends javax.swing.JFrame {
                     if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_D
                             || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
                         setFunctionButtonsColor('N');
+                        System.out.println("here");
                         switch (e.getKeyCode()) {
                             case KeyEvent.VK_W:
                             case KeyEvent.VK_UP:
                                 panel.processMovement(TileMap.Movement.UP);
+                                System.out.println("Does this work");
                                 setMovementButtonsColor('u');
 
                                 break;
@@ -103,6 +104,7 @@ public class Game extends javax.swing.JFrame {
                             switch (keyCode) {
                                 case KeyEvent.VK_Z:
                                     panel.Undo();
+                                    setScore();
                                     setFunctionButtonsColor('U');
                                     break;
                                 case KeyEvent.VK_R:
@@ -144,7 +146,6 @@ public class Game extends javax.swing.JFrame {
                 pauseGame();
             }
         });
-
         gamePanel.add(panel, BorderLayout.CENTER);
         this.score.setText(map.getScore() + "");
         this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
@@ -163,6 +164,8 @@ public class Game extends javax.swing.JFrame {
             panel.getInformation().getInfo().setScore(map.getScore());
             panel.getInformation().getInfo().setTime(Information.convertTime(this.Time.getText()));
             panel.getInformation().saveInfo();
+            KeyboardFocusManager.setCurrentKeyboardFocusManager(null);
+            this.dispose();
         } else {
             resumeGame();
         }
@@ -185,9 +188,10 @@ public class Game extends javax.swing.JFrame {
     private void gameOver() throws HeadlessException {
         if (panel.isGameOver()) {
             pauseGame();
-            if (JOptionPane.showConfirmDialog(null, "Game Over!\nOK to reset; Cancel to undo", "Game Over", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+            if (JOptionPane.showConfirmDialog(this, "Game Over!\nOK to reset; Cancel to undo", "Game Over", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 isDisabled = false;
                 panel.resetGame();
+                setScore();
                 clock.start();
             } else {
                 panel.Undo();
@@ -537,6 +541,7 @@ public class Game extends javax.swing.JFrame {
 
     private void UndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoActionPerformed
         this.panel.Undo();
+        setScore();
         setFunctionButtonsColor('U');
         setMovementButtonsColor('U');
     }//GEN-LAST:event_UndoActionPerformed
