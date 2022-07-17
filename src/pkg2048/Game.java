@@ -39,11 +39,10 @@ public class Game extends javax.swing.JFrame {
         this.requestFocus();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();        //Get size of screen
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//Get size of screen
         //Set size of JFRAME as a square proportional to screen height
         this.setSize((int) screenSize.getHeight(), (int) screenSize.getHeight());
         this.setLocationRelativeTo(null);
-
         this.setResizable(false);//Don't allow user to resize window
 
         this.setTitle("2048");//Set title to 2048
