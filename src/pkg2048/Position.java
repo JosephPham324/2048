@@ -18,7 +18,7 @@ public class Position {
     public static final int DOWN = 4;
 
     /**
-     *
+     * Position of tile
      * @param rowNumber
      * @param columnNumber
      */
@@ -28,7 +28,7 @@ public class Position {
     }
 
     /**
-     *
+     * Position of tile (update)
      * @param rowNumber
      * @param columnNumber
      * @param data
@@ -83,23 +83,44 @@ public class Position {
         return true;
     }
 
+    /**
+     * get the row number
+     * @return rowNumber
+     */
     public int getRowNumber() {
         return rowNumber;
     }
 
+    /**
+     * get the column number
+     * @return columnNumber
+     */
     public int getColumnNumber() {
         return columnNumber;
     }
 
+    /**
+     * get data of tile
+     * @return data
+     */
     public int getData() {
         return data;
     }
 
+    /**
+     * check if there is an update
+     * @return updatedData
+     */
     public boolean isUpdatedData() {
         return updatedData;
     }
 
-    
+    /**
+     * compare the position
+     * @param before
+     * @param after
+     * @return LEFT,RIGHT,UP,DOWN
+     */
     public static int comparePosition(Position before, Position after) {
         if (before.getColumnNumber() == after.getColumnNumber()){
             if (before.getRowNumber()<after.getRowNumber()){

@@ -12,7 +12,7 @@ import java.awt.Toolkit;
 
 /**
  *
- * @author ASUS
+ * @author Nguyen Le Quang Thinh
  */
 public class Menu extends javax.swing.JFrame {
 
@@ -21,16 +21,14 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-
+        
         this.setLocationRelativeTo(null);
         subMenu.setSize(995,730);
         
-
         this.setResizable(false);//Don't allow user to resize window
         HTP_MoTa.setVisible(false);
         Panel2048.setVisible(true);
         AU_Panel.setVisible(false);
-
 
         this.setTitle("2048");//Set title to 2048
     }
@@ -81,6 +79,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        javaLogo = new javax.swing.JLabel();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -94,6 +93,7 @@ public class Menu extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 153));
 
         MainMenu.setBackground(new java.awt.Color(255, 153, 0));
+        MainMenu.setBorder(new javax.swing.border.MatteBorder(null));
 
         PlayPanel.setBackground(new java.awt.Color(0, 0, 0));
         PlayPanel.setBorder(new javax.swing.border.MatteBorder(null));
@@ -106,6 +106,7 @@ public class Menu extends javax.swing.JFrame {
 
         Play.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         Play.setForeground(new java.awt.Color(255, 255, 255));
+        Play.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Play.setText("Play");
         Play.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -118,9 +119,9 @@ public class Menu extends javax.swing.JFrame {
         PlayPanelLayout.setHorizontalGroup(
             PlayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PlayPanelLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(Play)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Play, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
         );
         PlayPanelLayout.setVerticalGroup(
             PlayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,6 +142,7 @@ public class Menu extends javax.swing.JFrame {
 
         HTP.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         HTP.setForeground(new java.awt.Color(255, 255, 255));
+        HTP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         HTP.setText("How to play?");
         HTP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -154,8 +156,8 @@ public class Menu extends javax.swing.JFrame {
             HTP_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HTP_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(HTP)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(HTP, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addContainerGap())
         );
         HTP_PanelLayout.setVerticalGroup(
             HTP_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,6 +178,7 @@ public class Menu extends javax.swing.JFrame {
 
         AboutUs.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         AboutUs.setForeground(new java.awt.Color(255, 255, 255));
+        AboutUs.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AboutUs.setText("About us");
         AboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,9 +191,9 @@ public class Menu extends javax.swing.JFrame {
         AboutUs_PanelLayout.setHorizontalGroup(
             AboutUs_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AboutUs_PanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(AboutUs)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(AboutUs, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
         );
         AboutUs_PanelLayout.setVerticalGroup(
             AboutUs_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,16 +214,22 @@ public class Menu extends javax.swing.JFrame {
 
         Quit.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 48)); // NOI18N
         Quit.setForeground(new java.awt.Color(255, 255, 255));
+        Quit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Quit.setText("Quit");
+        Quit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                QuitMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout QuitPanelLayout = new javax.swing.GroupLayout(QuitPanel);
         QuitPanel.setLayout(QuitPanelLayout);
         QuitPanelLayout.setHorizontalGroup(
             QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(QuitPanelLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(Quit)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Quit, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addContainerGap())
         );
         QuitPanelLayout.setVerticalGroup(
             QuitPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,20 +248,18 @@ public class Menu extends javax.swing.JFrame {
         MainMenuLayout.setHorizontalGroup(
             MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainMenuLayout.createSequentialGroup()
+                .addGap(0, 29, Short.MAX_VALUE)
                 .addGroup(MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MainMenuLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(PlayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(QuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(HTP_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(AboutUs_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(MainMenuLayout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel9)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(PlayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(QuitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(HTP_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AboutUs_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainMenuLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(90, 90, 90))
         );
         MainMenuLayout.setVerticalGroup(
             MainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,6 +280,7 @@ public class Menu extends javax.swing.JFrame {
         );
 
         subMenu.setBackground(new java.awt.Color(0, 153, 153));
+        subMenu.setBorder(new javax.swing.border.MatteBorder(null));
         subMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 subMenuMouseClicked(evt);
@@ -280,81 +288,47 @@ public class Menu extends javax.swing.JFrame {
         });
         subMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        AU_Panel.setBackground(new java.awt.Color(255, 255, 255));
+        AU_Panel.setBackground(new java.awt.Color(255, 153, 0));
+        AU_Panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel4.setText("-FPT University Can Tho - SE1605 - SU22 - CSD201 ");
+        AU_Panel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel5.setText("-Game made by : Group 3");
+        AU_Panel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 52, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel13.setText("-Mentor: Vo Hong Khanh");
+        AU_Panel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 91, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel11.setText("+CE170036 Pham Nhat Quang: algorithm design");
+        AU_Panel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 66, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel10.setText("+CE161130 Nguyen Le Quang Thinh: interface design");
+        AU_Panel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 33, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel12.setText("+CE161130 Nguyen The Lu: tester ");
+        AU_Panel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 99, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel17.setText("Members of group 3:");
-
-        javax.swing.GroupLayout AU_PanelLayout = new javax.swing.GroupLayout(AU_Panel);
-        AU_Panel.setLayout(AU_PanelLayout);
-        AU_PanelLayout.setHorizontalGroup(
-            AU_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AU_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(AU_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel5))
-                .addGroup(AU_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AU_PanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(AU_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12))
-                        .addContainerGap())
-                    .addGroup(AU_PanelLayout.createSequentialGroup()
-                        .addGap(139, 139, 139)
-                        .addComponent(jLabel17)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        AU_PanelLayout.setVerticalGroup(
-            AU_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(AU_PanelLayout.createSequentialGroup()
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12)
-                .addContainerGap())
-            .addGroup(AU_PanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel13)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        AU_Panel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(617, 0, -1, -1));
 
         subMenu.add(AU_Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 970, 130));
 
+        Panel2048.setBackground(new java.awt.Color(0, 255, 0));
         Panel2048.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/2048_Icon.png"))); // NOI18N
-        subMenu.add(Panel2048, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, 234));
+        subMenu.add(Panel2048, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, 234));
 
-        HTP_MoTa.setBackground(new java.awt.Color(255, 255, 255));
+        HTP_MoTa.setBackground(new java.awt.Color(255, 153, 0));
         HTP_MoTa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setBackground(new java.awt.Color(255, 153, 0));
         jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel1.setText("The rules of how to play 2048 are simple. You have four ways to move the tiles: left, right, up, and down.  ");
         HTP_MoTa.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 13, -1, -1));
@@ -392,6 +366,9 @@ public class Menu extends javax.swing.JFrame {
 
         subMenu.add(HTP_MoTa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 970, 110));
 
+        javaLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/javalogo.png"))); // NOI18N
+        subMenu.add(javaLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 262, 580, 480));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -399,7 +376,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(MainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(subMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 989, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,13 +388,13 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HTPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HTPMouseClicked
-  //nothing here
-   // TODO add your handling code here:
+        /* Event when click how to play button */
         HTP_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         HTP_MoTa.setVisible(true);
-        Panel2048.setVisible(false);
         AU_Panel.setVisible(false);
-
+        
+        Play.setForeground(Color.white);
+        PlayPanel.setBackground(Color.black);
         
         HTP.setForeground(Color.black);
         HTP_Panel.setBackground(Color.white);
@@ -428,7 +405,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void PlayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayPanelMouseClicked
         
-        /* Create and display the form */
+        /* Event when click play button */
         PlayPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         Play.setForeground(Color.black);
         PlayPanel.setBackground(Color.white);
@@ -438,6 +415,10 @@ public class Menu extends javax.swing.JFrame {
         
         AboutUs.setForeground(Color.white);
         AboutUs_Panel.setBackground(Color.black);
+        
+        
+        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Game().setVisible(true);
@@ -446,11 +427,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_PlayPanelMouseClicked
 
     private void HTP_PanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HTP_PanelMouseClicked
-        // TODO add your handling code here:
+        /* Event when click how to play button */
         HTP_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         
+        Play.setForeground(Color.white);
+        PlayPanel.setBackground(Color.black);
+        
         HTP_MoTa.setVisible(true);
-        Panel2048.setVisible(false);
         AU_Panel.setVisible(false);
         
         HTP.setForeground(Color.black);
@@ -461,11 +444,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_HTP_PanelMouseClicked
 
     private void AboutUs_PanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AboutUs_PanelMouseClicked
-        // TODO add your handling code here:
+        /* Event when click about us button */
         AboutUs_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         HTP_MoTa.setVisible(false);
         AU_Panel.setVisible(true);
-        Panel2048.setVisible(false);
+        
+        Play.setForeground(Color.white);
+        PlayPanel.setBackground(Color.black);
         
         HTP.setForeground(Color.white);
         HTP_Panel.setBackground(Color.black);
@@ -475,7 +460,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_AboutUs_PanelMouseClicked
 
     private void QuitPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitPanelMouseClicked
-        // TODO add your handling code here:
+        /* Event when click quit button */
         Quit.setForeground(Color.white);
         QuitPanel.setBackground(Color.black);
         System.exit(0);
@@ -485,7 +470,9 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:      
         subMenu.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         
-        Panel2048.setVisible(true);
+        Play.setForeground(Color.white);
+        PlayPanel.setBackground(Color.black);
+        
         HTP_MoTa.setVisible(false);
         AU_Panel.setVisible(false);
         
@@ -497,7 +484,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_subMenuMouseClicked
 
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
-          /* Create and display the form */
+          /* Event when click play button */
         Play.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         Play.setForeground(Color.black);
         PlayPanel.setBackground(Color.white);
@@ -510,12 +497,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_PlayMouseClicked
 
     private void AboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AboutUsMouseClicked
-        // TODO add your handling code here:
-         // TODO add your handling code here:
+        /* Event when click about us button */
         AboutUs.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         HTP_MoTa.setVisible(false);
         AU_Panel.setVisible(true);
-        Panel2048.setVisible(false);
+        
+        Play.setForeground(Color.white);
+        PlayPanel.setBackground(Color.black);
         
         HTP.setForeground(Color.white);
         HTP_Panel.setBackground(Color.black);
@@ -523,6 +511,13 @@ public class Menu extends javax.swing.JFrame {
         AboutUs.setForeground(Color.black);
         AboutUs_Panel.setBackground(Color.white);
     }//GEN-LAST:event_AboutUsMouseClicked
+
+    private void QuitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QuitMouseClicked
+
+        Quit.setForeground(Color.white);
+        QuitPanel.setBackground(Color.black);
+        System.exit(0);
+    }//GEN-LAST:event_QuitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -590,6 +585,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel javaLogo;
     private javax.swing.JPanel subMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,8 @@
 package DataSaving;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.crypto.Mac;
 import pkg2048.Tile;
 
@@ -15,52 +18,105 @@ public class Information {
 
     private int time; //Time in seconds
     private int numOfMoves;
-    //512
-    private int time512;
-    private int movesReached512;
-    private boolean reached512;
-    //1024
-    private int movesReached1024;
-    private int time1024;
-    private boolean reached1024;
+    private HashSet<Integer> milestonesReached;
 
     //Record information
     private int bestScore;
     private int totalScore;
     private int topTile;
-    //512
-    private int gameReached512;
-    private int shortestTime512;
-    private int fewestMoves512;
 
-    //1024
-    private int gameReached1024;
-    private int shortestTime1024;
-    private int fewestMoves1024;
+    static public class MilestoneTile {
+
+        int gamesReached;
+        int shortestTime;
+        int fewestMoves;
+
+        public MilestoneTile() {
+            gamesReached = 0;
+            shortestTime = Integer.MAX_VALUE;
+            fewestMoves = Integer.MAX_VALUE;
+        }
+
+        public MilestoneTile(int gamesReached, int shortestTime, int fewestMoves) {
+            this.gamesReached = gamesReached;
+            this.shortestTime = shortestTime;
+            this.fewestMoves = fewestMoves;
+        }
+
+        public String getShortestTimeDisplay() {
+            return String.format("%02d:%02d:%02d", this.shortestTime / 3600, (this.shortestTime / 60) % 60, this.shortestTime % 60);
+        }
+
+        public int getGamesReached() {
+            return gamesReached;
+        }
+
+        public void setGamesReached(int gamesReached) {
+            this.gamesReached = gamesReached;
+        }
+
+        public int getShortestTime() {
+            return shortestTime;
+        }
+
+        public void setShortestTime(int shortestTime) {
+            this.shortestTime = shortestTime;
+        }
+
+        public int getFewestMoves() {
+            return fewestMoves;
+        }
+
+        public void setFewestMoves(int fewestMoves) {
+            this.fewestMoves = fewestMoves;
+        }
+
+    }
+
+    private Map<Integer, MilestoneTile> milestones;
 
     /**
      *
      */
     public Information() {
         this.score = 0;
-        this.time512 = 0;
-        this.time1024 = 0;
+//        this.time512 = 0;
+//        this.time1024 = 0;
         this.numOfMoves = 0;
         this.time = 0;
-        this.reached512 = false;
-        this.reached1024 = false;
-        this.movesReached512 = -1;
-        this.movesReached1024 = -1;
+//        this.reached512 = false;
+//        this.reached1024 = false;
+//        this.movesReached512 = -1;
+//        this.movesReached1024 = -1;
         this.bestScore = 0;
         this.totalScore = 0;
-        this.gameReached512 = 0;
-        this.shortestTime512 = Integer.MAX_VALUE;
-        this.fewestMoves512 = Integer.MAX_VALUE;
-        this.gameReached1024 = 0;
-        this.shortestTime1024 = Integer.MAX_VALUE;
-        this.fewestMoves1024 = Integer.MAX_VALUE;
+
+        this.milestones = new TreeMap<>();
+        this.milestones.put(512, new MilestoneTile());
+        this.milestones.put(1024, new MilestoneTile());
+        this.milestones.put(2048, new MilestoneTile());
+        this.milestonesReached = new HashSet();
+
+//        this.gameReached512 = 0;
+//        this.shortestTime512 = Integer.MAX_VALUE;
+//        this.fewestMoves512 = Integer.MAX_VALUE;
+//        this.gameReached1024 = 0;
+//        this.shortestTime1024 = Integer.MAX_VALUE;
+//        this.fewestMoves1024 = Integer.MAX_VALUE;
         this.gameState = new Tile[4][4];
         this.gameState[(int) (Math.random() * 3 + 0)][(int) (Math.random() * 3 + 0)] = new Tile();
+    }
+
+    public Information(Tile[][] gameState, int score, int time, int numOfMoves, HashSet<Integer> milestonesReached, int bestScore, int totalScore, int topTile, Map<Integer, MilestoneTile> milestones) {
+        this.gameState = gameState;
+        this.score = score;
+        this.time = time;
+        this.numOfMoves = numOfMoves;
+        this.milestonesReached = milestonesReached;
+        this.bestScore = bestScore;
+        this.totalScore = totalScore;
+        this.topTile = topTile;
+        this.milestones = milestones;
     }
 
     /**
@@ -68,30 +124,25 @@ public class Information {
      * @param bestScore
      * @param totalScore
      * @param gameReached512
-     * @param shortestTime512
-     * @param fewestMoves512
-     * @param gameReached1024
-     * @param shortestTime1024
-     * @param fewestMoves1024
+     * @param milestones
      */
-    public Information(int bestScore, int totalScore, int gameReached512, int shortestTime512, int fewestMoves512, int gameReached1024, int shortestTime1024, int fewestMoves1024) {
+    public Information(int bestScore, int totalScore, int gameReached512, TreeMap<Integer, MilestoneTile> milestones) {
         this.score = 0;
-        this.time512 = 0;
-        this.time1024 = 0;
         this.numOfMoves = 0;
         this.time = 0;
-        this.reached512 = false;
-        this.reached1024 = false;
-        this.movesReached512 = -1;
-        this.movesReached1024 = -1;
         this.bestScore = bestScore;
         this.totalScore = totalScore;
-        this.gameReached512 = gameReached512;
-        this.shortestTime512 = shortestTime512;
-        this.fewestMoves512 = fewestMoves512;
-        this.gameReached1024 = gameReached1024;
-        this.shortestTime1024 = shortestTime1024;
-        this.fewestMoves1024 = fewestMoves1024;
+
+        this.milestones = milestones;
+
+    }
+
+    public MilestoneTile getMilestones(int tileValue) {
+        return this.milestones.get(tileValue);
+    }
+
+    public void setMiletones(Map<Integer, MilestoneTile> miletones) {
+        this.milestones = miletones;
     }
 
     /**
@@ -115,40 +166,24 @@ public class Information {
      * @param amount
      */
     public void increaseScore(int amount) {
-        if (amount>topTile){
+        if (amount > topTile) {
             topTile = amount;
         }
         this.score += amount;
-        this.totalScore+=amount;
-        //Major tiles reached: 
+        this.totalScore += amount;
+        //Major tiles reached:
         //512
-        if (amount == 512) {
-            this.gameReached512++;
-            if (!this.reached512) { //First time getting 512 in a game
-                this.reached512 = true;
-                this.time512 = this.time;
-                this.movesReached512 = this.numOfMoves;
-                if (this.shortestTime512 > this.time512) {
-                    this.shortestTime512 = this.time512;
-                }
-                if (this.fewestMoves512 > this.movesReached512) {
-                    this.fewestMoves512 = this.movesReached512;
-                }
-            }
-        }
+        MilestoneTile milestone = this.milestones.get(amount);
+        if (!milestonesReached.contains(amount)) {
+            milestonesReached.add(amount);
 
-        //1024
-        if (amount == 1024) {
-            this.gameReached1024++;
-            if (!this.reached1024) { //First time getting 1024 in a game
-                this.reached1024 = true;
-                this.time1024 = this.time;
-                this.movesReached1024 = this.numOfMoves;
-                if (this.shortestTime1024 > this.time1024) {
-                    this.shortestTime1024 = this.time1024;
+            if (milestone != null) {
+                milestone.setGamesReached(milestone.getGamesReached() + 1);
+                if (this.time < milestone.getShortestTime()) {
+                    milestone.setShortestTime(this.time);
                 }
-                if (this.fewestMoves1024 > this.movesReached1024) {
-                    this.fewestMoves1024 = this.movesReached1024;
+                if (this.numOfMoves < milestone.getFewestMoves()) {
+                    milestone.setFewestMoves(this.numOfMoves);
                 }
             }
         }
@@ -192,134 +227,6 @@ public class Information {
      *
      * @return
      */
-    public int getGameReached512() {
-        return gameReached512;
-    }
-
-    /**
-     *
-     * @param gameReached512
-     */
-    public void setGameReached512(int gameReached512) {
-        this.gameReached512 = gameReached512;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getShortestTime512() {
-        return shortestTime512;
-    }
-
-    /**
-     *
-     * @param shortestTime512
-     */
-    public void setShortestTime512(int shortestTime512) {
-        this.shortestTime512 = shortestTime512;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getFewestMoves512() {
-        return fewestMoves512;
-    }
-
-    /**
-     *
-     * @param fewestMoves512
-     */
-    public void setFewestMoves512(int fewestMoves512) {
-        this.fewestMoves512 = fewestMoves512;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getTime512() {
-        return time512;
-    }
-
-    /**
-     *
-     * @param time512
-     */
-    public void setTime512(int time512) {
-        this.time512 = time512;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getGameReached1024() {
-        return gameReached1024;
-    }
-
-    /**
-     *
-     * @param gameReached1024
-     */
-    public void setGameReached1024(int gameReached1024) {
-        this.gameReached1024 = gameReached1024;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getShortestTime1024() {
-        return shortestTime1024;
-    }
-
-    /**
-     *
-     * @param shortestTime1024
-     */
-    public void setShortestTime1024(int shortestTime1024) {
-        this.shortestTime1024 = shortestTime1024;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getFewestMoves1024() {
-        return fewestMoves1024;
-    }
-
-    /**
-     *
-     * @param fewestMoves1024
-     */
-    public void setFewestMoves1024(int fewestMoves1024) {
-        this.fewestMoves1024 = fewestMoves1024;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getTime1024() {
-        return time1024;
-    }
-
-    /**
-     *
-     * @param time1024
-     */
-    public void setTime1024(int time1024) {
-        this.time1024 = time1024;
-    }
-
-    /**
-     *
-     * @return
-     */
     public int getNumOfMoves() {
         return numOfMoves;
     }
@@ -346,38 +253,6 @@ public class Information {
      */
     public void setTime(int time) {
         this.time = time;
-    }
-
-    /**
-     *
-     * @param movesReached512
-     */
-    public void setMovesReached512(int movesReached512) {
-        this.movesReached512 = movesReached512;
-    }
-
-    /**
-     *
-     * @param reached512
-     */
-    public void setReached512(boolean reached512) {
-        this.reached512 = reached512;
-    }
-
-    /**
-     *
-     * @param movesReached1024
-     */
-    public void setMovesReached1024(int movesReached1024) {
-        this.movesReached1024 = movesReached1024;
-    }
-
-    /**
-     *
-     * @param reached1024
-     */
-    public void setReached1024(boolean reached1024) {
-        this.reached1024 = reached1024;
     }
 
     /**
@@ -412,36 +287,12 @@ public class Information {
         this.gameState = gameState;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getMovesReached512() {
-        return movesReached512;
+    public HashSet<Integer> getMilestonesReached() {
+        return milestonesReached;
     }
 
-    /**
-     *
-     * @return
-     */
-    public boolean isReached512() {
-        return reached512;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getMovesReached1024() {
-        return movesReached1024;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public boolean isReached1024() {
-        return reached1024;
+    public void setMilestonesReached(HashSet<Integer> milestonesReached) {
+        this.milestonesReached = milestonesReached;
     }
 
     /**
@@ -451,34 +302,22 @@ public class Information {
     public String getTimeDisplay() {
         return String.format("%02d:%02d:%02d", this.time / 3600, this.time / 60, this.time % 60);
     }
-    
+
     /**
      *
      * @param timeString
      * @return
      */
-    public static int convertTime(String timeString){
-        String time[] =  timeString.split(":");
+    public static int convertTime(String timeString) {
+        String time[] = timeString.split(":");
         return Integer.parseInt(time[0]) * 3600 + Integer.parseInt(time[1]) * 60 + Integer.parseInt(time[2]);
     }
-    
-    /**
-     *
-     * @return
-     */
-    public String getShortestTime512Display(){
-        return String.format("%02d:%02d:%02d", this.shortestTime512 / 3600, (this.shortestTime512 / 60) % 60, this.shortestTime512 % 60);
+
+    public void incrementNoOfMoves() {
+        this.numOfMoves++;
     }
 
-    /**
-     *
-     * @return
-     */
-    public String getShortestTime1024Display(){
-        return String.format("%02d:%02d:%02d", this.shortestTime1024 / 3600, (this.shortestTime512 / 60) % 60, this.shortestTime1024 % 60);
-    }
-    
-    public void incrementNoOfMoves(){
-        this.numOfMoves++;
+    public Information createCopy() {
+        return new Information(gameState, score, time, numOfMoves, milestonesReached, bestScore, totalScore, topTile, milestones);
     }
 }

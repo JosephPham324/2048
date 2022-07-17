@@ -32,32 +32,50 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_512" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_512reached" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_512shortestTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_512fewestMoves" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_1024" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_1024reached" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_1024shortestTime" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="_1024fewestMoves" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="335" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="FewestMoves512" alignment="0" max="32767" attributes="0"/>
-                              <Component id="shortestTime512" alignment="0" max="32767" attributes="0"/>
-                              <Component id="bestScore" alignment="0" max="32767" attributes="0"/>
-                              <Component id="totalScore" alignment="0" max="32767" attributes="0"/>
-                              <Component id="topTile" alignment="0" max="32767" attributes="0"/>
-                              <Component id="gamesReached512" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_512" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_512reached" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_512shortestTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_512fewestMoves" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_1024" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_1024reached" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_1024shortestTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_1024fewestMoves" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="335" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="FewestMoves512" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="shortestTime512" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="bestScore" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="totalScore" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="topTile" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="gamesReached512" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="gamesReached1024" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="shortestTime1024" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                                  <Component id="fewestMoves1024" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="gamesReached1024" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="shortestTime1024" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
-                          <Component id="fewestMoves1024" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="_2048" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_2048reached" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_2048shortestTime" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="_2048fewestMoves" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="335" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="gamesReached2048" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="shortestTime2048" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                                  <Component id="fewestMoves2048" alignment="1" min="-2" pref="171" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   </Group>
@@ -118,7 +136,26 @@
                       <Component id="fewestMoves1024" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="178" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="_2048" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_2048reached" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_2048shortestTime" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="_2048fewestMoves" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="gamesReached2048" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="shortestTime2048" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="fewestMoves2048" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="142" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -302,6 +339,65 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="fewestMoves1024">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_2048">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="2048"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_2048reached">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Games Reached"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_2048shortestTime">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Shortest Time"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="_2048fewestMoves">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Fewest Moves"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="gamesReached2048">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="shortestTime2048">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="sansserif" size="24" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="fewestMoves2048">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="24" style="0"/>

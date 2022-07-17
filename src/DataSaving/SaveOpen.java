@@ -13,11 +13,15 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import pkg2048.Tile;
+import java.util.Map;
+import java.util.TreeMap;
+import DataSaving.Information.MilestoneTile;
 
 /**
  * Class for saving and retrieving information from save file
+ *
  * @author Pham Nhat Quang
- * 
+ *
  */
 public class SaveOpen {
 
@@ -75,26 +79,7 @@ public class SaveOpen {
             //Num moves
             line = encrypt(info.getNumOfMoves() + "", SECRET);
             fw.append(line + "\n");
-            //512
-            //Time reached
-            line = encrypt(info.getTime512() + "", SECRET);
-            fw.append(line + "\n");
-            //Moves
-            line = encrypt(info.getTime512() + "", SECRET);
-            fw.append(line + "\n");
-            //If reached
-            line = encrypt(info.isReached512() + "", SECRET);
-            fw.append(line + "\n");
-            //1024
-            //Time reached
-            line = encrypt(info.getTime1024() + "", SECRET);
-            fw.append(line + "\n");
-            //Moves
-            line = encrypt(info.getTime1024() + "", SECRET);
-            fw.append(line + "\n");
-            //If reached
-            line = encrypt(info.isReached1024() + "", SECRET);
-            fw.append(line + "\n");
+
             //Record
             //Score
             line = encrypt(info.getBestScore() + "", SECRET);
@@ -106,27 +91,36 @@ public class SaveOpen {
             line = encrypt(info.getTopTile() + "", SECRET);
             fw.append(line + "\n");
 
-            //512
-            //Times reached
-            line = encrypt(info.getGameReached512() + "", SECRET);
-            fw.append(line + "\n");
-            //Moves
-            line = encrypt(info.getShortestTime512() + "", SECRET);
-            fw.append(line + "\n");
-            //Fewest moves
-            line = encrypt(info.getFewestMoves512() + "", SECRET);
-            fw.append(line + "\n");
+            int starting = 512;
+            int power = 0;
+            Information.MilestoneTile milestone;
 
-            //1024
-            //Times reached
-            line = encrypt(info.getGameReached1024() + "", SECRET);
-            fw.append(line + "\n");
-            //Moves
-            line = encrypt(info.getShortestTime1024() + "", SECRET);
-            fw.append(line + "\n");
-            //Fewest moves
-            line = encrypt(info.getFewestMoves1024() + "", SECRET);
-            fw.append(line + "\n");
+            do {
+                milestone = info.getMilestones(starting * (int) Math.pow((double) 2, (double) power));
+                if (milestone == null) {
+                    break;
+                }
+                line = encrypt(milestone.getGamesReached() + "", SECRET);
+                fw.append(line + "\n");
+                line = encrypt(milestone.getShortestTime() + "", SECRET);
+                fw.append(line + "\n");
+                line = encrypt(milestone.getFewestMoves() + "", SECRET);
+                fw.append(line + "\n");
+                power++;
+            } while (true);
+
+            line = "";
+            for (Integer save : info.getMilestonesReached()) {
+                line += save + " ";
+            }
+            if (line.length() >= 2) {
+                line = line.substring(0, line.length() - 1);
+            }
+            if (line != null) {
+                line = encrypt(line, SECRET);
+                fw.append(line + "\n");
+            }
+
         } catch (IOException ioe) {
             System.err.println(ioe);
         }
@@ -135,7 +129,7 @@ public class SaveOpen {
     /**
      *
      */
-    public void getSavedInfo(){
+    public void getSavedInfo() {
         this.info = new Information();
         if (saveFile.length() == 0) {
             return;
@@ -148,7 +142,7 @@ public class SaveOpen {
             for (int i = 0; i < 4; i++) {
                 line = br.readLine();
                 line = decrypt(line, SECRET);
-                System.out.println(line);
+//                System.out.println(line);
                 String tileData[] = line.split(" ");
                 for (int j = 0; j < 4; j++) {
                     tiles[i][j] = new Tile(Integer.parseInt(tileData[j]), false);
@@ -170,26 +164,6 @@ public class SaveOpen {
             //Num moves
             line = decrypt(br.readLine(), SECRET);
             this.info.setNumOfMoves(Integer.parseInt(line));
-            //512
-            //Time reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setTime512(Integer.parseInt(line));
-            //Moves reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setMovesReached512(Integer.parseInt(line));
-            //If reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setReached512(Boolean.parseBoolean(line));
-            //1024
-            //Time reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setTime1024(Integer.parseInt(line));
-            //Moves reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setMovesReached1024(Integer.parseInt(line));
-            //If reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setReached1024(Boolean.parseBoolean(line));
 
             //Record information
             //Best score
@@ -201,26 +175,39 @@ public class SaveOpen {
             //Top tile
             line = decrypt(br.readLine(), SECRET);
             this.info.setTopTile(Integer.parseInt(line));
-            //512
-            //No of game reached
+
+            int starting = 512;
+            int power = 0;
+            MilestoneTile milestone;
+            Map<Integer, MilestoneTile> milestones = new TreeMap<>();
+
+            do {
+                milestone = new MilestoneTile();
+                try {
+                    line = decrypt(br.readLine(), SECRET);
+                    milestone.setGamesReached(Integer.parseInt(line));
+                    //Shortest time reached
+                    line = decrypt(br.readLine(), SECRET);
+                    milestone.setShortestTime(Integer.parseInt(line));
+                    //Fewest moves reached
+                    line = decrypt(br.readLine(), SECRET);
+                    milestone.setFewestMoves(Integer.parseInt(line));
+                    milestones.put(starting * (int) Math.pow((double) 2, (double) power), milestone);
+                    power++;
+                } catch (Exception e) {
+                    break;
+                }
+            } while (true);
+            this.info.setMiletones(milestones);
+
             line = decrypt(br.readLine(), SECRET);
-            this.info.setGameReached512(Integer.parseInt(line));
-            //Shortest time reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setShortestTime512(Integer.parseInt(line));
-            //Fewest moves reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setFewestMoves512(Integer.parseInt(line));
-            //1024
-            //No of games reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setGameReached1024(Integer.parseInt(line));
-            //Shortest time reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setShortestTime1024(Integer.parseInt(line));
-            //Fewest moves reached
-            line = decrypt(br.readLine(), SECRET);
-            this.info.setFewestMoves1024(Integer.parseInt(line));
+            if (line != null) {
+                String nums[] = line.split(" ");
+                for (int i = 0; i < nums.length; i++) {
+                    this.info.getMilestonesReached().add(Integer.parseInt(nums[i]));
+                }
+            }
+
         } catch (IOException ioe) {
             System.err.println(ioe);
         }
@@ -228,6 +215,7 @@ public class SaveOpen {
 
     /**
      * Generate secret key based on key String
+     *
      * @param myKey key String
      */
     private void setKey(final String myKey) {
@@ -245,6 +233,7 @@ public class SaveOpen {
 
     /**
      * Encrypt a String using a secret String to generate the key
+     *
      * @param strToEncrypt String to be encrypted
      * @param secret Secret used for generating key
      * @return Encrypted String
@@ -264,6 +253,7 @@ public class SaveOpen {
 
     /**
      * Decrypt a String using a secret String to generate the key
+     *
      * @param strToDecrypt String to be decrypted
      * @param secret Secret used for generating key
      * @return Decrypted String
@@ -283,10 +273,15 @@ public class SaveOpen {
 
     /**
      * Get info field containing information for 2048 game
+     *
      * @return info
      */
     public Information getInfo() {
         return info;
+    }
+
+    public void setInfo(Information info) {
+        this.info = info;
     }
 
     /**
@@ -301,6 +296,6 @@ public class SaveOpen {
 //        System.out.println(test.decrypt("96Zlh4ypx14v3hQTpBJBPg==", SECRET));
 //        System.out.println(test.info.getFewestMoves1024());
 //        test.saveInfo();
-          System.out.println(Information.convertTime(("01:02:60")));
+        System.out.println(Information.convertTime(("01:02:60")));
     }
 }

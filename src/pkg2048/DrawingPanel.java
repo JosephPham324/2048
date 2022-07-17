@@ -1,5 +1,6 @@
 package pkg2048;
 
+import DataSaving.Information;
 import DataSaving.SaveOpen;
 import java.awt.Color;
 import java.awt.Font;
@@ -23,6 +24,9 @@ public class DrawingPanel extends JPanel {
     private boolean gameOver;
     private Position[][] previousState;
     private Position[][] currentState;
+    
+    private int pointsUndo;
+    private Information infoUndo;
     private Position[][] stateUndo;
     private boolean undoable;
     private MapCoordinates coordinates;
@@ -123,7 +127,7 @@ public class DrawingPanel extends JPanel {
      * Tiles moved: 4, 3, 2, 1, 8, 7, 6, 5, 12, 11, 10, 9, 16, 15, 14, 13
      */
     public void mapRightMovement() {
-        System.out.println("Map right movement");
+//        System.out.println("Map right movement");
         Position[][] positions;
         for (int j = 3; j >= 0; j--) {
             for (int i = 0; i < 4; i++) {
@@ -249,7 +253,7 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * individual movement of tile (left)
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -281,7 +285,7 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * individual movement of tile (right)
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -314,7 +318,7 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * individual movement of tile (up)
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -345,7 +349,7 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * individual movement of tile (down)
      * @param oldPositionRow
      * @param oldPositionColumn
      * @param mapPositions
@@ -411,13 +415,14 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     *
+     * process of tile movement
      * @param movement
      */
     public void processMovement(TileMap.Movement movement) {
         //Get state before movement
         this.previousState = getMapPositions();
-
+        this.pointsUndo = this.map.getScore();
+        this.infoUndo = this.information.getInfo().createCopy();
         //Perform movement
         switch (movement) {
             case LEFT:
@@ -460,6 +465,8 @@ public class DrawingPanel extends JPanel {
      */
     public void Undo() {
         if (undoable) {//If it's undoable
+            this.map.setScore(this.pointsUndo);
+            this.information.setInfo(infoUndo);
             updateTiles(this.stateUndo);//Update tiles to previous state stored
             undoable = false;//Set undoable to false (Can't undo twice in a row)
             repaint(); //Repaint game
@@ -717,10 +724,21 @@ public class DrawingPanel extends JPanel {
         return map.isGameOver();
     }
 
+    /**
+     * open save information
+     *
+     * @return information
+     */
+    
     public SaveOpen getInformation() {
         return information;
     }
 
+    /**
+     * get game state
+     * @return tile
+     */
+    
     public Tile[][] getGameState() {
         return this.map.getTiles();
     }

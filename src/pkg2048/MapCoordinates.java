@@ -10,7 +10,7 @@ public class MapCoordinates {
     private Coordinate[][] tileCoordinates;
 
     /**
-     *
+     * Map coordinates constructor
      * @param mapSize
      * @param startingOfMap
      */
@@ -21,7 +21,7 @@ public class MapCoordinates {
     }
     
     /**
-     * 
+     * set tile coordinates
      */
     private void setTileCoordinates(){
         int tileSize = mapSize / 4;
@@ -34,8 +34,8 @@ public class MapCoordinates {
     }
 
     /**
-     *
-     * @return
+     * get tile coordinate
+     * @return tileCoordinates
      */
     public Coordinate[][] getTileCoordinates() {
         return tileCoordinates;
