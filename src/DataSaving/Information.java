@@ -71,9 +71,16 @@ public class Information {
             this.fewestMoves = fewestMoves;
         }
 
+        public boolean isEmpty() {
+            return gamesReached == 0 && shortestTime == Integer.MAX_VALUE && fewestMoves == Integer.MAX_VALUE;
+        }
+        
+        public MilestoneTile createCopy(){
+            return new MilestoneTile(gamesReached, shortestTime, fewestMoves);
+        }
     }
 
-    private Map<Integer, MilestoneTile> milestones;
+   private Map<Integer, MilestoneTile> milestones;
 
     /**
      *
@@ -162,10 +169,9 @@ public class Information {
         this.totalScore += amount;
         //Major tiles reached:
         //512
-        MilestoneTile milestone = this.milestones.get(amount);
         if (!milestonesReached.contains(amount)) {
             milestonesReached.add(amount);
-
+            MilestoneTile milestone = this.milestones.get(amount);
             if (milestone != null) {
                 milestone.setGamesReached(milestone.getGamesReached() + 1);
                 if (this.time < milestone.getShortestTime()) {
@@ -307,10 +313,18 @@ public class Information {
     }
 
     public Information createCopy() {
-        return new Information(gameState, score, time, numOfMoves, milestonesReached, bestScore, totalScore, topTile, milestones);
+        return new Information(gameState, score, time, numOfMoves, createMilestoneReachedCopy(), bestScore, totalScore, topTile, createMilestonesCopy());
     }
     
-    public void resetMilestonesReached(){
+    public Map<Integer,MilestoneTile> createMilestonesCopy(){
+        return new TreeMap<>(milestones);
+    }
+    
+    public HashSet<Integer> createMilestoneReachedCopy(){
+        return new HashSet<>(milestonesReached);
+    }
+
+    public void resetMilestonesReached() {
         this.milestonesReached = new HashSet<>();
     }
 }

@@ -91,6 +91,19 @@ public class SaveOpen {
             line = encrypt(info.getTopTile() + "", SECRET);
             fw.append(line + "\n");
 
+            line = "";
+            for (Integer save : info.getMilestonesReached()) {
+                line += save + " ";
+            }
+            if (line.length() >= 2 && line.charAt(line.length() - 1) == ' ') {
+                line = line.substring(0, line.length() - 1);
+            }
+            if (line.equals("")) {
+                line += "2";
+            }
+            line = encrypt(line, SECRET);
+            fw.append(line + "\n");
+
             int starting = 512;
             int power = 0;
             Information.MilestoneTile milestone;
@@ -108,18 +121,6 @@ public class SaveOpen {
                 fw.append(line + "\n");
                 power++;
             } while (true);
-
-            line = "";
-            for (Integer save : info.getMilestonesReached()) {
-                line += save + " ";
-            }
-            if (line.length() >= 2) {
-                line = line.substring(0, line.length() - 1);
-            }
-            if (line != null) {
-                line = encrypt(line, SECRET);
-                fw.append(line + "\n");
-            }
 
         } catch (IOException ioe) {
             System.err.println(ioe);
@@ -176,6 +177,14 @@ public class SaveOpen {
             line = decrypt(br.readLine(), SECRET);
             this.info.setTopTile(Integer.parseInt(line));
 
+            line = decrypt(br.readLine(), SECRET);
+            if (line != null) {
+                String nums[] = line.split(" ");
+                for (int i = 0; i < nums.length; i++) {
+                    this.info.getMilestonesReached().add(Integer.parseInt(nums[i]));
+                }
+            }
+
             int starting = 512;
             int power = 0;
             MilestoneTile milestone;
@@ -199,14 +208,6 @@ public class SaveOpen {
                 }
             } while (true);
             this.info.setMiletones(milestones);
-
-            line = decrypt(br.readLine(), SECRET);
-            if (line != null) {
-                String nums[] = line.split(" ");
-                for (int i = 0; i < nums.length; i++) {
-                    this.info.getMilestonesReached().add(Integer.parseInt(nums[i]));
-                }
-            }
 
         } catch (IOException ioe) {
             System.err.println(ioe);
@@ -284,18 +285,4 @@ public class SaveOpen {
         this.info = info;
     }
 
-    /**
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        SaveOpen test = new SaveOpen();
-//        test.saveInfo();
-//            test.getSavedInfo();
-//        System.out.println(test.decrypt("83lhPadq/eeZD0TlkXeNqwWS4u1RtkBgCalyAfhRcQE=", SECRET));
-//        System.out.println(test.decrypt("96Zlh4ypx14v3hQTpBJBPg==", SECRET));
-//        System.out.println(test.info.getFewestMoves1024());
-//        test.saveInfo();
-        System.out.println(Information.convertTime(("01:02:60")));
-    }
 }

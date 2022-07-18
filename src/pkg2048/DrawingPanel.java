@@ -34,14 +34,9 @@ public class DrawingPanel extends JPanel {
     private boolean undoable;
     private MapCoordinates coordinates;
     private final DataSaving.SaveOpen information;
-    private int movement;
-    private int[] oldTile;
-    private int[] newTile;
     private int tileWidth;
-    private int xOld, yOld;
-    private int xNew, yNew;
-    Image background;
-
+    private Color backgroundColor;
+    
     /**
      * Reset the game, including making the Tiles Map clear with only 1 randomly
      * generated tile left and with score reset.
@@ -52,6 +47,7 @@ public class DrawingPanel extends JPanel {
         this.map.generateNewTile();
         this.information.getInfo().setNumOfMoves(0);
         this.information.getInfo().resetMilestonesReached();
+        backgroundColor = Color.white;
         repaint();
         gameOver = false;
     }
@@ -78,6 +74,7 @@ public class DrawingPanel extends JPanel {
         information.getSavedInfo();
         this.map.setTiles(information.getInfo().getGameState());
         this.map.setScore(information.getInfo().getScore());
+        this.backgroundColor = Color.white;
     }
 
     /**
@@ -404,6 +401,8 @@ public class DrawingPanel extends JPanel {
 
         this.currentState = getMapPositions();//Get state after movement
 
+
+
         //Compare two states
         if (!compareState(currentState, previousState)) {//If states are not same (movement performed)
             undoable = true; //Can undo
@@ -522,29 +521,19 @@ public class DrawingPanel extends JPanel {
         g.drawString(s, r.x + a, r.y + b);
     }
 
-
     @Override
     public void paint(Graphics graphics) {
 
         super.paint(graphics);
         g = (Graphics2D) graphics;
-        background = null;
-        int starting = 512;
-        int power = 0;
-        do {
-            if (this.information.getInfo().getMilestonesReached().contains(starting * (int) Math.pow((double) 2, (double) power))){
-                  this.setBackground(Color.red);
-            } else {
-                break;
-            }
-            power++;
-        } while (true);
+        
         //Get current map width
         this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(), this.getWidth()) * 5 / 6);
         tileWidth = mapWidth / 4;
         //Get current tiles coordinates in the map
         this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
-
+        
+        this.setBackground(backgroundColor);
         //Draw map border
         drawMapBorder();
 
@@ -553,7 +542,7 @@ public class DrawingPanel extends JPanel {
 
         //Draw tiles
         drawTiles();
-
+        
     }
 
     /**

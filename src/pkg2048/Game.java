@@ -29,8 +29,6 @@ public class Game extends javax.swing.JFrame {
     Color functionColorWhenUsed = Color.decode("#ff321d");
     Clock clock;
     StatDisplay infoDisplay;
-    
-    
 
     /**
      * Creates new form Game
@@ -39,9 +37,7 @@ public class Game extends javax.swing.JFrame {
         initComponents();
         isDisabled = false;
         this.requestFocus();
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();        //Get size of screen
         //Set size of JFRAME as a square proportional to screen height
@@ -146,7 +142,7 @@ public class Game extends javax.swing.JFrame {
 
             //To check window lost focus
             public void windowLostFocus(WindowEvent e) {
-                
+
                 pauseGame();
             }
         });
@@ -175,7 +171,7 @@ public class Game extends javax.swing.JFrame {
         }
     }
 
-     /**
+    /**
      * pause the game and stop the clock
      */
     public void pauseGame() {
@@ -193,17 +189,20 @@ public class Game extends javax.swing.JFrame {
 
     /**
      * Show game over notification
+     *
      * @throws HeadlessException
      */
     private void gameOver() throws HeadlessException {
         if (panel.isGameOver()) {
             pauseGame();
             if (JOptionPane.showConfirmDialog(this, "Game Over!\nOK to reset; Cancel to undo", "Game Over", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+                this.requestFocus();
                 isDisabled = false;
                 panel.resetGame();
                 setScore();
                 clock.start();
             } else {
+                this.requestFocus();
                 panel.Undo();
                 resumeGame();
             }
@@ -224,13 +223,13 @@ public class Game extends javax.swing.JFrame {
     /**
      * save time record
      */
-    
     void saveTime() {
         panel.getInformation().getInfo().setTime(Information.convertTime(Time.getText()));
     }
 
     /**
      * set color for movement button
+     *
      * @param button (pressed by user)
      */
     void setMovementButtonsColor(char button) {
@@ -242,6 +241,7 @@ public class Game extends javax.swing.JFrame {
 
     /**
      * set color for function button
+     *
      * @param button
      */
     void setFunctionButtonsColor(char button) {
@@ -619,14 +619,13 @@ public class Game extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
-                
+
             }
         });
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -95,7 +95,7 @@ public class Tile {
     /**
      * Set color of Tile based on data value
      */
-     public void setColor() {
+    public void setColor() {
         switch (data) {
             case 2:
                 this.color = Color.decode("#9600ff");
@@ -133,13 +133,41 @@ public class Tile {
         }
     }
 
+    public static Color getColorForNumber(int data) {
+        switch (data) {
+            case 2:
+                return Color.decode("#9600ff");
+            case 4:
+                return Color.decode("#f0145A");
+            case 8:
+                return Color.decode("#ffc91b");
+            case 16:
+                return Color.decode("#093711");
+            case 32:
+                return Color.decode("#0095d6");
+            case 64:
+                return Color.decode("#ce007b");
+            case 128:
+                return Color.decode("#ff5518");
+            case 256:
+                return Color.decode("#29d7a5");
+            case 512:
+                return Color.decode("#73c702");
+            case 1024:
+                return Color.decode("#ff0024");
+            case 2048:
+                return Color.decode("#5f069b");
+        }
+        return null;
+    }
 
     /**
      * Get color of Tile
+     *
      * @return color of Tile
      */
     public Color getColor() {
         return color;
     }
-    
+
 }
