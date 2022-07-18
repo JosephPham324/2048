@@ -3,6 +3,7 @@ package pkg2048;
 import java.awt.Color;
 import java.awt.Cursor;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,10 +16,10 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
-        subMenu.setSize(995,730);
-        
+        subMenu.setSize(995, 730);
+
         this.setResizable(false);//Don't allow user to resize window
         HTP_MoTa.setVisible(false);
         Panel2048.setVisible(true);
@@ -26,8 +27,6 @@ public class Menu extends javax.swing.JFrame {
 
         this.setTitle("2048");//Set title to 2048
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -383,35 +382,33 @@ public class Menu extends javax.swing.JFrame {
 
     private void HTPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HTPMouseClicked
         /* Event when click how to play button */
-        HTP_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+        HTP_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         HTP_MoTa.setVisible(true);
         AU_Panel.setVisible(false);
-        
+
         Play.setForeground(Color.white);
         PlayPanel.setBackground(Color.black);
-        
+
         HTP.setForeground(Color.black);
         HTP_Panel.setBackground(Color.white);
-        
+
         AboutUs.setForeground(Color.white);
         AboutUs_Panel.setBackground(Color.black);
     }//GEN-LAST:event_HTPMouseClicked
 
     private void PlayPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayPanelMouseClicked
-        
+
         /* Event when click play button */
-        PlayPanel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+        PlayPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Play.setForeground(Color.black);
         PlayPanel.setBackground(Color.white);
 
         HTP.setForeground(Color.white);
         HTP_Panel.setBackground(Color.black);
-        
+
         AboutUs.setForeground(Color.white);
         AboutUs_Panel.setBackground(Color.black);
-        
-        
-        
+
         JFrame parent = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -422,33 +419,33 @@ public class Menu extends javax.swing.JFrame {
 
     private void HTP_PanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HTP_PanelMouseClicked
         /* Event when click how to play button */
-        HTP_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-        
+        HTP_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         Play.setForeground(Color.white);
         PlayPanel.setBackground(Color.black);
-        
+
         HTP_MoTa.setVisible(true);
         AU_Panel.setVisible(false);
-        
+
         HTP.setForeground(Color.black);
         HTP_Panel.setBackground(Color.white);
-        
+
         AboutUs.setForeground(Color.white);
         AboutUs_Panel.setBackground(Color.black);
     }//GEN-LAST:event_HTP_PanelMouseClicked
 
     private void AboutUs_PanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AboutUs_PanelMouseClicked
         /* Event when click about us button */
-        AboutUs_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+        AboutUs_Panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         HTP_MoTa.setVisible(false);
         AU_Panel.setVisible(true);
-        
+
         Play.setForeground(Color.white);
         PlayPanel.setBackground(Color.black);
-        
+
         HTP.setForeground(Color.white);
         HTP_Panel.setBackground(Color.black);
-        
+
         AboutUs.setForeground(Color.black);
         AboutUs_Panel.setBackground(Color.white);
     }//GEN-LAST:event_AboutUs_PanelMouseClicked
@@ -462,24 +459,24 @@ public class Menu extends javax.swing.JFrame {
 
     private void subMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subMenuMouseClicked
         // TODO add your handling code here:      
-        subMenu.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
-        
+        subMenu.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         Play.setForeground(Color.white);
         PlayPanel.setBackground(Color.black);
-        
+
         HTP_MoTa.setVisible(false);
         AU_Panel.setVisible(false);
-        
+
         HTP.setForeground(Color.white);
         HTP_Panel.setBackground(Color.black);
-        
+
         AboutUs.setForeground(Color.white);
         AboutUs_Panel.setBackground(Color.black);
     }//GEN-LAST:event_subMenuMouseClicked
 
     private void PlayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PlayMouseClicked
-          /* Event when click play button */
-        Play.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+        /* Event when click play button */
+        Play.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Play.setForeground(Color.black);
         PlayPanel.setBackground(Color.white);
         JFrame parent = this;
@@ -493,16 +490,16 @@ public class Menu extends javax.swing.JFrame {
 
     private void AboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AboutUsMouseClicked
         /* Event when click about us button */
-        AboutUs.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
+        AboutUs.setCursor(new Cursor(Cursor.HAND_CURSOR));
         HTP_MoTa.setVisible(false);
         AU_Panel.setVisible(true);
-        
+
         Play.setForeground(Color.white);
         PlayPanel.setBackground(Color.black);
-        
+
         HTP.setForeground(Color.white);
         HTP_Panel.setBackground(Color.black);
-        
+
         AboutUs.setForeground(Color.black);
         AboutUs_Panel.setBackground(Color.white);
     }//GEN-LAST:event_AboutUsMouseClicked
@@ -511,7 +508,10 @@ public class Menu extends javax.swing.JFrame {
 
         Quit.setForeground(Color.white);
         QuitPanel.setBackground(Color.black);
-        System.exit(0);
+        if (JOptionPane.showConfirmDialog(this, "Thank you and see you again!", "QUIT GAME", JOptionPane.OK_CANCEL_OPTION)
+                == JOptionPane.OK_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_QuitMouseClicked
 
     /**
@@ -542,7 +542,6 @@ public class Menu extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
