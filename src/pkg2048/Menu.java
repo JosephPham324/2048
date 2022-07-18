@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pkg2048;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 /**
  *
@@ -418,10 +412,10 @@ public class Menu extends javax.swing.JFrame {
         
         
         
-
+        JFrame parent = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game().setVisible(true);
+                new Game(parent).setVisible(true);
             }
         });
     }//GEN-LAST:event_PlayPanelMouseClicked
@@ -488,9 +482,10 @@ public class Menu extends javax.swing.JFrame {
         Play.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
         Play.setForeground(Color.black);
         PlayPanel.setBackground(Color.white);
+        JFrame parent = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Game().setVisible(true);
+                new Game(parent).setVisible(true);
             }
         });
 

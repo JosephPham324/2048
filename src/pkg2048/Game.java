@@ -29,11 +29,14 @@ public class Game extends javax.swing.JFrame {
     Color functionColorWhenUsed = Color.decode("#ff321d");
     Clock clock;
     StatDisplay infoDisplay;
+    JFrame parent;
 
     /**
      * Creates new form Game
      */
-    public Game() {
+    public Game(JFrame parent) {
+        this.parent = parent;
+        parent.setVisible(false);
         initComponents();
         isDisabled = false;
         this.requestFocus();
@@ -165,6 +168,7 @@ public class Game extends javax.swing.JFrame {
             panel.getInformation().getInfo().setTime(Information.convertTime(this.Time.getText()));
             panel.getInformation().saveInfo();
             KeyboardFocusManager.setCurrentKeyboardFocusManager(null);
+            parent.setVisible(true);
             this.dispose();
         } else {
             resumeGame();

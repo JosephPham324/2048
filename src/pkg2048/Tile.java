@@ -1,7 +1,6 @@
 package pkg2048;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 /**
  * Class that represents a single tile in the TileMap
