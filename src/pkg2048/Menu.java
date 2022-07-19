@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
+ * Main menu of 2048 game
  *
  * @author Nguyen Le Quang Thinh
  */
@@ -30,7 +31,7 @@ public class Menu extends javax.swing.JFrame {
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (askClose()){
+                if (askClose()) {
                     System.exit(0);
                 }
             }
@@ -519,7 +520,7 @@ public class Menu extends javax.swing.JFrame {
 
         Quit.setForeground(Color.white);
         QuitPanel.setBackground(Color.black);
-        if (askClose()){
+        if (askClose()) {
             System.exit(0);
         }
     }//GEN-LAST:event_QuitMouseClicked

@@ -3,7 +3,7 @@ package DataSaving;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
-import javax.crypto.Mac;
+import java.util.TreeSet;
 import pkg2048.Tile;
 
 /**
@@ -133,13 +133,13 @@ public class Information {
         /**
          * Create a copy of this MilestoneTile object
          *
-         * @return
+         * @return copy of this MilestoneTile
          */
         public MilestoneTile createCopy() {
             return new MilestoneTile(gamesReached, shortestTime, fewestMoves);
         }
     }
-    private HashSet<Integer> milestonesReached; //Milestones reached in current games
+    private TreeSet<Integer> milestonesReached; //Milestones reached in current games
     private Map<Integer, MilestoneTile> milestones;//Information of milestones
 
     /**
@@ -162,7 +162,7 @@ public class Information {
         this.milestones.put(2048, new MilestoneTile());
 
         //Milestones reached for current game is 0
-        this.milestonesReached = new HashSet();
+        this.milestonesReached = new TreeSet();
 
         //Current game state is blank (no tiles yet)
         this.gameState = new Tile[4][4];
@@ -183,7 +183,7 @@ public class Information {
      * @param topTile Top tile reached
      * @param milestones Milestones information
      */
-    public Information(Tile[][] gameState, int score, int time, int numOfMoves, HashSet<Integer> milestonesReached, int bestScore, int totalScore, int topTile, Map<Integer, MilestoneTile> milestones) {
+    public Information(Tile[][] gameState, int score, int time, int numOfMoves, TreeSet<Integer> milestonesReached, int bestScore, int totalScore, int topTile, Map<Integer, MilestoneTile> milestones) {
         this.gameState = gameState;
         this.score = score;
         this.time = time;
@@ -248,7 +248,7 @@ public class Information {
         this.totalScore += amount;
 
         //Update information of major tiles reached
-        if (!milestonesReached.contains(amount)) {//If current game has not reached the tile with this amount yet
+        if (!milestonesReached.contains(amount) && amount>=512) {//If current game has not reached the tile with this amount yet
             milestonesReached.add(amount);//Add to milestonesReached
             MilestoneTile milestone = this.milestones.get(amount);//Get reference of the MilestoneTile to update information
             if (milestone != null) {
@@ -381,7 +381,7 @@ public class Information {
      *
      * @return milestonesReached HashSet
      */
-    public HashSet<Integer> getMilestonesReached() {
+    public TreeSet<Integer> getMilestonesReached() {
         return milestonesReached;
     }
 
@@ -390,7 +390,7 @@ public class Information {
      *
      * @param milestonesReached HashSet to set
      */
-    public void setMilestonesReached(HashSet<Integer> milestonesReached) {
+    public void setMilestonesReached(TreeSet<Integer> milestonesReached) {
         this.milestonesReached = milestonesReached;
     }
 
@@ -441,8 +441,8 @@ public class Information {
      * Create copy of milestonesReached HashSet
      * @return A copy of milestonesReached (not a reference to current milestonesReached)
      */
-    public HashSet<Integer> createMilestoneReachedCopy() {
-        HashSet<Integer> result = new HashSet<>();
+    public TreeSet<Integer> createMilestoneReachedCopy() {
+        TreeSet<Integer> result = new TreeSet<>();
         this.milestonesReached.forEach(insert -> {
             result.add(insert);
         });
@@ -453,7 +453,7 @@ public class Information {
      * Reset milestonesReached with new HashSet
      */
     public void resetMilestonesReached() {
-        this.milestonesReached = new HashSet<>();
+        this.milestonesReached = new TreeSet<>();
     }
 
     /**
@@ -464,10 +464,11 @@ public class Information {
         resetMilestonesReached();
         int milestone = 512;
         int pow = 0;
-        while (milestone <= maxTile) {
+        do {
             milestone = milestone * (int) Math.pow((double) 2, (double) pow);
+            if (milestone > maxTile) break;
             this.milestonesReached.add(milestone);
             ++pow;
-        }
+        } while (true);
     }
 }

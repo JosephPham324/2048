@@ -7,20 +7,16 @@ package pkg2048;
  */
 public class Position {
 
-    private int rowNumber;
-    private int columnNumber;
-    private int data;
-    private boolean updatedData;
-    public static final int SAME = 0;
-    public static final int LEFT = 1;
-    public static final int RIGHT = 2;
-    public static final int UP = 3;
-    public static final int DOWN = 4;
+    private int rowNumber;//The row of this position
+    private int columnNumber;//The column of this position
+    private int data;//Data of this position
+    private boolean updatedData;//Is this position updated (two tiles fused)
 
     /**
-     * Position of tile
-     * @param rowNumber
-     * @param columnNumber
+     * Constructor only with position info and no value
+     *
+     * @param rowNumber Row of position
+     * @param columnNumber Column of position
      */
     public Position(int rowNumber, int columnNumber) {
         this.rowNumber = rowNumber;
@@ -28,11 +24,13 @@ public class Position {
     }
 
     /**
-     * Position of tile (update)
-     * @param rowNumber
-     * @param columnNumber
-     * @param data
-     * @param updated
+     * Constructor with full parameters
+     *
+     * @param rowNumber  Row of position
+     * @param columnNumber Column of position
+     * @param data Data value of position
+     * @param updated Is this position updated (have two tiles in 2 different positions
+     * moved into this position)
      */
     public Position(int rowNumber, int columnNumber, int data, boolean updated) {
         this.rowNumber = rowNumber;
@@ -85,6 +83,7 @@ public class Position {
 
     /**
      * get the row number
+     *
      * @return rowNumber
      */
     public int getRowNumber() {
@@ -93,6 +92,7 @@ public class Position {
 
     /**
      * get the column number
+     *
      * @return columnNumber
      */
     public int getColumnNumber() {
@@ -101,6 +101,7 @@ public class Position {
 
     /**
      * get data of tile
+     *
      * @return data
      */
     public int getData() {
@@ -109,36 +110,11 @@ public class Position {
 
     /**
      * check if there is an update
+     *
      * @return updatedData
      */
     public boolean isUpdatedData() {
         return updatedData;
-    }
-
-    /**
-     * compare the position
-     * @param before
-     * @param after
-     * @return LEFT,RIGHT,UP,DOWN
-     */
-    public static int comparePosition(Position before, Position after) {
-        if (before.getColumnNumber() == after.getColumnNumber()){
-            if (before.getRowNumber()<after.getRowNumber()){
-                return DOWN;
-            } else if  (before.getRowNumber()>after.getRowNumber()){
-                return UP;
-            } else {
-                return SAME;
-            }
-        }
-        if (before.getRowNumber() == after.getRowNumber()){
-            if (before.getColumnNumber()<after.getColumnNumber()){
-                return RIGHT;
-            } else if  (before.getColumnNumber()>after.getColumnNumber()){
-                return LEFT;
-            }
-        }
-        return SAME;
     }
 
 }

@@ -33,6 +33,9 @@ public class TileMap {
         RIGHT
     }
 
+    /**
+     * Default constructor with no parameters
+     */
     public TileMap() {
         this.tiles = new Tile[4][4];
         this.score = 0;

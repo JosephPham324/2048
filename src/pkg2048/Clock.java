@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.*;
 
 /**
+ * Class to create a hh:mm:ss format clock and display in a JLabel
  *
  * @author Pham Nhat Quang
  */
@@ -17,6 +18,7 @@ public class Clock {
 
     /**
      * Create new clock
+     *
      * @param time Initial time of the clock
      */
     public Clock(JLabel time) {
@@ -42,7 +44,6 @@ public class Clock {
 //        frame.setVisible(true);
 //        clock.start();
 //    }
-
     /**
      * Reset the clock to 00:00:00
      */
@@ -51,7 +52,7 @@ public class Clock {
         currentMinute = 0;
         currentHour = 0;
         time.setText(String.format("%02d:%02d:%02d", currentHour, currentMinute, currentSecond));
-        
+
     }
 
     /**
@@ -94,7 +95,9 @@ public class Clock {
      */
     public void resume() {
         try {
-            if (timer!=null) timer.cancel();
+            if (timer != null) {
+                timer.cancel();
+            }
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -119,6 +122,7 @@ public class Clock {
 
     /**
      * Get current time of this clock in number of seconds
+     *
      * @return time in seconds
      */
     public int getTime() {
@@ -127,11 +131,11 @@ public class Clock {
 
     /**
      * Get label of this clock (time in format hh:mm:ss
+     *
      * @return Label of clock
      */
     public JLabel getLabel() {
         return this.time;
     }
-    
 
 }

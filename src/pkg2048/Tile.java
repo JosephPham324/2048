@@ -132,6 +132,11 @@ public class Tile {
         }
     }
 
+    /**
+     * Get color according to data value
+     * @param data Value to get value
+     * @return Color matching with data value
+     */
     public static Color getColorForNumber(int data) {
         switch (data) {
             case 2:

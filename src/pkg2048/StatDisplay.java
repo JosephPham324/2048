@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import javax.swing.JLabel;
 
 /**
+ * Form to display statistics of 2048 game.
  *
  * @author Pham Nhat Quang
  */
@@ -14,9 +15,9 @@ public class StatDisplay extends javax.swing.JFrame {
     DataSaving.Information info;
 
     /**
-     * Creates new form Information
+     * Creates new form to display statistics
      *
-     * @param info
+     * @param info Information for display
      */
     public StatDisplay(DataSaving.Information info) {
         initComponents();
@@ -39,12 +40,12 @@ public class StatDisplay extends javax.swing.JFrame {
         setLabel(_512reached, gamesReached512, this.info.getMilestoneInfo(512).getGamesReached() + "");
         setLabel(_512shortestTime, shortestTime512, this.info.getMilestoneInfo(512).getShortestTimeDisplay());
         setLabel(_512fewestMoves, FewestMoves512, this.info.getMilestoneInfo(512).getFewestMoves() + "");
-       
+
         //1024
         setLabel(_1024reached, gamesReached1024, this.info.getMilestoneInfo(1024).getGamesReached() + "");
         setLabel(_1024shortestTime, shortestTime1024, this.info.getMilestoneInfo(1024).getShortestTimeDisplay());
         setLabel(_1024fewestMoves, fewestMoves1024, this.info.getMilestoneInfo(1024).getFewestMoves() + "");
-        
+
         //2048
         setLabel(_2048reached, gamesReached2048, this.info.getMilestoneInfo(2048).getGamesReached() + "");
         setLabel(_2048shortestTime, shortestTime2048, this.info.getMilestoneInfo(2048).getShortestTimeDisplay());
@@ -61,6 +62,13 @@ public class StatDisplay extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Set text of 2 labels based on value String
+     *
+     * @param title Title label
+     * @param value Value label
+     * @param valueString Value to set text of value label
+     */
     private void setLabel(JLabel title, JLabel value, String valueString) {
         if (valueString.equals("0")
                 || valueString.equals(Integer.MAX_VALUE + "")

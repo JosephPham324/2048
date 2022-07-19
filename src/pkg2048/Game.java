@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *
+ * Panel to display game and for user to play game
  * @author Pham Nhat Quang
  */
 public class Game extends javax.swing.JFrame {
@@ -33,6 +33,8 @@ public class Game extends javax.swing.JFrame {
 
     /**
      * Creates new form Game
+     *
+     * @param parent parent of this form
      */
     public Game(JFrame parent) {
         this.parent = parent;
@@ -69,15 +71,15 @@ public class Game extends javax.swing.JFrame {
 
                     int keyCode = e.getKeyCode();
 
-                    if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_D
-                            || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {
+                    if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_S
+                            || keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_D
+                            || keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_DOWN
+                            || keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT) {//Movement buttons
                         setFunctionButtonsColor('N');
-                        System.out.println("here");
-                        switch (e.getKeyCode()) {
+                        switch (keyCode) {
                             case KeyEvent.VK_W:
                             case KeyEvent.VK_UP:
                                 panel.processMovement(TileMap.Movement.UP);
-                                System.out.println("Does this work");
                                 setMovementButtonsColor('u');
 
                                 break;
@@ -97,20 +99,24 @@ public class Game extends javax.swing.JFrame {
                                 setMovementButtonsColor('r');
                                 break;
                         }
-                        saveTime();
-                        setScore();
+                        saveTime();//Save time when perform movement
+                        setScore();//Set score after moving
                         e.consume();
-                        gameOver();
-                    } else {
+                        try {
+                            gameOver();
+                        } catch (HeadlessException he) {
+                            System.err.println(he);
+                        }
+                    } else {//Function buttons
                         setMovementButtonsColor('F');
-                        if (e.isControlDown()) {
+                        if (e.isControlDown()) {//Ctrl +
                             switch (keyCode) {
-                                case KeyEvent.VK_Z:
+                                case KeyEvent.VK_Z://Z: Undo
                                     panel.Undo();
                                     setScore();
                                     setFunctionButtonsColor('U');
                                     break;
-                                case KeyEvent.VK_R:
+                                case KeyEvent.VK_R://R: Reset
                                     panel.resetGame();
                                     clock.reset();
                                     setScore();
@@ -118,8 +124,8 @@ public class Game extends javax.swing.JFrame {
                                     break;
                             }
                         }
-                        if (e.isAltDown()) {
-                            if (keyCode == KeyEvent.VK_F4) {
+                        if (e.isAltDown()) {//Alt + 
+                            if (keyCode == KeyEvent.VK_F4) {//F4: Close
                                 askClose();
                             }
                         }
@@ -129,49 +135,51 @@ public class Game extends javax.swing.JFrame {
             }
         });
 
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
+        this.addWindowListener(new java.awt.event.WindowAdapter() {//Window listener for closing operation
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                askClose();
+                askClose();//Ask if user really wants to close before closing
             }
         });
 
-        this.addWindowFocusListener(new java.awt.event.WindowAdapter() {
+        this.addWindowFocusListener(new java.awt.event.WindowAdapter() {//Window focus listener to pause and resume game based on focus
 
             //To check window gained focus
-            public void windowGainedFocus(WindowEvent e) {
+            public void windowGainedFocus(WindowEvent e) {//Pause game when not focused
                 resumeGame();
             }
 
             //To check window lost focus
-            public void windowLostFocus(WindowEvent e) {
+            public void windowLostFocus(WindowEvent e) {//Resume game when focused
 
                 pauseGame();
             }
         });
-        gamePanel.add(panel, BorderLayout.CENTER);
-        this.score.setText(map.getScore() + "");
-        this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");
+        gamePanel.add(panel, BorderLayout.CENTER);//Add to game panel
+        setScore();//Set current game score on display
+        this.score1.setText(panel.getInformation().getInfo().getBestScore() + "");//Set best score on display
     }
 
     /**
      * Ask the user if they want to close the game
      */
     public void askClose() {
-        pauseGame();
+        pauseGame();//Pause game before asking
         if (JOptionPane.showConfirmDialog(null,
                 "Are you sure you want to close this window?", "Close Window?",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-            panel.getInformation().getInfo().setGameState(panel.getGameState());
-            panel.getInformation().getInfo().setScore(map.getScore());
-            panel.getInformation().getInfo().setTime(Information.convertTime(this.Time.getText()));
-            panel.getInformation().saveInfo();
-            KeyboardFocusManager.setCurrentKeyboardFocusManager(null);
-            parent.setVisible(true);
+                JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {//If user wants to close window
+            //Get information to save:
+            panel.getInformation().getInfo().setGameState(panel.getGameState());//Game state
+            panel.getInformation().getInfo().setScore(map.getScore());//Current score
+            saveTime();//Time
+            panel.getInformation().saveInfo();//Save information into file
+
+            KeyboardFocusManager.setCurrentKeyboardFocusManager(null);//Delete current KeyboardFocusManager
+            parent.setVisible(true);//Set parent visible
             this.dispose();
-        } else {
-            resumeGame();
+        } else {//If user does not want to close
+            resumeGame();//Resume game
         }
     }
 
@@ -194,7 +202,9 @@ public class Game extends javax.swing.JFrame {
     /**
      * Show game over notification
      *
-     * @throws HeadlessException
+     * @throws HeadlessException Thrown when code that is dependent on a
+     * keyboard, display, or mouse is called in an environment that does not
+     * support a keyboard, display, or mouse.
      */
     private void gameOver() throws HeadlessException {
         if (panel.isGameOver()) {
@@ -214,7 +224,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     * set score for game
+     * Set score for display
      */
     void setScore() {
         score.setText(map.getScore() + "");
@@ -225,14 +235,14 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     * save time record
+     * Save time
      */
     void saveTime() {
         panel.getInformation().getInfo().setTime(Information.convertTime(Time.getText()));
     }
 
     /**
-     * set color for movement button
+     * Set color for movement button
      *
      * @param button (pressed by user)
      */
@@ -244,7 +254,7 @@ public class Game extends javax.swing.JFrame {
     }
 
     /**
-     * set color for function button
+     * Set color for function button
      *
      * @param button
      */

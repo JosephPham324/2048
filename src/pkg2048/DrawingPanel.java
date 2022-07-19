@@ -12,31 +12,31 @@ import java.awt.Toolkit;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
+ * Class to draw the state of games (positions and data values of tiles)
  *
  * @author Pham Nhat Quang CE170036
  */
 public class DrawingPanel extends JPanel {
 
-    private int mapWidth;
-    private final TileMap map;
-    private Graphics2D g;
-    private boolean gameOver;
-    private Position[][] previousState;
-    private Position[][] currentState;
+    private int mapWidth; //Width of map
+    private final TileMap map; //TileMap to work on
+    private Graphics2D g; //To draw
+    private boolean gameOver; //Flag for checking game over
+    private Position[][] previousState;//Previous state for undo
+    private Position[][] currentState;//Current state
 
-    private int pointsUndo;
-    private Information infoUndo;
-    private Position[][] stateUndo;
-    private boolean undoable;
-    private MapCoordinates coordinates;
-    private final DataSaving.SaveOpen information;
-    private int tileWidth;
-    private Color backgroundColor;
-    
+    private int pointsUndo; //Points for undo
+    private Information infoUndo;//Info for undo
+    private Position[][] stateUndo;//State for undo
+    private boolean undoable;//Flag to check if movement is undoable
+    private MapCoordinates coordinates;//Coordinates to draw
+    private final DataSaving.SaveOpen information;//Store, save, open information of current and all games
+    private int tileWidth; //Width of a single tile
+    private Color backgroundColor;//Background color of panel
+
     /**
      * Reset the game, including making the Tiles Map clear with only 1 randomly
      * generated tile left and with score reset.
@@ -201,18 +201,18 @@ public class DrawingPanel extends JPanel {
             mapPositions[newPosition.getRowNumber()][newPosition.getColumnNumber()] = null;//Delete the information stored in new position's position
         }
         //Update tiles according to updated map position
-        updateTiles(mapPositions);
+        updateGameState(mapPositions);
 
         //Repaint the game
         repaint();
     }
 
     /**
-     * individual movement of tile (left)
+     * Individual movement of tile (left)
      *
-     * @param oldPositionRow
-     * @param oldPositionColumn
-     * @param mapPositions
+     * @param oldPositionRow Row number of old position
+     * @param oldPositionColumn Column number of old position
+     * @param mapPositions Map position to update after movement
      */
     public void individualLeftMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
@@ -229,11 +229,11 @@ public class DrawingPanel extends JPanel {
 
                     if (mapPositions[oldPosition.getRowNumber()][j] == null) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
-                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, false);
 
                     } else if ((mapPositions[oldPosition.getRowNumber()][j].getData() == oldPosition.getData() && mapPositions[oldPosition.getRowNumber()][j].isUpdatedData() == false)) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, true);
-                        updateGameState(oldPosition, newPosition, mapPositions, true);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
                 }
             }
@@ -241,11 +241,11 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     * individual movement of tile (right)
+     * Individual movement of tile (right)
      *
-     * @param oldPositionRow
-     * @param oldPositionColumn
-     * @param mapPositions
+     * @param oldPositionRow Row number of old position
+     * @param oldPositionColumn Column number of old position
+     * @param mapPositions Map position to update after movement
      */
     public void individualRightMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
@@ -262,11 +262,11 @@ public class DrawingPanel extends JPanel {
 
                     if (mapPositions[oldPosition.getRowNumber()][j] == null) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData(), false);
-                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, false);
 
                     } else if ((mapPositions[oldPosition.getRowNumber()][j].getData() == oldPosition.getData() && mapPositions[oldPosition.getRowNumber()][j].isUpdatedData() == false)) {
                         newPosition = new Position(oldPositionRow, j, oldPosition.getData() * 2, true);
-                        updateGameState(oldPosition, newPosition, mapPositions, true);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
                 }
             }
@@ -275,11 +275,11 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     * individual movement of tile (up)
+     * Individual movement of tile (up)
      *
-     * @param oldPositionRow
-     * @param oldPositionColumn
-     * @param mapPositions
+     * @param oldPositionRow Row number of old position
+     * @param oldPositionColumn Column number of old position
+     * @param mapPositions Map position to update after movement
      */
     public void individualUpMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
@@ -295,11 +295,11 @@ public class DrawingPanel extends JPanel {
                 if (!isMovementBlocked(TileMap.Movement.UP, oldPosition, mapPositions[i][oldPosition.getColumnNumber()], mapPositions)) {
                     if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
                         newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), false);
-                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, false);
 
                     } else if ((mapPositions[i][oldPosition.getColumnNumber()].getData() == oldPosition.getData() && mapPositions[i][oldPosition.getColumnNumber()].isUpdatedData() == false)) {
                         newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, true);
-                        updateGameState(oldPosition, newPosition, mapPositions, true);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
                 }
             }
@@ -307,11 +307,11 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     * individual movement of tile (down)
+     * Individual movement of tile (down)
      *
-     * @param oldPositionRow
-     * @param oldPositionColumn
-     * @param mapPositions
+     * @param oldPositionRow Row number of old position
+     * @param oldPositionColumn Column number of old position
+     * @param mapPositions Map position to update after movement
      */
     public void individualDownMovement(int oldPositionRow, int oldPositionColumn, Position[][] mapPositions) {
         Position oldPosition = mapPositions[oldPositionRow][oldPositionColumn];
@@ -328,11 +328,11 @@ public class DrawingPanel extends JPanel {
 
                     if (mapPositions[i][oldPosition.getColumnNumber()] == null) {
                         newPosition = new Position(i, oldPositionColumn, oldPosition.getData(), false);
-                        updateGameState(oldPosition, newPosition, mapPositions, false);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, false);
 
                     } else if ((mapPositions[i][oldPosition.getColumnNumber()].getData() == oldPosition.getData() && mapPositions[i][oldPosition.getColumnNumber()].isUpdatedData() == false)) {
                         newPosition = new Position(i, oldPositionColumn, oldPosition.getData() * 2, true);
-                        updateGameState(oldPosition, newPosition, mapPositions, true);
+                        DrawingPanel.this.updateGameState(oldPosition, newPosition, mapPositions, true);
                     }
                 }
             }
@@ -351,11 +351,11 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     * Update tile
+     * Update game state based on map positions
      *
      * @param mapPositions The positions and information of new tiles state
      */
-    public void updateTiles(Position[][] mapPositions) {
+    public void updateGameState(Position[][] mapPositions) {
         //Set all current tiles to null
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -374,9 +374,9 @@ public class DrawingPanel extends JPanel {
     }
 
     /**
-     * process of tile movement
+     * Process a map movement
      *
-     * @param movement
+     * @param movement Type of movement (left / right / up / down)
      */
     public void processMovement(TileMap.Movement movement) {
         //Get state before movement
@@ -400,8 +400,6 @@ public class DrawingPanel extends JPanel {
         }
 
         this.currentState = getMapPositions();//Get state after movement
-
-
 
         //Compare two states
         if (!compareState(currentState, previousState)) {//If states are not same (movement performed)
@@ -429,7 +427,7 @@ public class DrawingPanel extends JPanel {
         if (undoable) {//If it's undoable
             this.map.setScore(this.pointsUndo);
             this.information.setInfo(infoUndo);
-            updateTiles(this.stateUndo);//Update tiles to previous state stored
+            updateGameState(this.stateUndo);//Update tiles to previous state stored
             undoable = false;//Set undoable to false (Can't undo twice in a row)
             repaint(); //Repaint game
         }
@@ -526,23 +524,24 @@ public class DrawingPanel extends JPanel {
 
         super.paint(graphics);
         g = (Graphics2D) graphics;
-        
+//        information.getInfo().getMilestonesReached().forEach((value) -> {
+//            backgroundColor = Tile.getColorForNumber(value);
+//        });
+
         //Get current map width
         this.mapWidth = mapWidth = getNearest80Divisible(Math.min(this.getHeight(), this.getWidth()) * 5 / 6);
         tileWidth = mapWidth / 4;
         //Get current tiles coordinates in the map
         this.coordinates = new MapCoordinates(mapWidth, new Coordinate(this.getWidth() / 2 - mapWidth / 2, this.getHeight() / 2 - mapWidth / 2));
-        
+
         this.setBackground(backgroundColor);
-        //Draw map border
-        drawMapBorder();
 
-        //Draw background tiles
-        drawBackgroundTiles();
+        drawMapBorder();//Draw map border
 
-        //Draw tiles
-        drawTiles();
-        
+        drawBackgroundTiles();//Draw background tiles
+
+        drawTiles();//Draw tiles
+
     }
 
     /**
@@ -572,7 +571,7 @@ public class DrawingPanel extends JPanel {
     public void drawMapBorder() {
         g.setColor(Color.decode("#CCC0B3"));
         g.fillRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3, 3, 3);
-        g.setColor(Color.blue);
+        g.setColor(Color.black);
         g.drawRoundRect(this.getWidth() / 2 - mapWidth / 2 - 1, this.getHeight() / 2 - mapWidth / 2 - 1, mapWidth + 3, mapWidth + 3, 3, 3);
     }
 
