@@ -421,7 +421,7 @@ public class Menu extends javax.swing.JFrame {
         AboutUs.setForeground(Color.white);
         AboutUs_Panel.setBackground(Color.black);
 
-        JFrame parent = this;
+        Menu parent = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Game(parent).setVisible(true);
@@ -491,7 +491,7 @@ public class Menu extends javax.swing.JFrame {
         Play.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Play.setForeground(Color.black);
         PlayPanel.setBackground(Color.white);
-        JFrame parent = this;
+        Menu parent = this;
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Game(parent).setVisible(true);

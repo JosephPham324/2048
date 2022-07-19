@@ -10,9 +10,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  * Panel to display game and for user to play game
@@ -29,14 +27,14 @@ public class Game extends javax.swing.JFrame {
     Color functionColorWhenUsed = Color.decode("#ff321d");
     Clock clock;
     StatDisplay infoDisplay;
-    JFrame parent;
+    pkg2048.Menu parent;
 
     /**
      * Creates new form Game
      *
      * @param parent parent of this form
      */
-    public Game(JFrame parent) {
+    public Game(pkg2048.Menu parent) {
         this.parent = parent;
         parent.setVisible(false);
         initComponents();
@@ -573,7 +571,14 @@ public class Game extends javax.swing.JFrame {
         setFunctionButtonsColor('U');
         setMovementButtonsColor('U');
     }//GEN-LAST:event_UndoActionPerformed
-
+    public void resetGame(){
+        this.panel.resetGame();
+        this.clock.reset();
+        score.setText(map.getScore() + "");
+        setFunctionButtonsColor('R');
+        setMovementButtonsColor('R');
+    }
+    
     private void RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RESETActionPerformed
         this.panel.resetGame();
         this.clock.reset();
@@ -598,7 +603,7 @@ public class Game extends javax.swing.JFrame {
 
     private void infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoActionPerformed
 
-        new pkg2048.StatDisplay(panel.getInformation().getInfo()).setVisible(true);
+        new pkg2048.StatDisplay(panel.getInformation().getInfo(),this).setVisible(true);
     }//GEN-LAST:event_infoActionPerformed
 
     private void score1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_score1ActionPerformed

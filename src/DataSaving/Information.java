@@ -154,6 +154,7 @@ public class Information {
         //Best and total score is 0 (no moves played yet)
         this.bestScore = 0;
         this.totalScore = 0;
+        this.topTile = 0;
 
         //Initialize milestones with default 512, 1024, 2048 MilestoneTiles constructor
         this.milestones = new TreeMap<>();
@@ -248,7 +249,7 @@ public class Information {
         this.totalScore += amount;
 
         //Update information of major tiles reached
-        if (!milestonesReached.contains(amount) && amount>=512) {//If current game has not reached the tile with this amount yet
+        if (!milestonesReached.contains(amount) && amount >= 512) {//If current game has not reached the tile with this amount yet
             milestonesReached.add(amount);//Add to milestonesReached
             MilestoneTile milestone = this.milestones.get(amount);//Get reference of the MilestoneTile to update information
             if (milestone != null) {
@@ -396,6 +397,7 @@ public class Information {
 
     /**
      * Get time of current game in String representation
+     *
      * @return String representation of time (hh:mm:ss format)
      */
     public String getTimeDisplay() {
@@ -404,6 +406,7 @@ public class Information {
 
     /**
      * Convert a String in format hh:mm:ss into time in seconds
+     *
      * @param timeString String to convert
      * @return Time in seconds
      */
@@ -421,6 +424,7 @@ public class Information {
 
     /**
      * Create copy of this Information object
+     *
      * @return Copy of this object (not a reference to this object)
      */
     public Information createCopy() {
@@ -429,7 +433,9 @@ public class Information {
 
     /**
      * Create copy of milestones Map
-     * @return A copy of milestones Map (not a reference to current milestones map)
+     *
+     * @return A copy of milestones Map (not a reference to current milestones
+     * map)
      */
     public Map<Integer, MilestoneTile> createMilestonesCopy() {
         TreeMap<Integer, MilestoneTile> result = new TreeMap<>();
@@ -439,7 +445,9 @@ public class Information {
 
     /**
      * Create copy of milestonesReached HashSet
-     * @return A copy of milestonesReached (not a reference to current milestonesReached)
+     *
+     * @return A copy of milestonesReached (not a reference to current
+     * milestonesReached)
      */
     public TreeSet<Integer> createMilestoneReachedCopy() {
         TreeSet<Integer> result = new TreeSet<>();
@@ -458,6 +466,7 @@ public class Information {
 
     /**
      * Calculate milestonesReached based on maxTile of game state
+     *
      * @param maxTile The highest value of tiles in the game state
      */
     public void calculateMilestonesReached(int maxTile) {
@@ -466,9 +475,35 @@ public class Information {
         int pow = 0;
         do {
             milestone = milestone * (int) Math.pow((double) 2, (double) pow);
-            if (milestone > maxTile) break;
+            if (milestone > maxTile) {
+                break;
+            }
             this.milestonesReached.add(milestone);
             ++pow;
         } while (true);
+    }
+
+    /**
+     * Reset all information
+     */
+    public void resetInformation() {
+        //Current game information is 0 (no moves played yet)
+        this.score = 0;
+        this.numOfMoves = 0;
+        this.time = 0;
+
+        //Best and total score is 0 (no moves played yet)
+        this.bestScore = 0;
+        this.totalScore = 0;
+        this.topTile = 0;
+
+        //Initialize milestones with default 512, 1024, 2048 MilestoneTiles constructor
+        this.milestones = new TreeMap<>();
+        this.milestones.put(512, new MilestoneTile());
+        this.milestones.put(1024, new MilestoneTile());
+        this.milestones.put(2048, new MilestoneTile());
+
+        //Milestones reached for current game is 0
+        this.milestonesReached = new TreeSet();
     }
 }
