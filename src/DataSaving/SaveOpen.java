@@ -91,19 +91,6 @@ public class SaveOpen {
             line = encrypt(info.getTopTile() + "", SECRET);
             fw.append(line + "\n");
 
-            line = "";
-            for (Integer save : info.getMilestonesReached()) {
-                line += save + " ";
-            }
-            if (line.length() >= 2 && line.charAt(line.length() - 1) == ' ') {
-                line = line.substring(0, line.length() - 1);
-            }
-            if (line.equals("")) {
-                line += "2";
-            }
-            line = encrypt(line, SECRET);
-            fw.append(line + "\n");
-
             int starting = 512;
             int power = 0;
             Information.MilestoneTile milestone;
@@ -138,7 +125,7 @@ public class SaveOpen {
         try (BufferedReader br = new BufferedReader(new FileReader(saveFile))) {
             String line;
             Tile[][] tiles = new Tile[4][4];
-
+            int maxTile = Integer.MIN_VALUE;
             //Game state
             for (int i = 0; i < 4; i++) {
                 line = br.readLine();
@@ -146,9 +133,11 @@ public class SaveOpen {
 //                System.out.println(line);
                 String tileData[] = line.split(" ");
                 for (int j = 0; j < 4; j++) {
+                    maxTile = Math.max(maxTile,Integer.parseInt(tileData[j]));
                     tiles[i][j] = new Tile(Integer.parseInt(tileData[j]), false);
                 }
             }
+            this.info.calculateMilestonesReached(maxTile);
 
             //Current game information
             //State
@@ -176,14 +165,6 @@ public class SaveOpen {
             //Top tile
             line = decrypt(br.readLine(), SECRET);
             this.info.setTopTile(Integer.parseInt(line));
-
-            line = decrypt(br.readLine(), SECRET);
-            if (line != null) {
-                String nums[] = line.split(" ");
-                for (int i = 0; i < nums.length; i++) {
-                    this.info.getMilestonesReached().add(Integer.parseInt(nums[i]));
-                }
-            }
 
             int starting = 512;
             int power = 0;

@@ -422,4 +422,15 @@ public class Information {
     public void resetMilestonesReached() {
         this.milestonesReached = new HashSet<>();
     }
+    
+    public void calculateMilestonesReached(int maxTile){
+        resetMilestonesReached();
+        int milestone = 512;
+        int pow = 0;
+        while (milestone <= maxTile){
+            milestone = milestone*(int)Math.pow((double)2,(double)pow);
+            this.milestonesReached.add(milestone);
+            ++pow;
+        }
+    }
 }
