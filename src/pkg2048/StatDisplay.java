@@ -36,27 +36,27 @@ public class StatDisplay extends javax.swing.JFrame {
         this.totalScore.setText(this.info.getTotalScore() + "");
         this.topTile.setText(this.info.getTopTile() + "");
         //512
-        setLabel(_512reached, gamesReached512, this.info.getMilestones(512).getGamesReached() + "");
-        setLabel(_512shortestTime, shortestTime512, this.info.getMilestones(512).getShortestTimeDisplay());
-        setLabel(_512fewestMoves, FewestMoves512, this.info.getMilestones(512).getFewestMoves() + "");
+        setLabel(_512reached, gamesReached512, this.info.getMilestoneInfo(512).getGamesReached() + "");
+        setLabel(_512shortestTime, shortestTime512, this.info.getMilestoneInfo(512).getShortestTimeDisplay());
+        setLabel(_512fewestMoves, FewestMoves512, this.info.getMilestoneInfo(512).getFewestMoves() + "");
        
         //1024
-        setLabel(_1024reached, gamesReached1024, this.info.getMilestones(1024).getGamesReached() + "");
-        setLabel(_1024shortestTime, shortestTime1024, this.info.getMilestones(1024).getShortestTimeDisplay());
-        setLabel(_1024fewestMoves, fewestMoves1024, this.info.getMilestones(1024).getFewestMoves() + "");
+        setLabel(_1024reached, gamesReached1024, this.info.getMilestoneInfo(1024).getGamesReached() + "");
+        setLabel(_1024shortestTime, shortestTime1024, this.info.getMilestoneInfo(1024).getShortestTimeDisplay());
+        setLabel(_1024fewestMoves, fewestMoves1024, this.info.getMilestoneInfo(1024).getFewestMoves() + "");
         
         //2048
-        setLabel(_2048reached, gamesReached2048, this.info.getMilestones(2048).getGamesReached() + "");
-        setLabel(_2048shortestTime, shortestTime2048, this.info.getMilestones(2048).getShortestTimeDisplay());
-        setLabel(_2048fewestMoves, fewestMoves2048, this.info.getMilestones(2048).getFewestMoves() + "");
+        setLabel(_2048reached, gamesReached2048, this.info.getMilestoneInfo(2048).getGamesReached() + "");
+        setLabel(_2048shortestTime, shortestTime2048, this.info.getMilestoneInfo(2048).getShortestTimeDisplay());
+        setLabel(_2048fewestMoves, fewestMoves2048, this.info.getMilestoneInfo(2048).getFewestMoves() + "");
 
-        if (this.info.getMilestones(2048).getGamesReached() == 0) {
+        if (this.info.getMilestoneInfo(2048).getGamesReached() == 0) {
             this._2048.setText("");
         }
-        if (this.info.getMilestones(1024).getGamesReached() == 0) {
+        if (this.info.getMilestoneInfo(1024).getGamesReached() == 0) {
             this._1024.setText("");
         }
-        if (this.info.getMilestones(512).getGamesReached() == 0) {
+        if (this.info.getMilestoneInfo(512).getGamesReached() == 0) {
             this._512.setText("");
         }
     }

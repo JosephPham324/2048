@@ -96,7 +96,7 @@ public class SaveOpen {
             Information.MilestoneTile milestone;
 
             do {
-                milestone = info.getMilestones(starting * (int) Math.pow((double) 2, (double) power));
+                milestone = info.getMilestoneInfo(starting * (int) Math.pow((double) 2, (double) power));
                 if (milestone == null) {
                     break;
                 }

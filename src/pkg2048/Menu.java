@@ -2,6 +2,7 @@ package pkg2048;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.HeadlessException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         this.setLocationRelativeTo(null);
         subMenu.setSize(995, 730);
@@ -24,6 +26,15 @@ public class Menu extends javax.swing.JFrame {
         HTP_MoTa.setVisible(false);
         Panel2048.setVisible(true);
         AU_Panel.setVisible(false);
+
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (askClose()){
+                    System.exit(0);
+                }
+            }
+        });
 
         this.setTitle("2048");//Set title to 2048
     }
@@ -508,11 +519,15 @@ public class Menu extends javax.swing.JFrame {
 
         Quit.setForeground(Color.white);
         QuitPanel.setBackground(Color.black);
-        if (JOptionPane.showConfirmDialog(this, "Thank you and see you again!", "QUIT GAME", JOptionPane.OK_CANCEL_OPTION)
-                == JOptionPane.OK_OPTION) {
+        if (askClose()){
             System.exit(0);
         }
     }//GEN-LAST:event_QuitMouseClicked
+
+    private boolean askClose() throws HeadlessException {
+        return JOptionPane.showConfirmDialog(this, "Thank you and see you again!", "QUIT GAME", JOptionPane.OK_CANCEL_OPTION)
+                == JOptionPane.OK_OPTION;
+    }
 
     /**
      * @param args the command line arguments
