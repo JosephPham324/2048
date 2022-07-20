@@ -25,6 +25,7 @@ public class StatDisplay extends javax.swing.JFrame {
     public StatDisplay(DataSaving.Information info, pkg2048.Game parent) {
         initComponents();
         this.parent = parent;
+        this.parent.setVisible(false);
         this.info = info;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();//Get size of screen
 
@@ -37,6 +38,13 @@ public class StatDisplay extends javax.swing.JFrame {
         this.setTitle("2048");//Set title to 2048
 
         displayInfo();
+        
+        this.addWindowListener(new java.awt.event.WindowAdapter() {//Window listener for closing operation
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                parent.setVisible(true);
+            }
+        });
     }
 
     private void displayInfo() {

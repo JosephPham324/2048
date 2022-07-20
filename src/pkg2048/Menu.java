@@ -3,7 +3,6 @@ package pkg2048;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.HeadlessException;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
