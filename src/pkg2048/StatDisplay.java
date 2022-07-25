@@ -38,7 +38,7 @@ public class StatDisplay extends javax.swing.JFrame {
         this.setTitle("2048");//Set title to 2048
 
         displayInfo();
-        
+
         this.addWindowListener(new java.awt.event.WindowAdapter() {//Window listener for closing operation
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
